@@ -1,0 +1,57 @@
+name: NovaUniverse
+version: 1.0.0
+main: com.minestein.novauniverse.Main
+
+author: MineStein_
+website: www.twitter.com/minestien
+description: Central hub plugin for play.novauniverse.net
+
+commands:
+  maintenance:
+    usage: /maintenance
+    description: Put the server in/take out of maintenance mode (in which no players can join unless op, or permission)
+  rocket:
+    usage: /rocket <Player>
+    description: Send the player sky high!
+  slap:
+    usage: /slap <Player>
+    description: Send the player flying!
+  bug:
+    usage: /bug <Message>
+    description: Report a bug!
+  help:
+    usage: /help
+    description: Help command!
+  message:
+    usage: /message <Player> <Message>
+    description: Message command!
+    aliases: [msg, tell, w, whisper]
+  report:
+    usage: /report <Player> <Message>
+    description: Report a player for wrongdoing!
+  skinreport:
+    usage: /skinreport <Player> <Message>
+    description: Report a players skin!
+    aliases: [sreport]
+  controlpanel:
+    usage: /controlpanel
+    description: Control panel!
+    aliases: [cp]
+
+permissions:
+  novau.maintenance:
+    description: For the maintenance command and bypass.
+    default: op
+    children:
+      novau.maintenance.bypass: true
+  novau.maintenance.bypass:
+    description: For the maintenance bypass.
+    default: op
+  novau.slap:
+    description: For the slap command.
+    default: op
+  novau.rocket:
+    description: For the rocket command.
+    default: op
+
+softdepend: [HolographicDisplays]

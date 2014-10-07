@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="CraftBukkitAPI">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../Libraries/CraftBukkitAPI.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../Libraries/CraftBukkitAPI.jar!/" />
+    </SOURCES>
+  </library>
+</component>
