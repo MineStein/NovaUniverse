@@ -1,6 +1,6 @@
 NovaUniverse
 ============
 
-The hub plugin for NovaUniverse.
-
-This plugin provides all of the features needed for the hub!
+This plugin provides the essentials for NovaUniverse's hub systems. It allows:
+* Easy joining for games and gamemodes.
+* 
