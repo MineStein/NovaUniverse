@@ -6,6 +6,7 @@ import com.minestein.novauniverse.menu.pets.BuyPetsMenu;
 import com.minestein.novauniverse.menu.pets.MainPetsMenu;
 import com.minestein.novauniverse.menu.pets.PetsMenu;
 import com.minestein.novauniverse.menu.pets.SelectPetsMenu;
+import com.minestein.novauniverse.menu.pets.tools.PetToolMenu;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.DyeColor;
@@ -18,6 +19,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 
 /**
  * Copyright MineStein 2014©
@@ -135,7 +137,6 @@ public class PetListener implements Listener {
                 }
             }
 
-
             p.sendMessage(Main.getPrefix() + "§bYou removed your pet!");
             PetManager.getPetList().remove(p.getName());
         }
@@ -154,6 +155,15 @@ public class PetListener implements Listener {
         }
     }
 
+    @EventHandler
+    public void onPetInteract(PlayerInteractEntityEvent e) {
+        final Player p = e.getPlayer();
+
+        if (e.getRightClicked() instanceof Wolf && ((Wolf) e.getRightClicked()).getCustomName().equals("§e§l" + p.getName().toUpperCase() + "§e§l's WOLF")||
+            e.getRightClicked() instanceof Sheep && ((Sheep) e.getRightClicked()).getCustomName().equals("§e§l" + p.getName().toUpperCase() + "§e§l's SHEEP")) {
+            p.openInventory(PetToolMenu.getInventory());
+        }
+    }
 
     @EventHandler
     public void onPetMenuInteract(InventoryClickEvent e) {
