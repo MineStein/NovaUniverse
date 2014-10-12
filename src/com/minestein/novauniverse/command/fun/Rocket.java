@@ -20,11 +20,12 @@ public class Rocket implements CommandExecutor {
         if (!sender.hasPermission("novau.rocket")) return true;
 
         if (args.length == 0) {
+
             sender.sendMessage(Main.getPrefix() + "§4/rocket §c<Player>");
             return true;
         } else {
             Player target = Bukkit.getServer().getPlayer(args[0]);
-            if (target != null) {
+            if (target == null) {
                 target.setVelocity(target.getLocation().getDirection().multiply(5));
                 target.setVelocity(new Vector(target.getVelocity().getX(), 3.0D, target.getVelocity().getZ()));
                 return true;

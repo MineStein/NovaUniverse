@@ -148,8 +148,7 @@ public class InteractListener implements Listener {
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(MainGamemodeInNavigator.getBMT(Mode.PLAY).getItemMeta().getDisplayName())) {
                 ServerConnection.connect(p, "buildmything");
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(MainGamemodeInNavigator.getUHC(Mode.PLAY).getItemMeta().getDisplayName())) {
-                p.closeInventory();
-                p.sendMessage(Main.getPrefix() + "§4This server currently is offline/doesn't exist! Check back later!");
+                throw new ServerNotFoundException(p);
             }
         } else if (event.getInventory().getName().equals(ArcadeGamemodeInNavigator.getInventory(p).getName())) {
             event.setCancelled(true);
@@ -162,11 +161,9 @@ public class InteractListener implements Listener {
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(ArcadeGamemodeInNavigator.getTntrun(Mode.PLAY).getItemMeta().getDisplayName())) {
                 ServerConnection.connect(p, "tntrun");
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(ArcadeGamemodeInNavigator.getFreerunners(Mode.PLAY).getItemMeta().getDisplayName())) {
-                p.closeInventory();
-                p.sendMessage(Main.getPrefix() + "§4This server currently is offline/doesn't exist! Check back later!");
+                throw new ServerNotFoundException(p);
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(ArcadeGamemodeInNavigator.getSpleef(Mode.PLAY).getItemMeta().getDisplayName())) {
-                p.closeInventory();
-                p.sendMessage(Main.getPrefix() + "§4This server currently is offline/doesn't exist! Check back later!");
+                throw new ServerNotFoundException(p);
             }
         } else if (event.getInventory().getName().equals(GamemodeGamemodeInNavigator.getInventory(p).getName())) {
             event.setCancelled(true);
@@ -177,14 +174,11 @@ public class InteractListener implements Listener {
                 event.getWhoClicked().closeInventory();
                 event.getWhoClicked().openInventory(MainGamemodeInNavigator.getInventory(p));
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(GamemodeGamemodeInNavigator.getBlockingDead(Mode.PLAY).getItemMeta().getDisplayName())) {
-                p.closeInventory();
-                p.sendMessage(Main.getPrefix() + "§4This server currently is offline/doesn't exist! Check back later!");
+                throw new ServerNotFoundException(p);
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(GamemodeGamemodeInNavigator.getGrandTheftMinecart(Mode.PLAY).getItemMeta().getDisplayName())) {
-                p.closeInventory();
-                p.sendMessage(Main.getPrefix() + "§4This server currently is offline/doesn't exist! Check back later!");
+                throw new ServerNotFoundException(p);
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(GamemodeGamemodeInNavigator.getWatchWolves(Mode.PLAY).getItemMeta().getDisplayName())) {
-                p.closeInventory();
-                p.sendMessage(Main.getPrefix() + "§4This server currently is offline/doesn't exist! Check back later!");
+                throw new ServerNotFoundException(p);
             }
         }
     }

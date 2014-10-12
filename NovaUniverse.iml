@@ -10,8 +10,8 @@
     <orderEntry type="library" name="BukkitAPI" level="project" />
     <orderEntry type="library" name="BarAPI" level="project" />
     <orderEntry type="library" name="HolographicDisplays copy" level="project" />
-    <orderEntry type="library" name="CraftBukkitAPI" level="project" />
     <orderEntry type="library" name="craftbukkit" level="project" />
+    <orderEntry type="library" name="javax.mail" level="project" />
   </component>
 </module>
 
