@@ -6,11 +6,9 @@ import com.minestein.novauniverse.menu.pets.BuyPetsMenu;
 import com.minestein.novauniverse.menu.pets.MainPetsMenu;
 import com.minestein.novauniverse.menu.pets.PetsMenu;
 import com.minestein.novauniverse.menu.pets.SelectPetsMenu;
-import com.minestein.novauniverse.menu.pets.tools.PetToolMenu;
-import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
-import org.bukkit.DyeColor;
-import org.bukkit.World;
+import com.minestein.novauniverse.menu.pets.PetToolMenu;
+import com.minestein.novauniverse.util.general.AnvilGUI;
+import org.bukkit.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Sheep;
@@ -19,7 +17,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 /**
  * Copyright MineStein 2014©
@@ -97,7 +98,7 @@ public class PetListener implements Listener {
             wolf.setOwner(p);
             wolf.setAngry(false);
             wolf.setCollarColor(DyeColor.PURPLE);
-            PetManager.getPetList().put(p.getName(), true);
+            PetManager.getPetList().put(p.getName(), wolf);
         } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(PetsMenu.getSheep().getItemMeta().getDisplayName())) {
             if (PetManager.getPetList().containsKey(p.getName())) {
                 p.sendMessage(Main.getPrefix() + "§4You already have a pet!");
@@ -114,7 +115,7 @@ public class PetListener implements Listener {
             sheep.setBreed(false);
             sheep.setSheared(false);
             sheep.setColor(DyeColor.PURPLE);
-            PetManager.getPetList().put(p.getName(), true);
+            PetManager.getPetList().put(p.getName(), sheep);
         } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(SelectPetsMenu.getRemoveCurrentPet().getItemMeta().getDisplayName())) {
             if (!PetManager.getPetList().containsKey(p.getName())) {
                 p.sendMessage(Main.getPrefix() + "§4You don't have a pet!");
@@ -156,12 +157,61 @@ public class PetListener implements Listener {
     }
 
     @EventHandler
-    public void onPetInteract(PlayerInteractEntityEvent e) {
+    public void onPetSettingsOpen(PlayerInteractEntityEvent e) {
         final Player p = e.getPlayer();
 
         if (e.getRightClicked() instanceof Wolf && ((Wolf) e.getRightClicked()).getCustomName().equals("§e§l" + p.getName().toUpperCase() + "§e§l's WOLF")||
             e.getRightClicked() instanceof Sheep && ((Sheep) e.getRightClicked()).getCustomName().equals("§e§l" + p.getName().toUpperCase() + "§e§l's SHEEP")) {
+            if (e.getRightClicked() instanceof Wolf) {
+                ((Wolf) e.getRightClicked()).setSitting(false);
+            }
             p.openInventory(PetToolMenu.getInventory());
+        }
+    }
+
+    @EventHandler
+    public void onPetSettingsInteract(InventoryClickEvent e) {
+        final Player p = (Player) e.getWhoClicked();
+
+        if (e.getCurrentItem()==null) return;
+        if (!e.getInventory().getName().equals(PetToolMenu.getInventory().getName())) return;
+
+        e.setCancelled(true);
+
+        if (e.getCurrentItem().getItemMeta().getDisplayName().equals(PetToolMenu.getCs().getItemMeta().getDisplayName())) {
+            p.closeInventory();
+            p.sendMessage(Main.getPrefix()+"§4This content is coming soon. Please select a different option.");
+
+            Bukkit.getScheduler().runTaskLater(Main.plugin, () -> p.openInventory(PetToolMenu.getInventory()), 30);
+        } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(PetToolMenu.getName().getItemMeta().getDisplayName())) {
+            p.closeInventory();
+            AnvilGUI gui = new AnvilGUI(p, event -> {
+                if(event.getSlot() == AnvilGUI.AnvilSlot.OUTPUT){
+                    event.setWillClose(true);
+                    event.setWillDestroy(true);
+
+                    Entity entity = PetManager.getPet(p);
+
+                    if (entity instanceof Wolf||
+                            entity instanceof Sheep) {
+                        if (entity instanceof Wolf) {
+                            ((Wolf) entity).setCustomNameVisible(true);
+                            ((Wolf) entity).setCustomName(event.getName());
+                        }
+                        if (entity instanceof Sheep) {
+                            ((Sheep) entity).setCustomNameVisible(true);
+                            ((Sheep) entity).setCustomName(event.getName());
+                        }
+                    }
+                } else {
+                    event.setWillClose(false);
+                    event.setWillDestroy(false);
+                }
+            });
+
+            gui.setSlot(AnvilGUI.AnvilSlot.INPUT_LEFT, new ItemStack(Material.NAME_TAG));
+
+            gui.open();
         }
     }
 

@@ -1,5 +1,6 @@
 package com.minestein.novauniverse.managers;
 
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -15,15 +16,13 @@ public class PetManager {
 
     }
 
-    private static HashMap<String, Boolean> petList = new HashMap<>();
+    private static HashMap<String, Entity> petList = new HashMap<>();
 
-    public static HashMap<String, Boolean> getPetList() {
+    public static HashMap<String, Entity> getPetList() {
         return petList;
     }
 
-    public static boolean ownsPet(Player player) {
-        // TODO Check if player has a pet via SQL
-
-        return true;
+    public static Entity getPet(Player p) {
+        return petList.get(p.getName());
     }
 }

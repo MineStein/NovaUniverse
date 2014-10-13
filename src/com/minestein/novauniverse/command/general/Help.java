@@ -16,12 +16,7 @@ public class Help implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 0) {
             String[] message = new String[]{
-                    "§eCommands for §aHub",
-                    "§e§l§m--------------------",
-                    "§b§lHELP   REPORT   BUG",
-                    "§b§lSKINREPORT   ROCKET",
-                    "§b§lSLAP   MESSAGE   MOD",
-                    "§e§l§m--------------------"
+
             };
 
             for (int i = 0; i < 2; i++) {
