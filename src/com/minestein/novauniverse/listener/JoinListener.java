@@ -92,11 +92,12 @@ public class JoinListener implements Listener {
             p.teleport(new Location(Bukkit.getWorld("world"), 881, 14, 332));
         }
 
+        p.setMaxHealth(20.0);
         p.setHealth(20.0);
         p.setFoodLevel(20);
         p.setSaturation(8F);
         p.setExp(0F);
-        p.setLevel(0);
+        p.setLevel(10000);
         p.setRemainingAir(300);
         p.getInventory().clear();
         p.getInventory().setArmorContents(null);

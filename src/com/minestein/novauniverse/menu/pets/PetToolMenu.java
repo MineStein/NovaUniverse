@@ -20,7 +20,8 @@ public class PetToolMenu {
     static ItemStack cs;
 
     public static ItemStack getCs() {
-        cs = new ItemStack(Material.STAINED_GLASS_PANE, 1, (byte) 10); {
+        cs = new ItemStack(Material.STAINED_GLASS_PANE, 1, (byte) 10);
+        {
             ItemMeta m = cs.getItemMeta();
             m.setDisplayName("§7§lCOMING SOON");
             ArrayList<String> l = new ArrayList<>();
@@ -33,7 +34,8 @@ public class PetToolMenu {
     }
 
     public static ItemStack getName() {
-        name = new ItemStack(Material.NAME_TAG); {
+        name = new ItemStack(Material.NAME_TAG);
+        {
             ItemMeta m = name.getItemMeta();
             m.setDisplayName("§c§lNAME §7§o(Click)");
             ArrayList<String> l = new ArrayList<>();

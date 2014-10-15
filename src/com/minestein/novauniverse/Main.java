@@ -273,7 +273,6 @@ public class Main extends JavaPlugin {
         getCommand("report").setExecutor(new Report());
         getCommand("skinreport").setExecutor(new SkinReport());
         getCommand("controlpanel").setExecutor(new ControlPanel());
-        getCommand("tp").setExecutor(new Banned());
 
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new JoinListener(), this);

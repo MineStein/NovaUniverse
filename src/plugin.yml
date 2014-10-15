@@ -37,10 +37,6 @@ commands:
     usage: /controlpanel
     description: Control panel!
     aliases: [cp]
-  tp:
-    usage: /<command>
-    description: Banned commands.
-    aliases: [teleport, pl, plugin]
 
 permissions:
   novau.maintenance:

@@ -12,6 +12,6 @@ public class ServerNotFoundException extends Exception {
 
     public ServerNotFoundException(Player p) {
         p.closeInventory();
-        p.sendMessage(Main.getPrefix()+"§4This server currently is offline/doesn't exist! Check back later!");
+        p.sendMessage(Main.getPrefix() + "§4This server currently is offline/doesn't exist! Check back later!");
     }
 }
