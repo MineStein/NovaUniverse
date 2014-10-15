@@ -41,12 +41,7 @@ public class PetListener implements Listener {
             p.closeInventory();
             p.sendMessage(Main.getPrefix() + "§4This pet purchase slot has not yet been filled. Please select a different option.");
 
-            Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
-                @Override
-                public void run() {
-                    p.openInventory(BuyPetsMenu.getInventory());
-                }
-            }, 30);
+            Bukkit.getScheduler().runTaskLater(Main.plugin, () -> p.openInventory(BuyPetsMenu.getInventory()), 30);
         } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(MainPetsMenu.getBack().getItemMeta().getDisplayName())) {
             p.closeInventory();
             p.openInventory(MainPetsMenu.getInventory());
@@ -71,12 +66,7 @@ public class PetListener implements Listener {
             p.closeInventory();
             p.sendMessage(Main.getPrefix() + "§4This pet selection slot has not yet been filled. Please select a different option.");
 
-            Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
-                @Override
-                public void run() {
-                    p.openInventory(SelectPetsMenu.getInventory());
-                }
-            }, 30);
+            Bukkit.getScheduler().runTaskLater(Main.plugin, () -> p.openInventory(SelectPetsMenu.getInventory()), 30);
         } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(MainPetsMenu.getBack().getItemMeta().getDisplayName())) {
             p.closeInventory();
             p.openInventory(MainPetsMenu.getInventory());
