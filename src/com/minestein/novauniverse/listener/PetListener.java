@@ -175,6 +175,7 @@ public class PetListener implements Listener {
                     if (entity instanceof Wolf ||
                             entity instanceof Sheep) {
                         if (entity instanceof Wolf) {
+                            ((Wolf) entity).setSitting(false);
                             ((Wolf) entity).setCustomNameVisible(true);
                             ((Wolf) entity).setCustomName("§e§l" + p.getName().toUpperCase() + "'s WOLF §7§l(§e§l" + event.getName().toUpperCase() + "§7§l)");
                         }
@@ -182,7 +183,7 @@ public class PetListener implements Listener {
                             ((Sheep) entity).setCustomNameVisible(true);
                             ((Sheep) entity).setCustomName("§e§l" + p.getName().toUpperCase() + "'s SHEEP §7§l(§e§l" + event.getName().toUpperCase() + "§7§l)");
                         }
-
+                        
                         p.setLevel(10000);
                         p.sendMessage(Main.getPrefix() + "§bYou set your pet's name to§8: §e§l" + event.getName().toUpperCase() + "§r§b!");
                     }
@@ -208,6 +209,9 @@ public class PetListener implements Listener {
             gui.setSlot(AnvilGUI.AnvilSlot.INPUT_LEFT, i);
 
             gui.open();
+        } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(PetToolMenu.getColor().getItemMeta().getDisplayName())) {
+            p.closeInventory();
+            p.openInventory(PetColorMenu.getInventory());
         }
     }
 

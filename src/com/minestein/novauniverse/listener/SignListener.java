@@ -1,5 +1,7 @@
 package com.minestein.novauniverse.listener;
 
+import com.minestein.novauniverse.Main;
+import com.minestein.novauniverse.exception.ServerNotFoundException;
 import com.minestein.novauniverse.util.bungee.ServerConnection;
 import org.bukkit.block.Sign;
 import org.bukkit.event.EventHandler;
@@ -15,7 +17,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 public class SignListener implements Listener {
 
     @EventHandler
-    public void onClick(PlayerInteractEvent e) {
+    public void onClick(PlayerInteractEvent e) throws ServerNotFoundException {
         if (e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         if (!(e.getClickedBlock().getState() instanceof Sign)) return;
 
@@ -23,24 +25,26 @@ public class SignListener implements Listener {
 
         if (sign.getLine(0).equals("[Connect]")) {
             if (sign.getLine(1).contains("TNT Run")) {
-                ServerConnection.connect(e.getPlayer(), "tntrun");
+                throw new ServerNotFoundException(e.getPlayer());
             } else if (sign.getLine(1).contains("Freerunners")) {
-                ServerConnection.connect(e.getPlayer(), "freerunners");
+                throw new ServerNotFoundException(e.getPlayer());
             } else if (sign.getLine(1).contains("Spleef")) {
-                ServerConnection.connect(e.getPlayer(), "spleef");
+                throw new ServerNotFoundException(e.getPlayer());
             } else if (sign.getLine(1).contains("Survival Games")) {
                 ServerConnection.connect(e.getPlayer(), "sg");
             } else if (sign.getLine(1).contains("Build My Thing")) {
-                ServerConnection.connect(e.getPlayer(), "buildmything");
+                throw new ServerNotFoundException(e.getPlayer());
             } else if (sign.getLine(1).contains("UHC")) {
-                ServerConnection.connect(e.getPlayer(), "uhc");
+                throw new ServerNotFoundException(e.getPlayer());
             } else if (sign.getLine(1).contains("Grand Theft") && sign.getLine(2).equals("Minecart")) {
-                ServerConnection.connect(e.getPlayer(), "grandtheftminecart");
+                throw new ServerNotFoundException(e.getPlayer());
             } else if (sign.getLine(1).contains("Watch Wolves")) {
-                ServerConnection.connect(e.getPlayer(), "watchwolves");
+                throw new ServerNotFoundException(e.getPlayer());
             } else if (sign.getLine(1).contains("Blocking Dead")) {
-                ServerConnection.connect(e.getPlayer(), "blockingdead");
-            } else return;
+                throw new ServerNotFoundException(e.getPlayer());
+            } else {
+                throw new ServerNotFoundException(e.getPlayer());
+            }
         }
     }
 }

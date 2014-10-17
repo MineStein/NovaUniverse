@@ -9,10 +9,11 @@ import org.bukkit.entity.Player;
  */
 public class AchievementManager {
 
-    enum Achievement {
-        BROKEN_THE_GAME("broke the game", "Get a message that doesn't look fancy!", 20),
-        INTO_THE_VOID("into the void", "Try and leap into the void!", 10);
-
+    public enum Achievement {
+        WELCOME("Welcome to §5§lNova§6§lUniverse", "Join §5§lNova§6§lUniverse §1for the first time.", 50),
+        BYE_BYE("Bye Bye", "Receive a kick.", 20),
+        SILENCE("Silence", "Be muted", 20),
+        PIT_OF_DESPAIR("Pit of despair", "Find a way into the void!", 20);
 
         String name;
         String description;
@@ -41,25 +42,26 @@ public class AchievementManager {
 
     }
 
-    public static String[] generateAchievementMessage() {
-        return new String[]{
-                "§1§l§m----------------------------------------",
-                "§9§l§oAchievement Get!",
-
+    public static String[] generateAchievementMessage(Achievement achievement) {
+        return new String[] {
+                "§1§l§m§k----------------------------------------",
+                "§a§l§oACHIEVEMENT GET! §7(§a§l+§r§2"+achievement.getPoints()+"§r§7)",
+                "§e§l>> §1"+achievement.getName(),
+                "§e§l>> §1"+achievement.getDescription(),
+                "§1§l§m§k----------------------------------------"
         };
     }
 
     public static void addAchievement(Achievement achievement, Player player) {
-
+        // TODO Add the achievement to the player.
     }
 
     public static void removeAchievement(Achievement achievement, Player player) {
-
+        // TODO Remove the achievement from the player.
     }
 
     public static boolean hasAchievement() {
-
-
+        // TODO Query database for whether or not the player has the achievement.
         return true;
     }
 }

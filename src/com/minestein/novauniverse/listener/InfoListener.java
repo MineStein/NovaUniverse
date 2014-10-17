@@ -6,6 +6,7 @@ import com.minestein.novauniverse.menu.main.ArcadeGamemodeInNavigator;
 import com.minestein.novauniverse.menu.main.GamemodeGamemodeInNavigator;
 import com.minestein.novauniverse.menu.main.MainGamemodeInNavigator;
 import com.minestein.novauniverse.menu.main.Mode;
+import com.minestein.novauniverse.menu.info.PetInfoMenu;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

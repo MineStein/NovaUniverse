@@ -16,6 +16,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.inventory.InventoryType;
@@ -98,7 +99,6 @@ public class InteractListener implements Listener {
         final Player p = e.getPlayer();
 
         if (e.getItem() == null) return;
-
         if (e.getItem().equals(Main.getNvgtr())) {
             Inventory toOpen = MainGamemodeInNavigator.getInventory(e.getPlayer());
             e.getPlayer().openInventory(toOpen);

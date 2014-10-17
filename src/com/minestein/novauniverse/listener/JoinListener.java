@@ -1,6 +1,7 @@
 package com.minestein.novauniverse.listener;
 
 import com.minestein.novauniverse.Main;
+import com.minestein.novauniverse.managers.AchievementManager;
 import com.minestein.novauniverse.managers.PetManager;
 import com.minestein.novauniverse.managers.TimeManager;
 import com.minestein.novauniverse.util.general.JSONText;
@@ -65,18 +66,16 @@ public class JoinListener implements Listener {
                 "            }\n" +
                 "        }\n" +
                 "    }\n" +
+
                 "]", p);
 
-        Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
-            @Override
-            public void run() {
+        Bukkit.getScheduler().runTaskLater(Main.plugin, () -> {
 
-                for (int i = 0; i < 3; i++) {
-                    p.sendMessage("");
-                }
-
-                text.playOut();
+            for (int i = 0; i < 3; i++) {
+                p.sendMessage("");
             }
+
+            text.playOut();
         }, 5);
 
         final ItemStack divider = new ItemStack(Material.NETHER_STAR);
@@ -102,22 +101,25 @@ public class JoinListener implements Listener {
         p.getInventory().clear();
         p.getInventory().setArmorContents(null);
 
-        Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
-            @Override
-            public void run() {
-                ParticleEffect.FIREWORKS_SPARK.display(1, 1, 1, 1, 1000, p.getLocation(), 2.0);
-                ParticleEffect.RED_DUST.display(1, 1, 1, 1, 1000, p.getLocation(), 2.0);
+        Bukkit.getScheduler().runTaskLater(Main.plugin, () -> {
+            ParticleEffect.FIREWORKS_SPARK.display(1, 1, 1, 1, 1000, p.getLocation(), 2.0);
+            ParticleEffect.RED_DUST.display(1, 1, 1, 1, 1000, p.getLocation(), 2.0);
 
-                p.getInventory().setItem(0, Main.getNvgtr());
-                p.getInventory().setItem(1, Main.getDnte());
-                p.getInventory().setItem(2, Main.getInfo());
-                p.getInventory().setItem(3, Main.getWardrobe());
-                p.getInventory().setItem(4, divider);
-                p.getInventory().setItem(7, Main.getToggles());
-                p.getInventory().setItem(8, Main.getPets());
+            p.getInventory().setItem(0, Main.getNvgtr());
+            p.getInventory().setItem(1, Main.getDnte());
+            p.getInventory().setItem(2, Main.getInfo());
+            p.getInventory().setItem(3, Main.getWardrobe());
+            p.getInventory().setItem(4, divider);
+            p.getInventory().setItem(7, Main.getToggles());
+            p.getInventory().setItem(8, Main.getPets());
 
-                p.sendMessage(Main.getPrefix() + "§bThe party will happen in §e§l" + TimeManager.formatTime(Main.getPartySeconds()));
+            p.sendMessage(Main.getPrefix() + "§bThe party will happen in §e§l" + TimeManager.formatTime(Main.getPartySeconds()));
+
+            for (int i = 0; i < 3; i++) {
+                p.sendMessage("");
             }
+
+            p.sendMessage(AchievementManager.generateAchievementMessage(AchievementManager.Achievement.WELCOME));
         }, 20);
 
 
@@ -134,11 +136,9 @@ public class JoinListener implements Listener {
     public void onQuit(PlayerQuitEvent e) {
         final Player p = e.getPlayer();
 
-        for (PotionEffect effects : p.getActivePotionEffects()) {
-            if (effects.getType().equals(PotionEffectType.POISON)) {
-                p.removePotionEffect(PotionEffectType.POISON);
-            }
-        }
+        p.getActivePotionEffects().stream().filter(effects -> effects.getType().equals(PotionEffectType.POISON) || effects.getType().equals(PotionEffectType.SPEED) || effects.getType().equals(PotionEffectType.JUMP)).forEach(effects -> {
+            p.removePotionEffect(effects.getType());
+        });
 
         for (World worlds : Bukkit.getWorlds()) {
             for (Chunk chunks : worlds.getLoadedChunks()) {
