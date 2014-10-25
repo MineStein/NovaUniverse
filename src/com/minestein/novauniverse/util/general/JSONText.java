@@ -39,14 +39,6 @@ public class JSONText {
         this.JSONText = JSON;
     }
 
-    public CraftPlayer getCraftPlayer() {
-        return craftPlayer;
-    }
-
-    public void setCraftPlayer(CraftPlayer craftPlayer) {
-        this.craftPlayer = craftPlayer;
-    }
-
     public EntityPlayer getRecipeint() {
         return recipeint;
     }

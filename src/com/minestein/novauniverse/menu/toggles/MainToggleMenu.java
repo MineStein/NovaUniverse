@@ -2,9 +2,11 @@ package com.minestein.novauniverse.menu.toggles;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 
@@ -27,12 +29,29 @@ public class MainToggleMenu {
     private static ItemStack languageOff;
     private static Inventory inventory;
 
-    public static Inventory getInventory() {
+    public static Inventory getInventory(Player p) {
         inventory = Bukkit.createInventory(null, 9, "§e§l>> §rToggles");
 
-        inventory.setItem(0, getSpeedOn());
-        inventory.setItem(1, getJumpOn());
-        inventory.setItem(2, getTgglplyrsOn());
+        if (p.hasPotionEffect(PotionEffectType.SPEED)) {
+            inventory.setItem(0, getSpeedOn());
+        } else {
+            inventory.setItem(0, getSpeedOff());
+        }
+
+        if (p.hasPotionEffect(PotionEffectType.JUMP)) {
+            inventory.setItem(1, getJumpOn());
+        } else {
+            inventory.setItem(1, getJumpOff());
+        }
+
+        for (Player players : Bukkit.getOnlinePlayers()) {
+            if (p.canSee(players)) {
+                inventory.setItem(2, getTgglplyrsOff());
+            } else {
+                inventory.setItem(2, getTgglplyrsOn());
+            }
+        }
+
         inventory.setItem(3, getBloodOn());
         inventory.setItem(4, getLanguageOn());
 

@@ -33,7 +33,10 @@ import java.util.Random;
 public class Main extends JavaPlugin {
 
     /*
-     * Allowing turning off blood, certain dialogue, etc. in certain gamemodes
+     * Provide toggles for turning off blood, certain dialogue, etc. in most gamemodes that involve
+     * such themes.
+     *
+     *
      */
 
     private static Scoreboard scoreboard;
@@ -297,36 +300,35 @@ public class Main extends JavaPlugin {
         for (World worlds : Bukkit.getWorlds()) {
             for (Chunk chunks : worlds.getLoadedChunks()) {
                 for (Entity entities : chunks.getEntities()) {
-                    if (entities instanceof Villager || entities instanceof Wolf || entities instanceof Sheep) {
+                    if (entities instanceof Villager || entities instanceof Wolf || entities instanceof Sheep || entities instanceof Pig || entities instanceof Cow) {
                         entities.remove();
                     }
                 }
             }
         }
 
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
-            @Override
-            public void run() {
-                for (World worlds : Bukkit.getWorlds()) {
-                    for (Chunk chunks : worlds.getLoadedChunks()) {
-                        for (Entity entities : chunks.getEntities()) {
-                            if (entities instanceof Wolf) {
-                                Wolf entity = (Wolf) entities;
-                                if (entity.getCustomName() == null) return;
-                                if (entity.getCustomName().contains("WOLF")) {
-                                    return;
-                                }
-                            } else if (entities instanceof Sheep) {
-                                Sheep entity = (Sheep) entities;
-                                if (entity.getCustomName() == null) return;
-                                if (entity.getCustomName().contains("SHEEP")) {
-                                    return;
-                                }
-                            }
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
+            for (World worlds : Bukkit.getWorlds()) {
+                worlds.setTime(20000);
 
-                            if (!(entities instanceof Player) && !(entities instanceof Item) && !(entities instanceof Villager)) {
-                                entities.remove();
+                for (Chunk chunks : worlds.getLoadedChunks()) {
+                    for (Entity entities : chunks.getEntities()) {
+                        if (entities instanceof Wolf) {
+                            Wolf entity = (Wolf) entities;
+                            if (entity.getCustomName() == null) return;
+                            if (entity.getCustomName().contains("WOLF")) {
+                                return;
                             }
+                        } else if (entities instanceof Sheep) {
+                            Sheep entity = (Sheep) entities;
+                            if (entity.getCustomName() == null) return;
+                            if (entity.getCustomName().contains("SHEEP")) {
+                                return;
+                            }
+                        }
+
+                        if (!(entities instanceof Player) && !(entities instanceof Item) && !(entities instanceof Villager) && !(entities instanceof WitherSkull) && !(entities instanceof Pig) && !(entities instanceof Wolf) && !(entities instanceof Cow) && !(entities instanceof Sheep)) {
+                            entities.remove();
                         }
                     }
                 }
@@ -359,7 +361,6 @@ public class Main extends JavaPlugin {
             }
         }, 0, 60);
 
-        // lambda
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> BarAPI.setMessage("§" + validColorCodes[random.nextInt(validColorCodes.length)] + "§lNOVAU  §e" + currentMessage), 5, 10);
 
         NPC gs1 = new NPC("§e§l>> §a§lGIZMO SHOP", Bukkit.getWorld("world"), new Location(Bukkit.getWorld("world"), 869.500000, 14, 360.50000));
@@ -376,6 +377,25 @@ public class Main extends JavaPlugin {
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new PartyManager(), 10, 20);
     }
+
+    /* Gamemode Plans
+     * SG:
+     *  MaxPlayers: 24.
+     *  Desc: Fight other players and gather supplies from loot chests.
+     *  Win: Last standing.
+     *  Theme: PvP.
+     * UHC:
+     *  MaxPlayers: 12.
+     *  Desc: Fight other teams and gather supplies from a randomly generated world.
+     *  Win: Last team standing.
+     *  Theme: Team-based PvP
+     * BuildMyThing:
+     *  MaxPlayers: 6.
+     *  Desc: Build creations based on a given word to earn points.
+     *  Win: Get the most points.
+     *  Theme: Point-based building.
+     *
+     */
 
      /*
      @Override

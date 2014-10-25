@@ -28,6 +28,32 @@ public class MainGamemodeInNavigator {
     private static ItemStack standaloneRepresentative;
 
     public static Inventory getInventory(Player player) {
+        Inventory inventory = Bukkit.createInventory(null, 54, "§e§l>> §rMain Gamemodes");
+        for (int i = 0; i < 11; i++) {
+            inventory.setItem(i, getPlaceholder());
+        }
+        inventory.setItem(11, getPlayerInfo(player));
+        inventory.setItem(12, getRepresentative());
+        inventory.setItem(13, getArcadeRepresentative());
+        inventory.setItem(14, getStandaloneGamemodes());
+        inventory.setItem(15, getPlayerInfo(player));
+        for (int i = 16; i < 30; i++) {
+            inventory.setItem(i, getPlaceholder());
+        }
+        inventory.setItem(30, getSG(Mode.PLAY));
+        inventory.setItem(31, getBMT(Mode.PLAY));
+        inventory.setItem(32, getUHC(Mode.PLAY));
+        for (int i = 33; i < 39; i++) {
+            inventory.setItem(i, getPlaceholder());
+        }
+        for (int i = 42; i < 54; i++) {
+            inventory.setItem(i, getPlaceholder());
+        }
+
+        return inventory;
+    }
+
+    /*public static Inventory getInventory(Player player) {
         Inventory inventory;
 
         inventory = Bukkit.createInventory(null, 54, "§e§l>> §rWhere to? (M)");
@@ -53,6 +79,7 @@ public class MainGamemodeInNavigator {
 
         return inventory;
     }
+    */
 
     public static ItemStack getPlayerInfo(Player player) {
         ItemStack playerInfo = new ItemStack(Material.SKULL_ITEM, 1, (byte) SkullType.PLAYER.ordinal());
@@ -76,10 +103,10 @@ public class MainGamemodeInNavigator {
     }
 
     public static ItemStack getRepresentative() {
-        representative = new ItemStack(Material.INK_SACK, 1, (byte) 5);
+        representative = new ItemStack(Material.INK_SACK, 1, (byte) 10);
         {
             ItemMeta m = representative.getItemMeta();
-            m.setDisplayName("§d§lMAIN GAMES");
+            m.setDisplayName("§a§lMAIN GAMES");
             ArrayList<String> lore = new ArrayList<String>();
             lore.add("§dFun gamemodes that last for");
             lore.add("§dover twenty minutes!");

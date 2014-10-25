@@ -16,10 +16,8 @@ public class VitalListener implements Listener {
 
     @EventHandler
     public void onDamage(EntityDamageEvent e) {
-        if (e.getEntity() instanceof Player || e.getEntity() instanceof Villager) {
-            e.setCancelled(true);
-            e.setDamage(0);
-        }
+        e.setCancelled(true);
+        e.setDamage(0.0);
     }
 
     @EventHandler

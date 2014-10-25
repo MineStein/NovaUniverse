@@ -25,26 +25,25 @@ public class ArcadeGamemodeInNavigator {
     private static ItemStack standaloneRepresentative;
 
     public static Inventory getInventory(Player player) {
-        Inventory inventory;
-
-        inventory = Bukkit.createInventory(null, 54, "§e§l>> §rWhere to? (A)");
-
-        inventory.setItem(0, getPlaceholder());
-        inventory.setItem(1, MainGamemodeInNavigator.getPlayerInfo(player));
-        inventory.setItem(2, getPlaceholder());
-        inventory.setItem(3, getRepresentative());
-        inventory.setItem(4, getMainGamesRepresentative());
-        inventory.setItem(5, getStandaloneGamemodes());
-        for (int i = 6; i < 27; i++) {
+        Inventory inventory = Bukkit.createInventory(null, 54, "§e§l>> §rArcade");
+        for (int i = 0; i < 11; i++) {
             inventory.setItem(i, getPlaceholder());
         }
-        for (int i = 27; i < 48; i++) {
+        inventory.setItem(11, MainGamemodeInNavigator.getPlayerInfo(player));
+        inventory.setItem(12, getMainGamesRepresentative());
+        inventory.setItem(13, getRepresentative());
+        inventory.setItem(14, getStandaloneGamemodes());
+        inventory.setItem(15, MainGamemodeInNavigator.getPlayerInfo(player));
+        for (int i = 16; i < 30; i++) {
             inventory.setItem(i, getPlaceholder());
         }
-        inventory.setItem(48, getTntrun(Mode.PLAY));
-        inventory.setItem(49, getFreerunners(Mode.PLAY));
-        inventory.setItem(50, getSpleef(Mode.PLAY));
-        for (int i = 51; i < 54; i++) {
+        inventory.setItem(30, getSpleef(Mode.PLAY));
+        inventory.setItem(31, getFreerunners(Mode.PLAY));
+        inventory.setItem(32, getTntrun(Mode.PLAY));
+        for (int i = 33; i < 39; i++) {
+            inventory.setItem(i, getPlaceholder());
+        }
+        for (int i = 42; i < 54; i++) {
             inventory.setItem(i, getPlaceholder());
         }
 
@@ -105,10 +104,10 @@ public class ArcadeGamemodeInNavigator {
     }
 
     public static ItemStack getRepresentative() {
-        arcadeRepresentative = new ItemStack(Material.INK_SACK, 1, (byte) 5);
+        arcadeRepresentative = new ItemStack(Material.INK_SACK, 1, (byte) 10);
         {
             ItemMeta m = arcadeRepresentative.getItemMeta();
-            m.setDisplayName("§d§lARCADE GAMES");
+            m.setDisplayName("§a§lARCADE GAMES");
             ArrayList<String> lore = new ArrayList<String>();
             lore.add("§dShort but sweet gamemodes");
             lore.add("§dthat don't last long!");

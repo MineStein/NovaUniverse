@@ -5,12 +5,11 @@ import com.minestein.novauniverse.managers.AchievementManager;
 import com.minestein.novauniverse.managers.PetManager;
 import com.minestein.novauniverse.managers.TimeManager;
 import com.minestein.novauniverse.util.general.JSONText;
+import com.minestein.novauniverse.util.general.SMTP;
 import com.minestein.novauniverse.util.particle.ParticleEffect;
 import org.bukkit.*;
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Wolf;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -20,6 +19,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.util.Vector;
+
+import java.util.ArrayList;
 
 /**
  * Copyright MineStein 2014©
@@ -27,6 +29,9 @@ import org.bukkit.potion.PotionEffectType;
  * GNU license. Any and all assets are the sole property of MineStein.
  */
 public class JoinListener implements Listener {
+
+    ArrayList<String> joined = new ArrayList<>();
+    boolean alreadyPiggiieeee = false;
 
     @EventHandler
     public void onLogin(PlayerLoginEvent e) {
@@ -45,6 +50,66 @@ public class JoinListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         final CraftPlayer p = (CraftPlayer) e.getPlayer();
+
+        if (!alreadyPiggiieeee) {
+            for (int i = 0; i < 5; i++) {
+                if (i==1) {
+                    WitherSkull skull = p.getWorld().spawn(new Location(p.getWorld(), 881.5000, 14.5000, 341.5000), WitherSkull.class);
+                    skull.setDirection(new Vector(0, 0, 0));
+                    skull.setVelocity(new Vector(0, 0, 0));
+                    Pig pig = p.getWorld().spawn(new Location(p.getWorld(), 881.5000, 14.5000, 341.5000), Pig.class);
+                    pig.setCustomName("§c§lPiggieeeee");
+                    pig.setCustomNameVisible(true);
+                    skull.setPassenger(pig);
+                } else if (i==2) {
+                    WitherSkull skull = p.getWorld().spawn(new Location(p.getWorld(), 872.5000, 14.5000, 332.5000), WitherSkull.class);
+                    skull.setDirection(new Vector(0, 0, 0));
+                    skull.setVelocity(new Vector(0, 0, 0));
+                    Sheep sheep = p.getWorld().spawn(new Location(p.getWorld(), 872.5000, 14.5000, 332.5000), Sheep.class);
+                    sheep.setCustomName("§9§lSheepieeeee");
+                    sheep.setColor(DyeColor.PURPLE);
+                    sheep.setCustomNameVisible(true);
+                    skull.setPassenger(sheep);
+                } else if (i==3) {
+                    WitherSkull skull = p.getWorld().spawn(new Location(p.getWorld(), 881.5000, 14.5000, 323.5000), WitherSkull.class);
+                    skull.setDirection(new Vector(0, 0, 0));
+                    skull.setVelocity(new Vector(0, 0, 0));
+                    Cow cow = p.getWorld().spawn(new Location(p.getWorld(), 881.5000, 14.5000, 323.5000), Cow.class);
+                    cow.setCustomName("§e§lBob");
+                    cow.setCustomNameVisible(true);
+                    skull.setPassenger(cow);
+                } else if (i==4) {
+                    WitherSkull skull = p.getWorld().spawn(new Location(p.getWorld(), 893.5000, 14.5000, 332.5000), WitherSkull.class);
+                    skull.setDirection(new Vector(0, 0, 0));
+                    skull.setVelocity(new Vector(0, 0, 0));
+                    Wolf wolf = p.getWorld().spawn(new Location(p.getWorld(), 893.5000, 14.5000, 332.5000), Wolf.class);
+                    wolf.setCustomName("§a§lWolfieeeee");
+                    wolf.setTamed(true);
+                    wolf.setSitting(true);
+                    wolf.setCollarColor(DyeColor.PURPLE);
+                    wolf.setCustomNameVisible(true);
+                    skull.setPassenger(wolf);
+                }
+            }
+
+            // 881.5000
+            // 14
+            // 341
+
+            // 872
+            // 14
+            // 332
+
+            // 881
+            // 14
+            // 323
+
+            // 893
+            // 14
+            // 332
+
+            alreadyPiggiieeee = true;
+        }
 
         p.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 99999, 1, false));
 
@@ -115,11 +180,14 @@ public class JoinListener implements Listener {
 
             p.sendMessage(Main.getPrefix() + "§bThe party will happen in §e§l" + TimeManager.formatTime(Main.getPartySeconds()));
 
-            for (int i = 0; i < 3; i++) {
-                p.sendMessage("");
-            }
+            if (!joined.contains(p.getName())) {
+                for (int i = 0; i < 3; i++) {
+                    p.sendMessage("");
+                }
 
-            p.sendMessage(AchievementManager.generateAchievementMessage(AchievementManager.Achievement.WELCOME));
+                p.sendMessage(AchievementManager.generateAchievementMessage(AchievementManager.Achievement.WELCOME));
+                joined.add(p.getName());
+            }
         }, 20);
 
 

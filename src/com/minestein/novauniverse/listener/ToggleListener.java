@@ -34,7 +34,7 @@ public class ToggleListener implements Listener {
         if (!e.getItem().getItemMeta().getDisplayName().equals(Main.getToggles().getItemMeta().getDisplayName()))
             return;
 
-        p.openInventory(MainToggleMenu.getInventory());
+        p.openInventory(MainToggleMenu.getInventory(p));
     }
 
     @EventHandler
@@ -47,7 +47,7 @@ public class ToggleListener implements Listener {
         };
 
         if (e.getCurrentItem() == null) return;
-        if (!e.getInventory().getName().equals(MainToggleMenu.getInventory().getName())) return;
+        if (!e.getInventory().getName().equals(MainToggleMenu.getInventory(p).getName())) return;
 
         e.setCancelled(true);
 
@@ -65,12 +65,9 @@ public class ToggleListener implements Listener {
 
                 speedCooldown.add(p.getName());
 
-                Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
-                    @Override
-                    public void run() {
-                        speedCooldown.remove(p.getName());
-                        p.sendMessage(Main.getPrefix() + "§e§lSPEED §bis no longer on cooldown!");
-                    }
+                Bukkit.getScheduler().runTaskLater(Main.plugin, () -> {
+                    speedCooldown.remove(p.getName());
+                    p.sendMessage(Main.getPrefix() + "§e§lSPEED §bis no longer on cooldown!");
                 }, 40);
             }
         } else if (e.getCurrentItem().equals(MainToggleMenu.getSpeedOn())) {
@@ -92,12 +89,9 @@ public class ToggleListener implements Listener {
 
                 speedCooldown.add(p.getName());
 
-                Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
-                    @Override
-                    public void run() {
-                        speedCooldown.remove(p.getName());
-                        p.sendMessage(Main.getPrefix() + "§e§lSPEED §bis no longer on cooldown!");
-                    }
+                Bukkit.getScheduler().runTaskLater(Main.plugin, () -> {
+                    speedCooldown.remove(p.getName());
+                    p.sendMessage(Main.getPrefix() + "§e§lSPEED §bis no longer on cooldown!");
                 }, 40);
             }
         }
@@ -124,12 +118,9 @@ public class ToggleListener implements Listener {
 
                 playerToggleCooldown.add(p.getName());
 
-                Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
-                    @Override
-                    public void run() {
-                        playerToggleCooldown.remove(p.getName());
-                        p.sendMessage(Main.getPrefix() + "§e§lPLAYER INVISIBILITY §bis no longer on cooldown!");
-                    }
+                Bukkit.getScheduler().runTaskLater(Main.plugin, () -> {
+                    playerToggleCooldown.remove(p.getName());
+                    p.sendMessage(Main.getPrefix() + "§e§lPLAYER INVISIBILITY §bis no longer on cooldown!");
                 }, 40);
             }
         } else if (e.getCurrentItem().equals(MainToggleMenu.getTgglplyrsOn())) {
@@ -154,12 +145,9 @@ public class ToggleListener implements Listener {
 
                 playerToggleCooldown.add(p.getName());
 
-                Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
-                    @Override
-                    public void run() {
-                        playerToggleCooldown.remove(p.getName());
-                        p.sendMessage(Main.getPrefix() + "§e§lPLAYER INVISIBILITY §bis no longer on cooldown!");
-                    }
+                Bukkit.getScheduler().runTaskLater(Main.plugin, () -> {
+                    playerToggleCooldown.remove(p.getName());
+                    p.sendMessage(Main.getPrefix() + "§e§lPLAYER INVISIBILITY §bis no longer on cooldown!");
                 }, 40);
             }
         }
@@ -179,12 +167,9 @@ public class ToggleListener implements Listener {
 
                 jumpCooldown.add(p.getName());
 
-                Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
-                    @Override
-                    public void run() {
-                        jumpCooldown.remove(p.getName());
-                        p.sendMessage(Main.getPrefix() + "§e§lJUMP §bis no longer on cooldown!");
-                    }
+                Bukkit.getScheduler().runTaskLater(Main.plugin, () -> {
+                    jumpCooldown.remove(p.getName());
+                    p.sendMessage(Main.getPrefix() + "§e§lJUMP §bis no longer on cooldown!");
                 }, 40);
             }
 
@@ -207,12 +192,9 @@ public class ToggleListener implements Listener {
 
                 jumpCooldown.add(p.getName());
 
-                Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
-                    @Override
-                    public void run() {
-                        jumpCooldown.remove(p.getName());
-                        p.sendMessage(Main.getPrefix() + "§e§lJUMP §bis no longer on cooldown!");
-                    }
+                Bukkit.getScheduler().runTaskLater(Main.plugin, () -> {
+                    jumpCooldown.remove(p.getName());
+                    p.sendMessage(Main.getPrefix() + "§e§lJUMP §bis no longer on cooldown!");
                 }, 40);
             }
         }

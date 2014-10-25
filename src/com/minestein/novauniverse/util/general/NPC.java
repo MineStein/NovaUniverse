@@ -4,6 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
+import org.bukkit.event.Listener;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -16,9 +17,32 @@ import java.io.Serializable;
  */
 public class NPC implements Serializable {
 
+    public class NPCClickEvent {
+        Villager clicked;
+        Player clicker;
+
+        public NPCClickEvent(Villager clicked, Player clicker) {
+            this.clicked = clicked;
+            this.clicker = clicker;
+        }
+
+        public Villager getClicked() {
+            return clicked;
+        }
+
+        public Player getClicker() {
+            return clicker;
+        }
+    }
+
+    public interface NPCClickEventHandler {
+        public abstract void onNPCClick(NPCClickEvent event);
+    }
+
     String name;
     World world;
     Location location;
+    Listener listener;
 
     /**
      * @return the name of the NPC
@@ -57,6 +81,7 @@ public class NPC implements Serializable {
      * @param location the location to create the duplicate NPC at
      */
     public void duplicate(Location location) {
+        Villager villager = this.world.spawn(location, Villager.class);
 
     }
 

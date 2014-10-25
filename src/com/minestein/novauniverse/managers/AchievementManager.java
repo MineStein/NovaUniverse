@@ -57,10 +57,14 @@ public class AchievementManager {
     }
 
     public static void removeAchievement(Achievement achievement, Player player) {
-        // TODO Remove the achievement from the player.
+        if (hasAchievement(achievement, player)) {
+            // TODO Remove achievement
+        } else if (!hasAchievement(achievement, player)) {
+            // TODO Send
+        }
     }
 
-    public static boolean hasAchievement() {
+    public static boolean hasAchievement(Achievement achievement, Player player) {
         // TODO Query database for whether or not the player has the achievement.
         return true;
     }

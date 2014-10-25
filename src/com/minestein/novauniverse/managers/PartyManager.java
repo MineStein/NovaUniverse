@@ -46,6 +46,7 @@ public class PartyManager extends BukkitRunnable {
 
                 if (selected == null) {
                     Main.setPartySeconds(3001);
+                    ChatUtil.broadcast("There was no winner for this party!");
                     return;
                 }
 

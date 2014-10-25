@@ -25,26 +25,25 @@ public class GamemodeGamemodeInNavigator {
     private static ItemStack blockingDead;
 
     public static Inventory getInventory(Player player) {
-        Inventory inventory;
-
-        inventory = Bukkit.createInventory(null, 54, "§e§l>> §rWhere to? (G)");
-
-        inventory.setItem(0, getPlaceholder());
-        inventory.setItem(1, MainGamemodeInNavigator.getPlayerInfo(player));
-        inventory.setItem(2, getPlaceholder());
-        inventory.setItem(3, getArcadeRepresentative());
-        inventory.setItem(4, getMainRepresentative());
-        inventory.setItem(5, getRepresentative());
-        for (int i = 6; i < 27; i++) {
+        Inventory inventory = Bukkit.createInventory(null, 54, "§e§l>> §rThematic Gamemodes");
+        for (int i = 0; i < 11; i++) {
             inventory.setItem(i, getPlaceholder());
         }
-        for (int i = 27; i < 48; i++) {
+        inventory.setItem(11, MainGamemodeInNavigator.getPlayerInfo(player));
+        inventory.setItem(12, getMainRepresentative());
+        inventory.setItem(13, getArcadeRepresentative());
+        inventory.setItem(14, getRepresentative());
+        inventory.setItem(15, MainGamemodeInNavigator.getPlayerInfo(player));
+        for (int i = 16; i < 30; i++) {
             inventory.setItem(i, getPlaceholder());
         }
-        inventory.setItem(48, getWatchWolves(Mode.PLAY));
-        inventory.setItem(49, getGrandTheftMinecart(Mode.PLAY));
-        inventory.setItem(50, getBlockingDead(Mode.PLAY));
-        for (int i = 51; i < 54; i++) {
+        inventory.setItem(30, getBlockingDead(Mode.PLAY));
+        inventory.setItem(31, getWatchWolves(Mode.PLAY));
+        inventory.setItem(32, getGrandTheftMinecart(Mode.PLAY));
+        for (int i = 33; i < 39; i++) {
+            inventory.setItem(i, getPlaceholder());
+        }
+        for (int i = 42; i < 54; i++) {
             inventory.setItem(i, getPlaceholder());
         }
 
@@ -122,10 +121,10 @@ public class GamemodeGamemodeInNavigator {
     }
 
     public static ItemStack getRepresentative() {
-        standaloneRepresentative = new ItemStack(Material.INK_SACK, 1, (byte) 5);
+        standaloneRepresentative = new ItemStack(Material.INK_SACK, 1, (byte) 10);
         {
             ItemMeta m = standaloneRepresentative.getItemMeta();
-            m.setDisplayName("§d§lSTANDALONE GAMEMODES");
+            m.setDisplayName("§a§lSTANDALONE GAMEMODES");
             ArrayList<String> lore = new ArrayList<String>();
             lore.add("§dFull on gamemodes that");
             lore.add("§dnever end!");
