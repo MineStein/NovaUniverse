@@ -15,16 +15,16 @@ public class PetColorMenu {
 
     static ItemMeta m;
     static Inventory inventory;
-    static ItemStack[] colors = new ItemStack[] {
-        new ItemStack(Material.INK_SACK, 1, (byte) 1),
-        new ItemStack(Material.INK_SACK, 1, (byte) 2),
-        new ItemStack(Material.INK_SACK, 1, (byte) 3),
-        new ItemStack(Material.INK_SACK, 1, (byte) 4),
-        new ItemStack(Material.INK_SACK, 1, (byte) 5),
-        new ItemStack(Material.INK_SACK, 1, (byte) 6),
-        new ItemStack(Material.INK_SACK, 1, (byte) 7),
-        new ItemStack(Material.INK_SACK, 1, (byte) 8),
-        new ItemStack(Material.INK_SACK, 1, (byte) 9)
+    static ItemStack[] colors = new ItemStack[]{
+            new ItemStack(Material.INK_SACK, 1, (byte) 1),
+            new ItemStack(Material.INK_SACK, 1, (byte) 2),
+            new ItemStack(Material.INK_SACK, 1, (byte) 3),
+            new ItemStack(Material.INK_SACK, 1, (byte) 4),
+            new ItemStack(Material.INK_SACK, 1, (byte) 5),
+            new ItemStack(Material.INK_SACK, 1, (byte) 6),
+            new ItemStack(Material.INK_SACK, 1, (byte) 7),
+            new ItemStack(Material.INK_SACK, 1, (byte) 8),
+            new ItemStack(Material.INK_SACK, 1, (byte) 9)
     };
 
     public static Inventory getInventory() {

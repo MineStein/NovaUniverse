@@ -1,0 +1,25 @@
+Guidelines:
+ Example: vMAJOR.IMPORTANT.MINOR
+ Major:
+  - Rewrite of a large portion
+  - Complete new class with over 500 lines
+  - Rewrite of a large portion of backend
+ Important:
+  - New features containing 250 lines or more in a new or already-existing class
+  - Large backend work
+ Minor:
+  - Small features containing less than 250 lines
+  - Minor bug fixes
+  - Small updates in the code
+  - Speed updates in the small-scale
+  - Small backend work
+
+v2.1.0 : The Helpful Update
+ - Implemented help command and made it helpful with:
+  - JSON hover messages
+  - JSON command suggestions
+  - Added changelog.txt file
+ - NOTES:
+  - Must show all commands.
+  - JSON text serializers are found (and must be placed) in the new 'nms' package under the 'Packets' class
+  - 10 packets are injected into the stream in the 'Help' class.

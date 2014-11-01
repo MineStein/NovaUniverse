@@ -26,24 +26,19 @@ public class GamemodeGamemodeInNavigator {
 
     public static Inventory getInventory(Player player) {
         Inventory inventory = Bukkit.createInventory(null, 54, "§e§l>> §rThematic Gamemodes");
-        for (int i = 0; i < 11; i++) {
-            inventory.setItem(i, getPlaceholder());
-        }
-        inventory.setItem(11, MainGamemodeInNavigator.getPlayerInfo(player));
+
+        inventory.setItem(10, MainGamemodeInNavigator.getPlayerInfo(player));
         inventory.setItem(12, getMainRepresentative());
         inventory.setItem(13, getArcadeRepresentative());
         inventory.setItem(14, getRepresentative());
-        inventory.setItem(15, MainGamemodeInNavigator.getPlayerInfo(player));
-        for (int i = 16; i < 30; i++) {
-            inventory.setItem(i, getPlaceholder());
-        }
+        inventory.setItem(16, MainGamemodeInNavigator.getPlayerInfo(player));
         inventory.setItem(30, getBlockingDead(Mode.PLAY));
         inventory.setItem(31, getWatchWolves(Mode.PLAY));
         inventory.setItem(32, getGrandTheftMinecart(Mode.PLAY));
-        for (int i = 33; i < 39; i++) {
-            inventory.setItem(i, getPlaceholder());
-        }
-        for (int i = 42; i < 54; i++) {
+
+        for (int i = 0; i < 54; i++) {
+            if (inventory.getItem(i) != null) continue;
+
             inventory.setItem(i, getPlaceholder());
         }
 

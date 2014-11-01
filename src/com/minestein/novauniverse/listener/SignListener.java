@@ -1,6 +1,5 @@
 package com.minestein.novauniverse.listener;
 
-import com.minestein.novauniverse.Main;
 import com.minestein.novauniverse.exception.ServerNotFoundException;
 import com.minestein.novauniverse.util.bungee.ServerConnection;
 import org.bukkit.block.Sign;

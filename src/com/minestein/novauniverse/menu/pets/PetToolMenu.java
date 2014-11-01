@@ -36,7 +36,8 @@ public class PetToolMenu {
     }
 
     public static ItemStack getColor() {
-        color = new ItemStack(Material.INK_SACK, 1, (byte) Main.getRandom().nextInt(15)); {
+        color = new ItemStack(Material.INK_SACK, 1, (byte) Main.getRandom().nextInt(15));
+        {
             ItemMeta m = color.getItemMeta();
             m.setDisplayName("§c§lCOLOR §7§o(Click)");
             ArrayList<String> l = new ArrayList<String>();

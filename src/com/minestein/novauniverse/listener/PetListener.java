@@ -183,7 +183,7 @@ public class PetListener implements Listener {
                             ((Sheep) entity).setCustomNameVisible(true);
                             ((Sheep) entity).setCustomName("§e§l" + p.getName().toUpperCase() + "'s SHEEP §7§l(§e§l" + event.getName().toUpperCase() + "§7§l)");
                         }
-                        
+
                         p.setLevel(10000);
                         p.sendMessage(Main.getPrefix() + "§bYou set your pet's name to§8: §e§l" + event.getName().toUpperCase() + "§r§b!");
                     }

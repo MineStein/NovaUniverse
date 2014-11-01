@@ -29,13 +29,11 @@ package com.minestein.novauniverse.util.general;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.Socket;
@@ -43,21 +41,9 @@ import java.nio.charset.Charset;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
-import javax.net.ssl.SSLSocket;
-import javax.net.ssl.SSLSocketFactory;
 
 public class SMTP {
 
@@ -179,72 +165,52 @@ public class SMTP {
             return out;
         }
 
-        public static String encodeToQuotedPrintable(byte[] data)
-        {
+        public static String encodeToQuotedPrintable(byte[] data) {
             ArrayList<Byte> newData = new ArrayList<Byte>();
-            for(byte b: data)
-            {
-                if(b != 9 )
-                {
-                    if(b < 32)
-                    {
-                        for(byte by:"=".getBytes())
-                        {
+            for (byte b : data) {
+                if (b != 9) {
+                    if (b < 32) {
+                        for (byte by : "=".getBytes()) {
                             newData.add(Byte.valueOf(by));
                         }
                         byte[] array = new byte[1];
                         array[0] = b;
                         String hex = convertToHex(array);
-                        for(byte by: hex.getBytes())
-                        {
+                        for (byte by : hex.getBytes()) {
                             newData.add(Byte.valueOf(by));
                         }
                         checkLength(newData);
-                    }
-                    else
-                    {
-                        if(b < 62 && b > 60)
-                        {
-                            for(byte by:"=".getBytes())
-                            {
+                    } else {
+                        if (b < 62 && b > 60) {
+                            for (byte by : "=".getBytes()) {
                                 newData.add(Byte.valueOf(by));
                             }
                             byte[] array = new byte[1];
                             array[0] = b;
                             String hex = convertToHex(array);
-                            for(byte by: hex.getBytes())
-                            {
+                            for (byte by : hex.getBytes()) {
                                 newData.add(Byte.valueOf(by));
                             }
                             checkLength(newData);
-                        }
-                        else
-                        {
-                            if(b > 126)
-                            {
-                                for(byte by: "=".getBytes())
-                                {
+                        } else {
+                            if (b > 126) {
+                                for (byte by : "=".getBytes()) {
                                     newData.add(Byte.valueOf(by));
                                 }
                                 byte[] array = new byte[1];
                                 array[0] = b;
                                 String hex = convertToHex(array);
-                                for(byte by: hex.getBytes())
-                                {
+                                for (byte by : hex.getBytes()) {
                                     newData.add(Byte.valueOf(by));
                                 }
                                 checkLength(newData);
-                            }
-                            else
-                            {
+                            } else {
                                 newData.add(Byte.valueOf(b));
                                 checkLength(newData);
                             }
                         }
                     }
-                }
-                else
-                {
+                } else {
                     newData.add(Byte.valueOf(b));
                     checkLength(newData);
                 }
@@ -252,8 +218,7 @@ public class SMTP {
             int length = newData.size();
             byte[] bytes = new byte[length];
             int count = 0;
-            for(Byte b: newData)
-            {
+            for (Byte b : newData) {
                 bytes[count] = b.byteValue();
                 count++;
             }
@@ -264,16 +229,14 @@ public class SMTP {
         private static void checkLength(ArrayList<Byte> newData) {
             int lastLineStart = 0;
             int count = 0;
-            for(Byte b: newData)
-            {
+            for (Byte b : newData) {
                 count++;
-                if(b.intValue() == 10) //10 = \n
+                if (b.intValue() == 10) //10 = \n
                 {
                     lastLineStart = count;
                 }
             }
-            if((lastLineStart + 75) <= newData.size())
-            {
+            if ((lastLineStart + 75) <= newData.size()) {
                 newData.add("=".getBytes()[0]);
                 newData.add("\n".getBytes()[0]);
             }
@@ -300,6 +263,7 @@ public class SMTP {
     public class Response {
         public final int code;
         public final String message;
+
         public Response(int code, String message) {
             this.code = code;
             this.message = message;
@@ -315,9 +279,11 @@ public class SMTP {
         public SMTPException(Exception e) {
             super(e);
         }
+
         public SMTPException(String message) {
             super(message);
         }
+
         public SMTPException(Response response) {
             super(String.format("%d: %s", response.code, response.message));
         }
@@ -343,6 +309,7 @@ public class SMTP {
         public SMTPDisconnectedException(Exception e) {
             super(e);
         }
+
         public SMTPDisconnectedException(String message) {
             super(message);
         }
@@ -427,16 +394,12 @@ public class SMTP {
         }
 
         public Email body(String body) {
-            if(!headers.containsKey("Content-Transfer-Encoding"))
-            {
+            if (!headers.containsKey("Content-Transfer-Encoding")) {
                 headers.put("Content-Transfer-Encoding", "quoted-printable");
             }
-            if(headers.get("Content-Transfer-Encoding").equalsIgnoreCase("quoted-printable"))
-            {
+            if (headers.get("Content-Transfer-Encoding").equalsIgnoreCase("quoted-printable")) {
                 this.body = Coder.encodeToQuotedPrintable(body.getBytes());
-            }
-            else
-            {
+            } else {
                 this.body = body;
             }
             return this;
@@ -521,7 +484,8 @@ public class SMTP {
     private static Pattern esmtpOldAuth = Pattern.compile("auth=(.*)", Pattern.CASE_INSENSITIVE);
     private static Pattern addressOnly = Pattern.compile("<(.*)>");
 
-    public SMTP(){}
+    public SMTP() {
+    }
 
     public SMTP(String host) {
         connect(host);
@@ -865,44 +829,35 @@ public class SMTP {
         }
     }
 
-    public static SMTP.Email createEmptyEmail()
-    {
+    public static SMTP.Email createEmptyEmail() {
         return new SMTP().email();
     }
 
-    public static void addFileAttachment(SMTP.Email email, File... fileList) throws IOException
-    {
-        for(File f: fileList)
-            if(f == null || !f.exists())
-            {
+    public static void addFileAttachment(SMTP.Email email, File... fileList) throws IOException {
+        for (File f : fileList)
+            if (f == null || !f.exists()) {
                 throw new IllegalArgumentException("File " + f + " does not exist");
             }
-        if(email == null || email.body == null || email.body.isEmpty())
-        {
+        if (email == null || email.body == null || email.body.isEmpty()) {
             throw new IllegalArgumentException("Email is empty. Make the email before you attach the file!");
         }
         String randomBoundary = Long.toString(new Random().nextLong());
-        if(email.body.contains(randomBoundary))
-        {
+        if (email.body.contains(randomBoundary)) {
             addFileAttachment(email, fileList);
             return;
         }
         String oldContentType = email.headers.get("Content-Type");
-        if(oldContentType == null)
-        {
+        if (oldContentType == null) {
             oldContentType = "text/plain";
         }
         email.add("Content-Type", "multipart/mixed;\r\n	boundary=\"" + randomBoundary + "\"");
         String completeAttachment = "";
-        for(File f: fileList)
-        {
+        for (File f : fileList) {
             String encodedFile = "";
             BufferedInputStream reader = new BufferedInputStream(new FileInputStream(f));
-            while(reader.available() > 0)
-            {
+            while (reader.available() > 0) {
                 int size = 733; //Length in base64: 978 octets, we have to respect max line length.
-                if(reader.available() < size)
-                {
+                if (reader.available() < size) {
                     size = reader.available();
                 }
                 byte[] buffer = new byte[size];
@@ -928,20 +883,16 @@ public class SMTP {
                         + "\n--" + randomBoundary + "--";
     }
 
-    public static void sendEmail(String smtpServer , String email, String password, SMTP.Email mail, boolean debug)
-    {
-        if(email == null)
-        {
+    public static void sendEmail(String smtpServer, String email, String password, SMTP.Email mail, boolean debug) {
+        if (email == null) {
             throw new IllegalArgumentException("Sender email address can not be null");
         }
-        if(mail == null)
-        {
+        if (mail == null) {
             throw new IllegalArgumentException("Can not send an email that is null!");
         }
-        if(smtpServer == null)
-        {
+        if (smtpServer == null) {
             String[] split = email.split("@");
-            if(split.length < 2)
+            if (split.length < 2)
                 throw new IllegalArgumentException("Email address must contain a character '@'");
             smtpServer = "smtp." + split[split.length - 1];
         }

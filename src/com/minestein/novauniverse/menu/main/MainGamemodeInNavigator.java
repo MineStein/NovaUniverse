@@ -19,34 +19,23 @@ import java.util.Random;
  */
 public class MainGamemodeInNavigator {
 
-    private static ItemStack sg;
-    private static ItemStack bmt;
-    private static ItemStack uhc;
-    private static ItemStack placeholder;
-    private static ItemStack representative;
-    private static ItemStack arcadeRepresentative;
-    private static ItemStack standaloneRepresentative;
-
     public static Inventory getInventory(Player player) {
         Inventory inventory = Bukkit.createInventory(null, 54, "§e§l>> §rMain Gamemodes");
-        for (int i = 0; i < 11; i++) {
-            inventory.setItem(i, getPlaceholder());
-        }
-        inventory.setItem(11, getPlayerInfo(player));
+
+        inventory.setItem(10, getPlayerInfo(player));
         inventory.setItem(12, getRepresentative());
         inventory.setItem(13, getArcadeRepresentative());
         inventory.setItem(14, getStandaloneGamemodes());
-        inventory.setItem(15, getPlayerInfo(player));
-        for (int i = 16; i < 30; i++) {
-            inventory.setItem(i, getPlaceholder());
-        }
+        inventory.setItem(16, getPlayerInfo(player));
         inventory.setItem(30, getSG(Mode.PLAY));
         inventory.setItem(31, getBMT(Mode.PLAY));
         inventory.setItem(32, getUHC(Mode.PLAY));
-        for (int i = 33; i < 39; i++) {
-            inventory.setItem(i, getPlaceholder());
-        }
-        for (int i = 42; i < 54; i++) {
+        inventory.setItem(39, getLines());
+
+        for (int i = 0; i < 54; i++) {
+            if (i == 39 || i == 40 || i == 41) continue;
+            if (inventory.getItem(i) != null) continue;
+
             inventory.setItem(i, getPlaceholder());
         }
 
@@ -81,6 +70,18 @@ public class MainGamemodeInNavigator {
     }
     */
 
+    public static ItemStack getLines() {
+        ItemStack i = new ItemStack(Material.GRASS);
+        {
+            ItemMeta m = i.getItemMeta();
+            m.setDisplayName("§d§lLINES SURVIVAL");
+            m.setLore(makeLore(Mode.PLAY, "Fight against 4 players and gather", "resources in an ever-shrinking arena!", "4 players"));
+            i.setItemMeta(m);
+        }
+
+        return i;
+    }
+
     public static ItemStack getPlayerInfo(Player player) {
         ItemStack playerInfo = new ItemStack(Material.SKULL_ITEM, 1, (byte) SkullType.PLAYER.ordinal());
         {
@@ -103,7 +104,7 @@ public class MainGamemodeInNavigator {
     }
 
     public static ItemStack getRepresentative() {
-        representative = new ItemStack(Material.INK_SACK, 1, (byte) 10);
+        ItemStack representative = new ItemStack(Material.INK_SACK, 1, (byte) 10);
         {
             ItemMeta m = representative.getItemMeta();
             m.setDisplayName("§a§lMAIN GAMES");
@@ -120,7 +121,7 @@ public class MainGamemodeInNavigator {
     }
 
     public static ItemStack getArcadeRepresentative() {
-        arcadeRepresentative = new ItemStack(Material.INK_SACK, 1, (byte) 8);
+        ItemStack arcadeRepresentative = new ItemStack(Material.INK_SACK, 1, (byte) 8);
         {
             ItemMeta m = arcadeRepresentative.getItemMeta();
             m.setDisplayName("§7§lARCADE GAMES");
@@ -137,7 +138,7 @@ public class MainGamemodeInNavigator {
     }
 
     public static ItemStack getStandaloneGamemodes() {
-        standaloneRepresentative = new ItemStack(Material.INK_SACK, 1, (byte) 8);
+        ItemStack standaloneRepresentative = new ItemStack(Material.INK_SACK, 1, (byte) 8);
         {
             ItemMeta m = standaloneRepresentative.getItemMeta();
             m.setDisplayName("§7§lSTANDALONE GAMEMODES");
@@ -154,7 +155,7 @@ public class MainGamemodeInNavigator {
     }
 
     public static ItemStack getSG(Mode mode) {
-        sg = new ItemStack(Material.IRON_SWORD);
+        ItemStack sg = new ItemStack(Material.IRON_SWORD);
         {
             ItemMeta m = sg.getItemMeta();
             m.setDisplayName("§d§lSURVIVAL GAMES");
@@ -166,7 +167,7 @@ public class MainGamemodeInNavigator {
     }
 
     public static ItemStack getBMT(Mode mode) {
-        bmt = new ItemStack(Material.WOOL, 1, (byte) new Random().nextInt(15));
+        ItemStack bmt = new ItemStack(Material.WOOL, 1, (byte) new Random().nextInt(15));
         {
             ItemMeta m = bmt.getItemMeta();
             m.setDisplayName("§d§lBUILD MY THING");
@@ -178,7 +179,7 @@ public class MainGamemodeInNavigator {
     }
 
     public static ItemStack getUHC(Mode mode) {
-        uhc = new ItemStack(Material.ROTTEN_FLESH);
+        ItemStack uhc = new ItemStack(Material.ROTTEN_FLESH);
         {
             ItemMeta m = uhc.getItemMeta();
             m.setDisplayName("§d§lULTRA-HARDCORE");
@@ -190,7 +191,7 @@ public class MainGamemodeInNavigator {
     }
 
     public static ItemStack getPlaceholder() {
-        placeholder = new ItemStack(Material.STAINED_GLASS_PANE, 1, (byte) 10);
+        ItemStack placeholder = new ItemStack(Material.STAINED_GLASS_PANE, 1, (byte) 10);
         {
             ItemMeta m = placeholder.getItemMeta();
             m.setDisplayName("§5§lNOVA§6§lU");

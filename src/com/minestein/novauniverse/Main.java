@@ -43,6 +43,7 @@ public class Main extends JavaPlugin {
     private static Objective objective;
     private static Score online;
     private static Score partyTimeLeft;
+    private int scoreboardTimer;
     private static final String PREFIX = "§8[§5NOVA§6U§8] §f";
     private static boolean maintenance;
     private static ItemStack nvgtr;
@@ -58,6 +59,7 @@ public class Main extends JavaPlugin {
     public static Main plugin;
     public static Random random;
     private static int partySeconds;
+    public static World lobby = Bukkit.getWorld("world");
 
     public static int getPartySeconds() {
         return partySeconds;
@@ -163,9 +165,219 @@ public class Main extends JavaPlugin {
         return toggles;
     }
 
+    private void changeScoreboard() {
+
+        if (scoreboardTimer == 1) {
+            Scoreboard newScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+            Objective newObjective = newScoreboard.registerNewObjective("newScoreboard", "dummy");
+            newObjective.setDisplayName("§6§lN§5§lovaUniverse");
+            newObjective.setDisplaySlot(DisplaySlot.SIDEBAR);
+            Score newOnline = newObjective.getScore("§e§lONLINE");
+            newOnline.setScore(Bukkit.getOnlinePlayers().length);
+            Score newTimeLeft = newObjective.getScore("§e§lPARTY TIME");
+            newTimeLeft.setScore(Main.getPartySeconds());
+
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                players.setScoreboard(newScoreboard);
+            }
+
+            scoreboardTimer++;
+        } else if (scoreboardTimer == 2) {
+            Scoreboard newScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+            Objective newObjective = newScoreboard.registerNewObjective("newScoreboard", "dummy");
+            newObjective.setDisplayName("§e§lN§6§lo§5§lvaUniverse");
+            newObjective.setDisplaySlot(DisplaySlot.SIDEBAR);
+            Score newOnline = newObjective.getScore("§e§lONLINE");
+            newOnline.setScore(Bukkit.getOnlinePlayers().length);
+            Score newTimeLeft = newObjective.getScore("§e§lPARTY TIME");
+            newTimeLeft.setScore(Main.getPartySeconds());
+
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                players.setScoreboard(newScoreboard);
+            }
+
+            scoreboardTimer++;
+        } else if (scoreboardTimer == 3) {
+            Scoreboard newScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+            Objective newObjective = newScoreboard.registerNewObjective("newScoreboard", "dummy");
+            newObjective.setDisplayName("§5§lN§e§lo§6§lv§5§laUniverse");
+            newObjective.setDisplaySlot(DisplaySlot.SIDEBAR);
+            Score newOnline = newObjective.getScore("§e§lONLINE");
+            newOnline.setScore(Bukkit.getOnlinePlayers().length);
+            Score newTimeLeft = newObjective.getScore("§e§lPARTY TIME");
+            newTimeLeft.setScore(Main.getPartySeconds());
+
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                players.setScoreboard(newScoreboard);
+            }
+
+            scoreboardTimer++;
+        } else if (scoreboardTimer == 4) {
+            Scoreboard newScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+            Objective newObjective = newScoreboard.registerNewObjective("newScoreboard", "dummy");
+            newObjective.setDisplayName("§5§lNo§e§l§6§lv§5§laUniverse");
+            newObjective.setDisplaySlot(DisplaySlot.SIDEBAR);
+            Score newOnline = newObjective.getScore("§e§lONLINE");
+            newOnline.setScore(Bukkit.getOnlinePlayers().length);
+            Score newTimeLeft = newObjective.getScore("§e§lPARTY TIME");
+            newTimeLeft.setScore(Main.getPartySeconds());
+
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                players.setScoreboard(newScoreboard);
+            }
+
+            scoreboardTimer++;
+        } else if (scoreboardTimer == 5) {
+            Scoreboard newScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+            Objective newObjective = newScoreboard.registerNewObjective("newScoreboard", "dummy");
+            newObjective.setDisplayName("§5§lNov§e§la§6§lU§5§lniverse");
+            newObjective.setDisplaySlot(DisplaySlot.SIDEBAR);
+            Score newOnline = newObjective.getScore("§e§lONLINE");
+            newOnline.setScore(Bukkit.getOnlinePlayers().length);
+            Score newTimeLeft = newObjective.getScore("§e§lPARTY TIME");
+            newTimeLeft.setScore(Main.getPartySeconds());
+
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                players.setScoreboard(newScoreboard);
+            }
+
+            scoreboardTimer++;
+        } else if (scoreboardTimer == 6) {
+            Scoreboard newScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+            Objective newObjective = newScoreboard.registerNewObjective("newScoreboard", "dummy");
+            newObjective.setDisplayName("§5§lNova§e§lU§6§ln§5§liverse");
+            newObjective.setDisplaySlot(DisplaySlot.SIDEBAR);
+            Score newOnline = newObjective.getScore("§e§lONLINE");
+            newOnline.setScore(Bukkit.getOnlinePlayers().length);
+            Score newTimeLeft = newObjective.getScore("§e§lPARTY TIME");
+            newTimeLeft.setScore(Main.getPartySeconds());
+
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                players.setScoreboard(newScoreboard);
+            }
+
+            scoreboardTimer++;
+        } else if (scoreboardTimer == 7) {
+            Scoreboard newScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+            Objective newObjective = newScoreboard.registerNewObjective("newScoreboard", "dummy");
+            newObjective.setDisplayName("§5§lNovaU§e§ln§6§li§5§lverse");
+            newObjective.setDisplaySlot(DisplaySlot.SIDEBAR);
+            Score newOnline = newObjective.getScore("§e§lONLINE");
+            newOnline.setScore(Bukkit.getOnlinePlayers().length);
+            Score newTimeLeft = newObjective.getScore("§e§lPARTY TIME");
+            newTimeLeft.setScore(Main.getPartySeconds());
+
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                players.setScoreboard(newScoreboard);
+            }
+
+            scoreboardTimer++;
+        } else if (scoreboardTimer == 8) {
+            Scoreboard newScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+            Objective newObjective = newScoreboard.registerNewObjective("newScoreboard", "dummy");
+            newObjective.setDisplayName("§5§lNovaUn§e§li§6§lv§5§lerse");
+            newObjective.setDisplaySlot(DisplaySlot.SIDEBAR);
+            Score newOnline = newObjective.getScore("§e§lONLINE");
+            newOnline.setScore(Bukkit.getOnlinePlayers().length);
+            Score newTimeLeft = newObjective.getScore("§e§lPARTY TIME");
+            newTimeLeft.setScore(Main.getPartySeconds());
+
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                players.setScoreboard(newScoreboard);
+            }
+
+            scoreboardTimer++;
+        } else if (scoreboardTimer == 9) {
+            Scoreboard newScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+            Objective newObjective = newScoreboard.registerNewObjective("newScoreboard", "dummy");
+            newObjective.setDisplayName("§5§lNovaUni§e§lv§6§le§5§lrse");
+            newObjective.setDisplaySlot(DisplaySlot.SIDEBAR);
+            Score newOnline = newObjective.getScore("§e§lONLINE");
+            newOnline.setScore(Bukkit.getOnlinePlayers().length);
+            Score newTimeLeft = newObjective.getScore("§e§lPARTY TIME");
+            newTimeLeft.setScore(Main.getPartySeconds());
+
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                players.setScoreboard(newScoreboard);
+            }
+
+            scoreboardTimer++;
+        } else if (scoreboardTimer == 10) {
+            Scoreboard newScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+            Objective newObjective = newScoreboard.registerNewObjective("newScoreboard", "dummy");
+            newObjective.setDisplayName("§5§lNovaUniv§e§le§6§lr§5§lse");
+            newObjective.setDisplaySlot(DisplaySlot.SIDEBAR);
+            Score newOnline = newObjective.getScore("§e§lONLINE");
+            newOnline.setScore(Bukkit.getOnlinePlayers().length);
+            Score newTimeLeft = newObjective.getScore("§e§lPARTY TIME");
+            newTimeLeft.setScore(Main.getPartySeconds());
+
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                players.setScoreboard(newScoreboard);
+            }
+
+            scoreboardTimer++;
+        } else if (scoreboardTimer == 11) {
+            Scoreboard newScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+            Objective newObjective = newScoreboard.registerNewObjective("newScoreboard", "dummy");
+            newObjective.setDisplayName("§5§lNovaUnive§e§lr§6§ls§5§le");
+            newObjective.setDisplaySlot(DisplaySlot.SIDEBAR);
+            Score newOnline = newObjective.getScore("§e§lONLINE");
+            newOnline.setScore(Bukkit.getOnlinePlayers().length);
+            Score newTimeLeft = newObjective.getScore("§e§lPARTY TIME");
+            newTimeLeft.setScore(Main.getPartySeconds());
+
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                players.setScoreboard(newScoreboard);
+            }
+
+            scoreboardTimer++;
+        } else if (scoreboardTimer == 12) {
+            Scoreboard newScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+            Objective newObjective = newScoreboard.registerNewObjective("newScoreboard", "dummy");
+            newObjective.setDisplayName("§5§lNovaUniver§e§ls§6§le");
+            newObjective.setDisplaySlot(DisplaySlot.SIDEBAR);
+            Score newOnline = newObjective.getScore("§e§lONLINE");
+            newOnline.setScore(Bukkit.getOnlinePlayers().length);
+            Score newTimeLeft = newObjective.getScore("§e§lPARTY TIME");
+            newTimeLeft.setScore(Main.getPartySeconds());
+
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                players.setScoreboard(newScoreboard);
+            }
+
+            scoreboardTimer++;
+        } else if (scoreboardTimer == 13) {
+            Scoreboard newScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+            Objective newObjective = newScoreboard.registerNewObjective("newScoreboard", "dummy");
+            newObjective.setDisplayName("§5§lNovaUnivers§e§le");
+            newObjective.setDisplaySlot(DisplaySlot.SIDEBAR);
+            Score newOnline = newObjective.getScore("§e§lONLINE");
+            newOnline.setScore(Bukkit.getOnlinePlayers().length);
+            Score newTimeLeft = newObjective.getScore("§e§lPARTY TIME");
+            newTimeLeft.setScore(Main.getPartySeconds());
+
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                players.setScoreboard(newScoreboard);
+            }
+
+            scoreboardTimer = 1;
+        }
+
+        // Red - 1
+        // Orange - 14
+        // Yellow - 11
+        // Green - 2
+        // Light Blue 12
+        // Dark Blue = 4
+        // Purple - 5
+    }
+
     @Override
     public void onEnable() {
         plugin = this;
+
+        scoreboardTimer = 1;
 
         scoreboard = getServer().getScoreboardManager().getNewScoreboard();
         objective = scoreboard.registerNewObjective("main", "dummy");
@@ -307,9 +519,16 @@ public class Main extends JavaPlugin {
             }
         }
 
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, this::changeScoreboard, 10, 1);
+
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
             for (World worlds : Bukkit.getWorlds()) {
                 worlds.setTime(20000);
+
+                if (worlds.isThundering()) {
+                    worlds.setThunderDuration(0);
+                    worlds.setThundering(false);
+                }
 
                 for (Chunk chunks : worlds.getLoadedChunks()) {
                     for (Entity entities : chunks.getEntities()) {
@@ -333,32 +552,31 @@ public class Main extends JavaPlugin {
                     }
                 }
             }
+
+
         }, 0, 20);
 
         String[] validColorCodes = new String[]{
                 "4", "c", "e", "a", "b", "9", "d"
         };
 
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
-            @Override
-            public void run() {
-                String[] messages = new String[]{
-                        "Developed by §b§o@MineStien",
-                        "This server is in §b§oalpha",
-                        "The website is §b§onovauniverse.net",
-                        "Use your §b§owardrobe §eto change armor",
-                        "Use your §b§onavigator §eto enter a game",
-                        "Use your §b§odonation item §eto donate",
-                        "Use your §b§ojump toggle §eto jump high",
-                        "Use your §b§ospeed toggle §eto run fast",
-                        "Use your §b§oplayer toggle §efor invisibility",
-                        "Do §b§o/help §eto receive information",
-                        "Join one of our §b§onine §egamemodes",
-                        "We have pets! Use your §b§opet menu"
-                };
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
+            String[] messages = new String[]{
+                    "Developed by §b§o@MineStien",
+                    "This server is in §b§oalpha",
+                    "The website is §b§onovauniverse.net",
+                    "Use your §b§owardrobe §eto change armor",
+                    "Use your §b§onavigator §eto enter a game",
+                    "Use your §b§odonation item §eto donate",
+                    "Use your §b§ojump toggle §eto jump high",
+                    "Use your §b§ospeed toggle §eto run fast",
+                    "Use your §b§oplayer toggle §efor invisibility",
+                    "Do §b§o/help §eto receive information",
+                    "Join one of our §b§onine §egamemodes",
+                    "We have pets! Use your §b§opet menu"
+            };
 
-                currentMessage = messages[random.nextInt(messages.length)];
-            }
+            currentMessage = messages[random.nextInt(messages.length)];
         }, 0, 60);
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> BarAPI.setMessage("§" + validColorCodes[random.nextInt(validColorCodes.length)] + "§lNOVAU  §e" + currentMessage), 5, 10);

@@ -5,7 +5,6 @@ import com.minestein.novauniverse.managers.AchievementManager;
 import com.minestein.novauniverse.managers.PetManager;
 import com.minestein.novauniverse.managers.TimeManager;
 import com.minestein.novauniverse.util.general.JSONText;
-import com.minestein.novauniverse.util.general.SMTP;
 import com.minestein.novauniverse.util.particle.ParticleEffect;
 import org.bukkit.*;
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
@@ -41,7 +40,7 @@ public class JoinListener implements Listener {
             if (p.isOp()) return;
             if (p.hasPermission("novau.maintenance.bypass")) return;
 
-            e.disallow(PlayerLoginEvent.Result.KICK_OTHER, "\n§c§l§m-=§4§lSorry, §e§l" + p.getName().toUpperCase() + "§c§l§m §c§l§m=-\n§b§lServer is currently in maintenance!\n§b§lCheck back later, maintenance doesn't last long!");
+            e.disallow(PlayerLoginEvent.Result.KICK_OTHER, "\n§c§l§m-=§4§lSorry, §e§l" + p.getName().toUpperCase() + "§c§l§m §c§l§m=-\n§b§lThis server is currently in maintenance!\n§b§lCheck back later, maintenance usually doesn't last long!");
         } else {
             e.allow();
         }
@@ -53,7 +52,7 @@ public class JoinListener implements Listener {
 
         if (!alreadyPiggiieeee) {
             for (int i = 0; i < 5; i++) {
-                if (i==1) {
+                if (i == 1) {
                     WitherSkull skull = p.getWorld().spawn(new Location(p.getWorld(), 881.5000, 14.5000, 341.5000), WitherSkull.class);
                     skull.setDirection(new Vector(0, 0, 0));
                     skull.setVelocity(new Vector(0, 0, 0));
@@ -61,7 +60,7 @@ public class JoinListener implements Listener {
                     pig.setCustomName("§c§lPiggieeeee");
                     pig.setCustomNameVisible(true);
                     skull.setPassenger(pig);
-                } else if (i==2) {
+                } else if (i == 2) {
                     WitherSkull skull = p.getWorld().spawn(new Location(p.getWorld(), 872.5000, 14.5000, 332.5000), WitherSkull.class);
                     skull.setDirection(new Vector(0, 0, 0));
                     skull.setVelocity(new Vector(0, 0, 0));
@@ -70,7 +69,7 @@ public class JoinListener implements Listener {
                     sheep.setColor(DyeColor.PURPLE);
                     sheep.setCustomNameVisible(true);
                     skull.setPassenger(sheep);
-                } else if (i==3) {
+                } else if (i == 3) {
                     WitherSkull skull = p.getWorld().spawn(new Location(p.getWorld(), 881.5000, 14.5000, 323.5000), WitherSkull.class);
                     skull.setDirection(new Vector(0, 0, 0));
                     skull.setVelocity(new Vector(0, 0, 0));
@@ -78,7 +77,7 @@ public class JoinListener implements Listener {
                     cow.setCustomName("§e§lBob");
                     cow.setCustomNameVisible(true);
                     skull.setPassenger(cow);
-                } else if (i==4) {
+                } else if (i == 4) {
                     WitherSkull skull = p.getWorld().spawn(new Location(p.getWorld(), 893.5000, 14.5000, 332.5000), WitherSkull.class);
                     skull.setDirection(new Vector(0, 0, 0));
                     skull.setVelocity(new Vector(0, 0, 0));

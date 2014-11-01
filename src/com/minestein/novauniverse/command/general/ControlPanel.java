@@ -15,46 +15,121 @@ import org.bukkit.entity.Player;
 public class ControlPanel implements CommandExecutor {
 
     /*
-     * stats <player> <game> - gets statistics
+     * statistics/stats <player> <game> - gets statistics
      * record <player> - gets hacking record
      */
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
+        final String TAG = "§5Nova§cCP§e§l>> §f";
+
         if (args.length == 0) {
-            sender.sendMessage(Main.getPrefix() + "§7Usage: §4/controlpanel §c<Command> <Parameters>");
+            String[] text = new String[]{
+                    "§e§lCommand Help for /controlpanel",
+                    "§6§l§m----------------------------------------",
+                    "§e§l>> §7/controlpanel §7§ostatistics <player> <game>",
+                    "     §7Aliase: §7§o/cp stats <player> <game>",
+                    "     §7Hint: §7§o/controlpanel statistics help",
+                    "§e§l>> §7/controlpanel §7§orecord <player>",
+            };
+
+            sender.sendMessage(text);
             return true;
         } else {
+            String sub = args[0];
+
             if (args.length == 1) {
-                sender.sendMessage(Main.getPrefix() + "§7Usage: §4/controlpanel §c<Command> <Parameters>");
-                return true;
-            } else if (args.length == 2) {
-                String subcommand = args[0];
-                Player target = Bukkit.getPlayer(args[1]);
-                if (subcommand.equals("stats")) {
-                    sender.sendMessage(Main.getPrefix() + "§4Too few arguments!");
+                if (sub.equalsIgnoreCase("stats") || sub.equalsIgnoreCase("statistics") || sub.equalsIgnoreCase("record")) {
+                    sender.sendMessage(TAG + "§4Too few arguments!");
+                } else {
+                    sender.sendMessage(TAG + "§4Could not identify sub-command §c" + sub);
                     return true;
-                } else if (subcommand.equals("record")) {
-                    sender.sendMessage(Main.getPrefix() + "§4Could not access §e§l" + args[1].toUpperCase() + "'s §4record!");
-                    // TODO Grab info from sql
+                }
+            } else if (args.length == 2) {
+                Player p;
+
+                if (Bukkit.getPlayer(args[1]) != null) {
+                    p = Bukkit.getPlayer(args[1]);
+                } else {
+                    p = null;
+                    sender.sendMessage(TAG + "§4Could not locate player §c" + args[1]);
+                    return true;
+                }
+
+                if (sub.equalsIgnoreCase("statistics") || sub.equalsIgnoreCase("stats")) {
+                    sender.sendMessage(TAG + "§4Too few arguments for sub-command §c" + sub);
+                    return true;
+                } else if (sub.equalsIgnoreCase("record")) {
+                    // TODO Query database.
+
+                    sender.sendMessage(TAG + "§4Testing the waters...");
+                    Bukkit.getScheduler().runTaskLater(Main.plugin, () -> sender.sendMessage(TAG + "§4Grabbing information..."), 20);
+                    Bukkit.getScheduler().runTaskLater(Main.plugin, () -> sender.sendMessage(TAG + "§4Failed."), 20);
                     return true;
                 } else {
-                    sender.sendMessage(Main.getPrefix() + "§4Unknown sub-command.");
+                    sender.sendMessage(TAG + "§4Could not identify sub-command §c" + sub);
                     return true;
                 }
             } else if (args.length == 3) {
-                String subcommand = args[0];
-                Player target = Bukkit.getPlayer(args[1]);
                 String game = args[2];
+                Player p;
 
-                if (subcommand.equals("stats")) {
-                    sender.sendMessage(Main.getPrefix() + "§4Could not access §e§l" + args[1].toUpperCase() + "'s §4statistics");
+                if (args[1].equalsIgnoreCase("help")) {
+                    String[] text = new String[]{
+                            "§e§lCommand Help for /controlpanel statistics",
+                            "§7Usage: §7§o/controlpanel statistics <player> <game>",
+                            "§6§l§m----------------------------------------",
+                            "§e§l>> §7SG §8- §7§oSurvival Games",
+                            "§e§l>> §7UHC §8- §7§oUltra-Hardcore",
+                            "§e§l>> §7BMT §8- §7§oBuild My Thing",
+                            "§e§l>> §7S §8- §7§oSpleef",
+                            "§e§l>> §7FR §8- §7§oFreerunners",
+                            "§e§l>> §7TR §8- §7§oTNT Run",
+                            "§e§l>> §7GTM §8- §7§oGrand Theft Minecart",
+                            "§e§l>> §7BD §8- §7§oBlocking Dead",
+                            "§e§l>> §7WW §8- §7§oWatch Wolves"
+                    };
+
+                    sender.sendMessage(text);
                     return true;
-                } else if (subcommand.equals("record")) {
-                    sender.sendMessage(Main.getPrefix() + "§4Too many arguments!");
+                }
+
+                if (Bukkit.getPlayer(args[1]) != null) {
+                    p = Bukkit.getPlayer(args[1]);
+
+                    if (!game.equalsIgnoreCase("sg") &&
+                            !game.equalsIgnoreCase("uhc") &&
+                            !game.equalsIgnoreCase("bmt") &&
+                            !game.equalsIgnoreCase("s") &&
+                            !game.equalsIgnoreCase("fr") &&
+                            !game.equalsIgnoreCase("tr") &&
+                            !game.equalsIgnoreCase("gtm") &&
+                            !game.equalsIgnoreCase("bd") &&
+                            !game.equalsIgnoreCase("ww")) {
+                        sender.sendMessage(TAG + "§4Could not identify game §c" + game);
+                        return true;
+                    }
+
+                    String[] text = new String[]{
+                            "§e§l" + p.getName().toUpperCase() + "'s Statistics for " + game.toUpperCase(),
+                            "§6§l§m----------------------------------------",
+                            "§e§l>> §7Stat1: §e0",
+                            "§e§l>> §7Stat2: §e1",
+                            "§e§l>> §7Stat3: §e2",
+                    };
+
+                    sender.sendMessage(text);
                     return true;
                 } else {
-                    sender.sendMessage(Main.getPrefix() + "§4Unknown sub-command.");
+                    sender.sendMessage(TAG + "§4Could not identify player §c" + args[1]);
+                    return true;
+                }
+            } else {
+                if (sub.equalsIgnoreCase("statistics") || sub.equalsIgnoreCase("stats") || sub.equalsIgnoreCase("record")) {
+                    sender.sendMessage(TAG + "§4Too many arguments for sub-command §c" + sub);
+                    return true;
+                } else {
+                    sender.sendMessage(TAG + "§4Could not identify sub-command §c" + sub);
                     return true;
                 }
             }

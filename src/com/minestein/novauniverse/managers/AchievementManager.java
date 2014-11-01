@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 public class AchievementManager {
 
     public enum Achievement {
-        WELCOME("Welcome to §5§lNova§6§lUniverse", "Join §5§lNova§6§lUniverse §1for the first time.", 50),
+        WELCOME("Welcome to §5§lNova§6§lUniverse", "Join §5§lNova§6§lUniverse §9for the first time.", 50),
         BYE_BYE("Bye Bye", "Receive a kick.", 20),
         SILENCE("Silence", "Be muted", 20),
         PIT_OF_DESPAIR("Pit of despair", "Find a way into the void!", 20);
@@ -43,11 +43,11 @@ public class AchievementManager {
     }
 
     public static String[] generateAchievementMessage(Achievement achievement) {
-        return new String[] {
+        return new String[]{
                 "§1§l§m§k----------------------------------------",
-                "§a§l§oACHIEVEMENT GET! §7(§a§l+§r§2"+achievement.getPoints()+"§r§7)",
-                "§e§l>> §1"+achievement.getName(),
-                "§e§l>> §1"+achievement.getDescription(),
+                "§a§l§oACHIEVEMENT GET! §7(§a§l+§r§2" + achievement.getPoints() + "§r§7)",
+                "§e§l>> §9" + achievement.getName(),
+                "§e§l>> §9" + achievement.getDescription(),
                 "§1§l§m§k----------------------------------------"
         };
     }

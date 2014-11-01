@@ -40,7 +40,7 @@ public class InteractListener implements Listener {
     private String[] getMessages(String entity) {
         switch (entity) {
             case "wolf":
-                return new String[] {
+                return new String[]{
                         "Woof. Woof.",
                         "Yup, I'm a talking wolf. Deal with it.",
                         "#NovaUniverseFTW",
@@ -48,33 +48,34 @@ public class InteractListener implements Listener {
                         "Yes, I am floating."
                 };
             case "sheep":
-                return new String[] {
-                    "Bah. Bah.",
-                    "Don't you dare shear me!",
-                    "Yup, I'm a talking sheep. Deal with it.",
-                     "#NovaUniverseFTW",
-                     "That wasn't funny...",
+                return new String[]{
+                        "Bah. Bah.",
+                        "Don't you dare shear me!",
+                        "Yup, I'm a talking sheep. Deal with it.",
+                        "#NovaUniverseFTW",
+                        "That wasn't funny...",
                         "Yes, I am floating."
                 };
             case "pig":
-                return new String[] {
-                    "Oink. Oink.",
-                    "Don't you dare bake me!",
-                    "Yup, I'm a talking pig. Deal with it.",
-                    "#NovaUniverseFTW",
-                    "That was totes hilarious...",
+                return new String[]{
+                        "Oink. Oink.",
+                        "Don't you dare bake me!",
+                        "Yup, I'm a talking pig. Deal with it.",
+                        "#NovaUniverseFTW",
+                        "That was totes hilarious...",
                         "Yes, I am floating."
                 };
             case "cow":
-                return new String[] {
-                    "Moo. Moo.",
-                     "Don't you dare roast me!",
-                     "Yup, I'm a talking cow. Deal with it.",
-                     "#NovaUniverseFTW",
-                     "That's offensive to my people...",
+                return new String[]{
+                        "Moo. Moo.",
+                        "Don't you dare roast me!",
+                        "Yup, I'm a talking cow. Deal with it.",
+                        "#NovaUniverseFTW",
+                        "That's offensive to my people...",
                         "Yes, I am floating."
                 };
             default:
+                Bukkit.broadcastMessage("§c§lNovaUniverse encountered an error. Calling getMessages in InteractListener.java returned null.");
                 return null;
         }
     }
@@ -84,47 +85,47 @@ public class InteractListener implements Listener {
         final Entity entity = e.getRightClicked();
         final Player p = e.getPlayer();
 
-        if (entity.getType()== EntityType.WOLF || entity.getType()== EntityType.PIG || entity.getType()== EntityType.COW || entity.getType()== EntityType.SHEEP) {
-            if (entity.getType()== EntityType.WOLF && ((Wolf) entity).getCustomName().equalsIgnoreCase("§a§lWolfieeeee")) {
+        if (entity.getType() == EntityType.WOLF || entity.getType() == EntityType.PIG || entity.getType() == EntityType.COW || entity.getType() == EntityType.SHEEP) {
+            if (entity.getType() == EntityType.WOLF && ((Wolf) entity).getCustomName().equalsIgnoreCase("§a§lWolfieeeee")) {
                 if (wolf) return;
 
                 wolf = true;
 
                 Bukkit.getScheduler().runTaskLater(Main.plugin, () -> wolf = false, 30);
 
-                GameEffect.playFormattedParticles(entity.getLocation(), ParticleEffect.MOB_SPELL_AMBIENT);
+                GameEffect.playFormattedParticles(entity.getLocation(), ParticleEffect.MOB_SPELL);
 
-                p.sendMessage(Main.getPrefix()+"§e§lWOLFIEEEEE §b§l§m--§r§b§l>  §e§lYOU§8: §a" + getMessages("wolf")[Main.getRandom().nextInt(getMessages("wolf").length)]);
-            } else if (entity.getType()== EntityType.PIG && ((Pig) entity).getCustomName().equalsIgnoreCase("§c§lPiggieeeee")) {
+                p.sendMessage(Main.getPrefix() + "§e§lWOLFIEEEEE §b§l§m--§r§b§l>  §e§lYOU§8: §a" + getMessages("wolf")[Main.getRandom().nextInt(getMessages("wolf").length)]);
+            } else if (entity.getType() == EntityType.PIG && ((Pig) entity).getCustomName().equalsIgnoreCase("§c§lPiggieeeee")) {
                 if (pig) return;
 
                 pig = true;
 
                 Bukkit.getScheduler().runTaskLater(Main.plugin, () -> pig = false, 30);
 
-                GameEffect.playFormattedParticles(entity.getLocation(), ParticleEffect.MOB_SPELL_AMBIENT);
+                GameEffect.playFormattedParticles(entity.getLocation(), ParticleEffect.MOB_SPELL);
 
-                p.sendMessage(Main.getPrefix()+"§e§lPIGGIEEEEE §b§l§m--§r§b§l>  §e§lYOU§8: §a" + getMessages("pig")[Main.getRandom().nextInt(getMessages("pig").length)]);
-            } else if (entity.getType()== EntityType.COW && ((Cow) entity).getCustomName().equalsIgnoreCase("§e§lBob")) {
+                p.sendMessage(Main.getPrefix() + "§e§lPIGGIEEEEE §b§l§m--§r§b§l>  §e§lYOU§8: §a" + getMessages("pig")[Main.getRandom().nextInt(getMessages("pig").length)]);
+            } else if (entity.getType() == EntityType.COW && ((Cow) entity).getCustomName().equalsIgnoreCase("§e§lBob")) {
                 if (cow) return;
 
                 cow = true;
 
                 Bukkit.getScheduler().runTaskLater(Main.plugin, () -> cow = false, 30);
 
-                GameEffect.playFormattedParticles(entity.getLocation(), ParticleEffect.MOB_SPELL_AMBIENT);
+                GameEffect.playFormattedParticles(entity.getLocation(), ParticleEffect.MOB_SPELL);
 
-                p.sendMessage(Main.getPrefix()+"§e§lBOB §b§l§m--§r§b§l>  §e§lYOU§8: §a" + getMessages("cow")[Main.getRandom().nextInt(getMessages("cow").length)]);
-            } else if (entity.getType()== EntityType.SHEEP && ((Sheep) entity).getCustomName().equalsIgnoreCase("§9§lSheepieeeee")) {
+                p.sendMessage(Main.getPrefix() + "§e§lBOB §b§l§m--§r§b§l>  §e§lYOU§8: §a" + getMessages("cow")[Main.getRandom().nextInt(getMessages("cow").length)]);
+            } else if (entity.getType() == EntityType.SHEEP && ((Sheep) entity).getCustomName().equalsIgnoreCase("§9§lSheepieeeee")) {
                 if (sheep) return;
 
                 sheep = true;
 
                 Bukkit.getScheduler().runTaskLater(Main.plugin, () -> sheep = false, 30);
 
-                GameEffect.playFormattedParticles(entity.getLocation(), ParticleEffect.MOB_SPELL_AMBIENT);
+                GameEffect.playFormattedParticles(entity.getLocation(), ParticleEffect.MOB_SPELL);
 
-                p.sendMessage(Main.getPrefix()+"§e§lSHEEPIEEEEE §b§l§m--§r§b§l>  §e§lYOU§8: §a" + getMessages("sheep")[Main.getRandom().nextInt(getMessages("sheep").length)]);
+                p.sendMessage(Main.getPrefix() + "§e§lSHEEPIEEEEE §b§l§m--§r§b§l>  §e§lYOU§8: §a" + getMessages("sheep")[Main.getRandom().nextInt(getMessages("sheep").length)]);
             }
         }
     }

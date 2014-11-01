@@ -1,6 +1,5 @@
 package com.minestein.novauniverse.menu.info;
 
-import com.minestein.novauniverse.menu.info.MainInfoMenu;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
 

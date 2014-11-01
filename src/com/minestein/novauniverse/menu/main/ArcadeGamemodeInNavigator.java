@@ -26,24 +26,19 @@ public class ArcadeGamemodeInNavigator {
 
     public static Inventory getInventory(Player player) {
         Inventory inventory = Bukkit.createInventory(null, 54, "§e§l>> §rArcade");
-        for (int i = 0; i < 11; i++) {
-            inventory.setItem(i, getPlaceholder());
-        }
-        inventory.setItem(11, MainGamemodeInNavigator.getPlayerInfo(player));
+
+        inventory.setItem(10, MainGamemodeInNavigator.getPlayerInfo(player));
         inventory.setItem(12, getMainGamesRepresentative());
         inventory.setItem(13, getRepresentative());
         inventory.setItem(14, getStandaloneGamemodes());
-        inventory.setItem(15, MainGamemodeInNavigator.getPlayerInfo(player));
-        for (int i = 16; i < 30; i++) {
-            inventory.setItem(i, getPlaceholder());
-        }
+        inventory.setItem(16, MainGamemodeInNavigator.getPlayerInfo(player));
         inventory.setItem(30, getSpleef(Mode.PLAY));
         inventory.setItem(31, getFreerunners(Mode.PLAY));
         inventory.setItem(32, getTntrun(Mode.PLAY));
-        for (int i = 33; i < 39; i++) {
-            inventory.setItem(i, getPlaceholder());
-        }
-        for (int i = 42; i < 54; i++) {
+
+        for (int i = 0; i < 54; i++) {
+            if (inventory.getItem(i) != null) continue;
+
             inventory.setItem(i, getPlaceholder());
         }
 

@@ -22,6 +22,33 @@ public class Wardrobe {
     public static Inventory getInventory() {
         Inventory inventory = Bukkit.createInventory(null, 54, "§e§l>> §rWhat to wear?");
 
+        inventory.setItem(10, getRemove());
+        inventory.setItem(12, getHelm(Type.IRON));
+        inventory.setItem(13, getHelm(Type.GOLD));
+        inventory.setItem(14, getHelm(Type.DIAMOND));
+        inventory.setItem(16, getRemove());
+        inventory.setItem(19, getRemove());
+        inventory.setItem(21, getChest(Type.IRON));
+        inventory.setItem(22, getChest(Type.GOLD));
+        inventory.setItem(23, getChest(Type.DIAMOND));
+        inventory.setItem(25, getRemove());
+        inventory.setItem(28, getRemove());
+        inventory.setItem(30, getLegs(Type.IRON));
+        inventory.setItem(31, getLegs(Type.GOLD));
+        inventory.setItem(32, getLegs(Type.DIAMOND));
+        inventory.setItem(34, getRemove());
+        inventory.setItem(37, getRemove());
+        inventory.setItem(39, getBoots(Type.IRON));
+        inventory.setItem(40, getBoots(Type.GOLD));
+        inventory.setItem(41, getBoots(Type.DIAMOND));
+        inventory.setItem(43, getRemove());
+
+        for (int i = 0; i < 54; i++) {
+            if (inventory.getItem(i) != null) continue;
+
+            inventory.setItem(i, getNormalHolder());
+        }
+        /*
         for (int i = 0; i < 3; i++) {
             inventory.setItem(i, getPurpleHolder());
         }
@@ -66,6 +93,7 @@ public class Wardrobe {
         for (int i = 46; i < 54; i++) {
             inventory.setItem(i, getPurpleHolder());
         }
+        */
 
         return inventory;
     }
