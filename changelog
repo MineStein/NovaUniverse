@@ -1,25 +1,40 @@
 Guidelines:
  Example: vMAJOR.IMPORTANT.MINOR
  Major:
-  - Rewrite of a large portion
-  - Complete new class with over 500 lines
-  - Rewrite of a large portion of backend
+  - Rewrite of a large portion.
+  - Complete new class with over 500 lines.
+  - Rewrite of a large portion of backend.
  Important:
-  - New features containing 250 lines or more in a new or already-existing class
-  - Large backend work
+  - New features containing 250 lines or more in a new or already-existing class.
+  - Large backend work.
  Minor:
-  - Small features containing less than 250 lines
-  - Minor bug fixes
-  - Small updates in the code
-  - Speed updates in the small-scale
-  - Small backend work
+  - Small features containing less than 250 lines.
+  - Minor bug fixes.
+  - Small updates in the code.
+  - Speed updates in the small-scale.
+  - Small backend work.
 
-v2.1.0 : The Helpful Update
+v2.1.0 : The Helpful Update : Friday, October 30th, 2014
  - Implemented help command and made it helpful with:
-  - JSON hover messages
-  - JSON command suggestions
-  - Added changelog.txt file
+  - JSON hover messages.
+  - JSON command suggestions.
+  - Added changelog.txt file.
  - NOTES:
   - Must show all commands.
-  - JSON text serializers are found (and must be placed) in the new 'nms' package under the 'Packets' class
+  - JSON text serializers are found (and must be placed) in the new 'nms' package under the 'Packets' class.
   - 10 packets are injected into the stream in the 'Help' class.
+
+v2.1.1 : Minor Update #1 : Sunday, November 2nd, 2014
+ - Added some conveniency to the help command with parameter guides.
+ - Added server notifier at the top of the help menu.
+ - Changed main scoreboard to switch frames faster.
+
+v2.2.1 : The Musical Update : Sunday, November 2nd, 2014
+ - Added 'Music Selector' item.
+ - Added 'NoteBlockAPI' as a library.
+ - Implemented new menu for song selection. Selection not working as of Tuesday, November 4th, 2014.
+ - Dynamite plays onEnable.
+
+v2.3.1: The Royal Update : Tuesday, November 4th, 2014.
+ - Added battle royale selection to main navigator menu for the new 'Battle Royale'.
+ - Added 'Battle Royale' servers to BungeeCord.

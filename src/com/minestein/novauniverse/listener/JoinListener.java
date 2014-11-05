@@ -174,6 +174,7 @@ public class JoinListener implements Listener {
             p.getInventory().setItem(2, Main.getInfo());
             p.getInventory().setItem(3, Main.getWardrobe());
             p.getInventory().setItem(4, divider);
+            p.getInventory().setItem(6, Main.getMusicSelector());
             p.getInventory().setItem(7, Main.getToggles());
             p.getInventory().setItem(8, Main.getPets());
 

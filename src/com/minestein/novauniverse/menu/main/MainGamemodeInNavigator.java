@@ -30,7 +30,8 @@ public class MainGamemodeInNavigator {
         inventory.setItem(30, getSG(Mode.PLAY));
         inventory.setItem(31, getBMT(Mode.PLAY));
         inventory.setItem(32, getUHC(Mode.PLAY));
-        inventory.setItem(39, getLines());
+        inventory.setItem(39, getLines(Mode.PLAY));
+        inventory.setItem(40, getRoyale(Mode.PLAY));
 
         for (int i = 0; i < 54; i++) {
             if (i == 39 || i == 40 || i == 41) continue;
@@ -70,12 +71,23 @@ public class MainGamemodeInNavigator {
     }
     */
 
-    public static ItemStack getLines() {
+    public static ItemStack getRoyale(Mode mode) {
+        ItemStack i = new ItemStack(Material.DIAMOND_AXE);
+        {
+            ItemMeta m = i.getItemMeta();
+            m.setDisplayName("§d§lBATTLE ROYALE");
+            m.setLore(makeLore(mode, "Fight against other players", "in 3 grueling rounds of epic PvP combat!", "6 players"));
+            i.setItemMeta(m);
+        }
+        return i;
+    }
+
+    public static ItemStack getLines(Mode mode) {
         ItemStack i = new ItemStack(Material.GRASS);
         {
             ItemMeta m = i.getItemMeta();
             m.setDisplayName("§d§lLINES SURVIVAL");
-            m.setLore(makeLore(Mode.PLAY, "Fight against 4 players and gather", "resources in an ever-shrinking arena!", "4 players"));
+            m.setLore(makeLore(mode, "Fight against 4 players and gather", "resources in an ever-shrinking arena!", "4 players"));
             i.setItemMeta(m);
         }
 

@@ -1,4 +1,4 @@
-package com.minestein.novauniverse.util.nms;
+package com.minestein.novauniverse.nms;
 
 /**
  * Copyright MineStein 2014©

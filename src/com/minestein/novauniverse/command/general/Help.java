@@ -1,7 +1,7 @@
 package com.minestein.novauniverse.command.general;
 
 import com.minestein.novauniverse.Main;
-import com.minestein.novauniverse.util.nms.Packets;
+import com.minestein.novauniverse.nms.Packets;
 import net.minecraft.server.v1_7_R4.ChatSerializer;
 import net.minecraft.server.v1_7_R4.EntityPlayer;
 import net.minecraft.server.v1_7_R4.IChatBaseComponent;
@@ -22,7 +22,10 @@ public class Help implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 0) {
-            if (!(sender instanceof Player)) return true;
+            if (!(sender instanceof Player)) {
+                sender.sendMessage("Nope!");
+                return true;
+            }
 
             final EntityPlayer p = ((CraftPlayer) sender).getHandle();
 
@@ -50,17 +53,20 @@ public class Help implements CommandExecutor {
             comp = ChatSerializer.a(Packets.JSON.SKIN_REPORT);
             PacketPlayOutChat packSkinReport = new PacketPlayOutChat(comp);
 
+            sender.sendMessage("§a§lCOMMANDS FOR §b§lHUB");
             p.playerConnection.sendPacket(div);
             p.playerConnection.sendPacket(packHelp);
             p.playerConnection.sendPacket(packControlPanel);
+            p.playerConnection.sendPacket(packMaintenance);
             p.playerConnection.sendPacket(packRocket);
             p.playerConnection.sendPacket(packSlap);
-            p.playerConnection.sendPacket(packMaintenance);
             p.playerConnection.sendPacket(packMessage);
             p.playerConnection.sendPacket(packBug);
             p.playerConnection.sendPacket(packReport);
             p.playerConnection.sendPacket(packSkinReport);
             p.playerConnection.sendPacket(div);
+            sender.sendMessage("§7§o<> - required");
+            sender.sendMessage("§7§o[] - optional");
             for (int i = 0; i < 2; i++) {
                 sender.sendMessage("");
             }

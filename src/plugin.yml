@@ -1,9 +1,9 @@
 name: NovaUniverse
-version: 1.0.0
+version: 2.1.1
 main: com.minestein.novauniverse.Main
 
 author: MineStein_
-website: www.twitter.com/minestien
+website: http://www.twitter.com/minestien
 description: Central hub plugin for play.novauniverse.net
 
 commands:
@@ -55,3 +55,4 @@ permissions:
     default: op
 
 softdepend: [HolographicDisplays]
+depend: [NoteBlockAPI]

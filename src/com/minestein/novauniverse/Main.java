@@ -7,8 +7,14 @@ import com.minestein.novauniverse.command.reporting.Bug;
 import com.minestein.novauniverse.command.reporting.Report;
 import com.minestein.novauniverse.command.reporting.SkinReport;
 import com.minestein.novauniverse.listener.*;
+import com.minestein.novauniverse.managers.MusicManager;
 import com.minestein.novauniverse.managers.PartyManager;
+import com.minestein.novauniverse.util.general.ChatUtil;
 import com.minestein.novauniverse.util.general.NPC;
+import com.xxmicloxx.NoteBlockAPI.NBSDecoder;
+import com.xxmicloxx.NoteBlockAPI.RadioSongPlayer;
+import com.xxmicloxx.NoteBlockAPI.Song;
+import com.xxmicloxx.NoteBlockAPI.SongPlayer;
 import me.confuser.barapi.BarAPI;
 import org.bukkit.*;
 import org.bukkit.entity.*;
@@ -22,7 +28,9 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -46,6 +54,7 @@ public class Main extends JavaPlugin {
     private int scoreboardTimer;
     private static final String PREFIX = "§8[§5NOVA§6U§8] §f";
     private static boolean maintenance;
+    boolean alreadyPlayingSong;
     private static ItemStack nvgtr;
     private static ItemStack dnte;
     private static ItemStack infoBook;
@@ -54,6 +63,8 @@ public class Main extends JavaPlugin {
     private static ItemStack pets;
     private static ItemStack info;
     private static ItemStack toggles;
+    private static ItemStack musicSelector;
+    private static SongPlayer player;
     private String currentMessage;
     private static final Location SPAWNPOINT = new Location(Bukkit.getWorld("world"), 881, 14, 332);
     public static Main plugin;
@@ -71,6 +82,10 @@ public class Main extends JavaPlugin {
 
     public static Score getPartyTimeLeft() {
         return partyTimeLeft;
+    }
+
+    public static SongPlayer getPlayer() {
+        return player;
     }
 
     public static ItemStack getWardrobe() {
@@ -163,6 +178,10 @@ public class Main extends JavaPlugin {
 
     public static ItemStack getToggles() {
         return toggles;
+    }
+
+    public static ItemStack getMusicSelector() {
+        return musicSelector;
     }
 
     private void changeScoreboard() {
@@ -474,9 +493,17 @@ public class Main extends JavaPlugin {
             ItemMeta m = wardrobe.getItemMeta();
             m.setDisplayName("§c§lWARDROBE §7§o(Right-Click)");
             ArrayList<String> lore = new ArrayList<String>();
-            lore.add("§5§oChange your clothing (look sexy)");
+            lore.add("§5§oChange your clothing!");
             m.setLore(lore);
             wardrobe.setItemMeta(m);
+        }
+
+        musicSelector = new ItemStack(Material.JUKEBOX);
+        {
+            ItemMeta m = musicSelector.getItemMeta();
+            m.setDisplayName("§c§lMUSIC §7§o(Right-Click)");
+            m.setLore(Arrays.asList("§5§oChange the current music!"));
+            musicSelector.setItemMeta(m);
         }
 
         getCommand("maintenance").setExecutor(new Maintenance());
@@ -502,6 +529,7 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new PetListener(), this);
         pm.registerEvents(new UnknownCommand(), this);
         pm.registerEvents(new ToggleListener(), this);
+        pm.registerEvents(new MusicManager(), this);
 
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
@@ -594,6 +622,15 @@ public class Main extends JavaPlugin {
         online.setScore(Bukkit.getOnlinePlayers().length);
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new PartyManager(), 10, 20);
+
+        Song s = NBSDecoder.parse(new File(getDataFolder(), "Dynamite.nbs"));
+        player = new RadioSongPlayer(s);
+
+        for (Player players : Bukkit.getOnlinePlayers()) {
+            player.addPlayer(players);
+        }
+        player.setPlaying(true);
+        player.setAutoDestroy(true);
     }
 
     /* Gamemode Plans

@@ -6,6 +6,7 @@ import com.minestein.novauniverse.menu.main.ArcadeGamemodeInNavigator;
 import com.minestein.novauniverse.menu.main.GamemodeGamemodeInNavigator;
 import com.minestein.novauniverse.menu.main.MainGamemodeInNavigator;
 import com.minestein.novauniverse.menu.main.Mode;
+import com.minestein.novauniverse.menu.other.MusicMenu;
 import com.minestein.novauniverse.menu.other.ParticleEffectMenu;
 import com.minestein.novauniverse.menu.other.Wardrobe;
 import com.minestein.novauniverse.menu.pets.MainPetsMenu;
@@ -192,6 +193,7 @@ public class InteractListener implements Listener {
         final Player p = e.getPlayer();
 
         if (e.getItem() == null) return;
+
         if (e.getItem().equals(Main.getNvgtr())) {
             Inventory toOpen = MainGamemodeInNavigator.getInventory(e.getPlayer());
             e.getPlayer().openInventory(toOpen);
@@ -206,13 +208,15 @@ public class InteractListener implements Listener {
             e.getPlayer().sendMessage(Main.getPrefix() + "§bWelcome to the donation and info area!");
             e.getPlayer().teleport(new Location(Bukkit.getWorld("world"), 919.50000, 14, 332.50000));
 
-            GameEffect.playFormattedParticles(p.getLocation(), ParticleEffect.MOB_SPELL_AMBIENT);
+            GameEffect.playFormattedParticles(p.getLocation(), ParticleEffect.MOB_SPELL);
         }
 
         if (e.getItem().equals(Main.getWardrobe())) {
             e.getPlayer().openInventory(Wardrobe.getInventory());
         } else if (e.getItem().equals(Main.getPets())) {
             e.getPlayer().openInventory(MainPetsMenu.getInventory());
+        } else if (e.getItem().equals(Main.getMusicSelector())) {
+            e.getPlayer().openInventory(MusicMenu.getInventory());
         } else {
             return;
         }
@@ -225,8 +229,6 @@ public class InteractListener implements Listener {
         Player p = (Player) event.getWhoClicked();
 
         if (event.getInventory().getName().equals(GizmoShop.getInventory().getName())) {
-            if (event.getCurrentItem() == null) return;
-
             p.closeInventory();
             p.sendMessage(Main.getPrefix() + "§4Sorry! Gizmos aren't ready yet! Check back later!");
         } else if (event.getInventory().getName().equals(MainGamemodeInNavigator.getInventory(p).getName())) {
@@ -243,6 +245,10 @@ public class InteractListener implements Listener {
                 ServerConnection.connect(p, "buildmything");
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(MainGamemodeInNavigator.getUHC(Mode.PLAY).getItemMeta().getDisplayName())) {
                 throw new ServerNotFoundException(p);
+            } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(MainGamemodeInNavigator.getLines(Mode.PLAY).getItemMeta().getDisplayName())) {
+                throw new ServerNotFoundException(p);
+            } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(MainGamemodeInNavigator.getRoyale(Mode.PLAY).getItemMeta().getDisplayName())) {
+                ServerConnection.connect(p, "royale");
             }
         } else if (event.getInventory().getName().equals(ArcadeGamemodeInNavigator.getInventory(p).getName())) {
             event.setCancelled(true);

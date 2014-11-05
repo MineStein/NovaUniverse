@@ -12,6 +12,7 @@
     <orderEntry type="library" name="craftbukkit" level="project" />
     <orderEntry type="library" name="ProtocolLib-3.4.0" level="project" />
     <orderEntry type="library" name="TabAPI" level="project" />
+    <orderEntry type="library" name="NoteBlockAPI" level="project" />
   </component>
 </module>
 
