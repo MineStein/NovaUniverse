@@ -530,6 +530,7 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new UnknownCommand(), this);
         pm.registerEvents(new ToggleListener(), this);
         pm.registerEvents(new MusicManager(), this);
+        pm.registerEvents(new DoubleJump(), this);
 
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 

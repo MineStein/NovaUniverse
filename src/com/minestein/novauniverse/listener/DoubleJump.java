@@ -2,7 +2,7 @@ package com.minestein.novauniverse.listener;
 
 
 
-import com.pumpkinvine.PumpkinVineCore.Main;
+import com.minestein.novauniverse.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.GameMode;
@@ -22,9 +22,7 @@ public class DoubleJump implements Listener {
     private int force = 2;
     private boolean allowDoubleJump = true;
 
-    public DoubleJump(Main p) {
-        Main.plugin = p;
-    }
+
 
     @SuppressWarnings("deprecation")
     @EventHandler
@@ -34,7 +32,7 @@ public class DoubleJump implements Listener {
         //If they can double jump
         if (allowDoubleJump) {
             //Checks the main world
-            if (p.getWorld() == Bukkit.getWorld(Main.config.getString("Spawn.world"))) {
+            if (p.getWorld() == Bukkit.getWorld("world")) {
                 //If the player is in creative or is on the group
                 if (p.getGameMode() != GameMode.CREATIVE && p.isOnGround()) {
                     p.setAllowFlight(true);
@@ -62,7 +60,7 @@ public class DoubleJump implements Listener {
         if (allowDoubleJump) {
             //Checks the main world
             Player p = e.getPlayer();
-            if (p.getWorld() == Bukkit.getWorld(Main.config.getString("Spawn.world"))) {
+            if (p.getWorld() == Bukkit.getWorld("world")) {
 
                 //If they are in creative
                 if (p.getGameMode() == GameMode.CREATIVE)
