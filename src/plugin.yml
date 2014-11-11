@@ -53,6 +53,9 @@ permissions:
   novau.rocket:
     description: For the rocket command.
     default: op
+  launch:
+      usage: /launch
+      description: Launch yourself!
 
 softdepend: [HolographicDisplays]
 depend: [NoteBlockAPI]

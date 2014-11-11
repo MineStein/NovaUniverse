@@ -1,5 +1,6 @@
 package com.minestein.novauniverse;
 
+import com.minestein.novauniverse.command.fun.Launch;
 import com.minestein.novauniverse.command.fun.Rocket;
 import com.minestein.novauniverse.command.fun.Slap;
 import com.minestein.novauniverse.command.general.*;
@@ -508,6 +509,7 @@ public class Main extends JavaPlugin {
         getCommand("maintenance").setExecutor(new Maintenance());
         getCommand("rocket").setExecutor(new Rocket());
         getCommand("slap").setExecutor(new Slap());
+        getCommand("launch").setExecutor(new Launch());
         getCommand("bug").setExecutor(new Bug());
         getCommand("help").setExecutor(new Help());
         getCommand("message").setExecutor(new Message());
@@ -529,6 +531,7 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new UnknownCommand(), this);
         pm.registerEvents(new ToggleListener(), this);
         pm.registerEvents(new MusicManager(), this);
+        pm.registerEvents(new DoubleJump(), this);
 
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
