@@ -9,7 +9,6 @@ import com.minestein.novauniverse.command.reporting.SkinReport;
 import com.minestein.novauniverse.listener.*;
 import com.minestein.novauniverse.managers.MusicManager;
 import com.minestein.novauniverse.managers.PartyManager;
-import com.minestein.novauniverse.util.general.ChatUtil;
 import com.minestein.novauniverse.util.general.NPC;
 import com.xxmicloxx.NoteBlockAPI.NBSDecoder;
 import com.xxmicloxx.NoteBlockAPI.RadioSongPlayer;

@@ -149,11 +149,7 @@ public class JoinListener implements Listener {
             divider.setItemMeta(m);
         }
 
-        if (Main.getSpawnpoint() != null) {
-            p.teleport(Main.getSpawnpoint());
-        } else {
-            p.teleport(new Location(Bukkit.getWorld("world"), 881, 14, 332));
-        }
+        p.teleport(new Location(Bukkit.getWorld("world"), 881, 14, 332));
 
         p.setMaxHealth(20.0);
         p.setHealth(20.0);

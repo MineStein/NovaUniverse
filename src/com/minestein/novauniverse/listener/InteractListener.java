@@ -2,10 +2,7 @@ package com.minestein.novauniverse.listener;
 
 import com.minestein.novauniverse.Main;
 import com.minestein.novauniverse.exception.ServerNotFoundException;
-import com.minestein.novauniverse.menu.main.ArcadeGamemodeInNavigator;
-import com.minestein.novauniverse.menu.main.GamemodeGamemodeInNavigator;
-import com.minestein.novauniverse.menu.main.MainGamemodeInNavigator;
-import com.minestein.novauniverse.menu.main.Mode;
+import com.minestein.novauniverse.menu.main.*;
 import com.minestein.novauniverse.menu.other.MusicMenu;
 import com.minestein.novauniverse.menu.other.ParticleEffectMenu;
 import com.minestein.novauniverse.menu.other.Wardrobe;
@@ -25,6 +22,8 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
+
+import java.util.logging.ErrorManager;
 
 /**
  * Copyright MineStein 2014©
@@ -240,15 +239,20 @@ public class InteractListener implements Listener {
                 event.getWhoClicked().closeInventory();
                 event.getWhoClicked().openInventory(GamemodeGamemodeInNavigator.getInventory(p));
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(MainGamemodeInNavigator.getSG(Mode.PLAY).getItemMeta().getDisplayName())) {
-                ServerConnection.connect(p, "sg");
+                event.getWhoClicked().closeInventory();
+                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.SG));
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(MainGamemodeInNavigator.getBMT(Mode.PLAY).getItemMeta().getDisplayName())) {
-                ServerConnection.connect(p, "buildmything");
+                event.getWhoClicked().closeInventory();
+                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.BMT));
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(MainGamemodeInNavigator.getUHC(Mode.PLAY).getItemMeta().getDisplayName())) {
-                throw new ServerNotFoundException(p);
+                event.getWhoClicked().closeInventory();
+                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.UHC));
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(MainGamemodeInNavigator.getLines(Mode.PLAY).getItemMeta().getDisplayName())) {
-                throw new ServerNotFoundException(p);
+                event.getWhoClicked().closeInventory();
+                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.LINES));
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(MainGamemodeInNavigator.getRoyale(Mode.PLAY).getItemMeta().getDisplayName())) {
-                ServerConnection.connect(p, "royale");
+                event.getWhoClicked().closeInventory();
+                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.BATTLE_ROYALE));
             }
         } else if (event.getInventory().getName().equals(ArcadeGamemodeInNavigator.getInventory(p).getName())) {
             event.setCancelled(true);
@@ -259,11 +263,14 @@ public class InteractListener implements Listener {
                 event.getWhoClicked().closeInventory();
                 event.getWhoClicked().openInventory(GamemodeGamemodeInNavigator.getInventory(p));
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(ArcadeGamemodeInNavigator.getTntrun(Mode.PLAY).getItemMeta().getDisplayName())) {
-                ServerConnection.connect(p, "tntrun");
+                event.getWhoClicked().closeInventory();
+                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.TNT_RUN));
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(ArcadeGamemodeInNavigator.getFreerunners(Mode.PLAY).getItemMeta().getDisplayName())) {
-                throw new ServerNotFoundException(p);
+                event.getWhoClicked().closeInventory();
+                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.FREERUNNERS));
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(ArcadeGamemodeInNavigator.getSpleef(Mode.PLAY).getItemMeta().getDisplayName())) {
-                throw new ServerNotFoundException(p);
+                event.getWhoClicked().closeInventory();
+                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.SPLEEF));
             }
         } else if (event.getInventory().getName().equals(GamemodeGamemodeInNavigator.getInventory(p).getName())) {
             event.setCancelled(true);
@@ -274,11 +281,14 @@ public class InteractListener implements Listener {
                 event.getWhoClicked().closeInventory();
                 event.getWhoClicked().openInventory(MainGamemodeInNavigator.getInventory(p));
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(GamemodeGamemodeInNavigator.getBlockingDead(Mode.PLAY).getItemMeta().getDisplayName())) {
-                throw new ServerNotFoundException(p);
+                event.getWhoClicked();
+                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.BLOCKING_DEAD));
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(GamemodeGamemodeInNavigator.getGrandTheftMinecart(Mode.PLAY).getItemMeta().getDisplayName())) {
-                throw new ServerNotFoundException(p);
+                event.getWhoClicked();
+                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.GRAND_THEFT_MINECART));
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(GamemodeGamemodeInNavigator.getWatchWolves(Mode.PLAY).getItemMeta().getDisplayName())) {
-                throw new ServerNotFoundException(p);
+                event.getWhoClicked();
+                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.WATCH_WOLVES));
             }
         }
     }

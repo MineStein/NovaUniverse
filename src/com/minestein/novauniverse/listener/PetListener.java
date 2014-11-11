@@ -4,6 +4,7 @@ import com.minestein.novauniverse.Main;
 import com.minestein.novauniverse.managers.PetManager;
 import com.minestein.novauniverse.menu.pets.*;
 import com.minestein.novauniverse.util.general.AnvilGUI;
+import com.minestein.novauniverse.util.general.PetMaker;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -88,6 +89,8 @@ public class PetListener implements Listener {
             wolf.setAngry(false);
             wolf.setCollarColor(DyeColor.PURPLE);
             PetManager.getPetList().put(p.getName(), wolf);
+
+            PetMaker.makePet(wolf, p.getUniqueId());
         } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(PetsMenu.getSheep().getItemMeta().getDisplayName())) {
             if (PetManager.getPetList().containsKey(p.getName())) {
                 p.sendMessage(Main.getPrefix() + "§4You already have a pet!");
@@ -105,6 +108,8 @@ public class PetListener implements Listener {
             sheep.setSheared(false);
             sheep.setColor(DyeColor.PURPLE);
             PetManager.getPetList().put(p.getName(), sheep);
+
+            PetMaker.makePet(sheep, p.getUniqueId());
         } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(SelectPetsMenu.getRemoveCurrentPet().getItemMeta().getDisplayName())) {
             if (!PetManager.getPetList().containsKey(p.getName())) {
                 p.sendMessage(Main.getPrefix() + "§4You don't have a pet!");
