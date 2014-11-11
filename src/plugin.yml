@@ -31,12 +31,15 @@ commands:
     description: Report a player for wrongdoing!
   skinreport:
     usage: /skinreport <Player> <Message>
-    description: Report a players skin!
+    description: Report a player's skin!
     aliases: [sreport]
   controlpanel:
     usage: /controlpanel
     description: Control panel!
     aliases: [cp]
+  launch:
+    usage: /launch <Player>
+    description: Launch a player into the air!
 
 permissions:
   novau.maintenance:
@@ -53,9 +56,9 @@ permissions:
   novau.rocket:
     description: For the rocket command.
     default: op
-  launch:
-      usage: /launch
-      description: Launch yourself!
+  novau.launch:
+    description: For the launch command.
+    default: op
 
 softdepend: [HolographicDisplays]
 depend: [NoteBlockAPI]

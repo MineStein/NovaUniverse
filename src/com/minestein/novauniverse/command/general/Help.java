@@ -36,6 +36,8 @@ public class Help implements CommandExecutor {
             PacketPlayOutChat div = new PacketPlayOutChat(comp);
             comp = ChatSerializer.a(Packets.JSON.HELP);
             PacketPlayOutChat packHelp = new PacketPlayOutChat(comp);
+            comp = ChatSerializer.a(Packets.JSON.LAUNCH);
+            PacketPlayOutChat packLaunch = new PacketPlayOutChat(comp);
             comp = ChatSerializer.a(Packets.JSON.ROCKET);
             PacketPlayOutChat packRocket = new PacketPlayOutChat(comp);
             comp = ChatSerializer.a(Packets.JSON.SLAP);
@@ -55,6 +57,7 @@ public class Help implements CommandExecutor {
 
             sender.sendMessage("§a§lCOMMANDS FOR §b§lHUB");
             p.playerConnection.sendPacket(div);
+            p.playerConnection.sendPacket(packLaunch);
             p.playerConnection.sendPacket(packHelp);
             p.playerConnection.sendPacket(packControlPanel);
             p.playerConnection.sendPacket(packMaintenance);

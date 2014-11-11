@@ -154,7 +154,21 @@ public class Packets {
                 "        }\n" +
                 "    }\n" +
                 "]";
+
+        public static final String LAUNCH = "[\n" +
+                "    {\n" +
+                "        \"text\": \"§e§lLAUNCH §7- §eFun\",\n" +
+                "        \"clickEvent\": {\n" +
+                "            \"action\": \"suggest_command\",\n" +
+                "            \"value\": \"/launch <player> \"\n" +
+                "        },\n" +
+                "        \"hoverEvent\": {\n" +
+                "            \"action\": \"show_text\",\n" +
+                "            \"value\": {\n" +
+                "                \"text\": \"§7§oUsage: §e/launch <player>\n§7§oAliases: §cNone\n\n§e§lLaunches 'player' into the air.\"\n" +
+                "            }\n" +
+                "        }\n" +
+                "    }\n" +
+                "]";
     }
-
-
 }

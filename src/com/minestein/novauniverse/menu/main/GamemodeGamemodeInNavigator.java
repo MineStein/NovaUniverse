@@ -58,7 +58,7 @@ public class GamemodeGamemodeInNavigator {
     }
 
     public static ItemStack getGrandTheftMinecart(Mode mode) {
-        grandTheftMinecart = new ItemStack(Material.IRON_BARDING);
+        grandTheftMinecart = new ItemStack(Material.MINECART);
         {
             ItemMeta m = grandTheftMinecart.getItemMeta();
             m.setDisplayName("§d§lGRAND THEFT MINECART");
