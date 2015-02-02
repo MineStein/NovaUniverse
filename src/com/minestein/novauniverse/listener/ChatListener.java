@@ -1,5 +1,7 @@
 package com.minestein.novauniverse.listener;
 
+import com.minestein.novauniverse.Main;
+import com.minestein.novauniverse.managers.CommandManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,6 +22,24 @@ public class ChatListener implements Listener {
     @EventHandler
     public void onChat(AsyncPlayerChatEvent e) {
         final Player p = e.getPlayer();
+        final String message = e.getMessage();
+
+        if (message.equalsIgnoreCase("yes")) {
+            if (CommandManager.getTeleportUnsafe().containsKey(p.getName())) {
+                p.sendMessage(Main.getPrefix()+"§bTeleporting...");
+                p.teleport(CommandManager.getTeleportUnsafe().get(p.getName()));
+                CommandManager.getTeleportUnsafe().remove(p.getName());
+
+                e.setCancelled(true);
+            }
+        }
+
+        if (message.equalsIgnoreCase("no")) {
+            if (CommandManager.getTeleportUnsafe().containsKey(p.getName())) {
+                p.sendMessage(Main.getPrefix()+"§4You have cancelled the teleportation.");
+                CommandManager.getTeleportUnsafe().remove(p.getName());
+            }
+        }
 
         if (p.isOp()) {
             e.setFormat("§8(§c§lStaff§8) §e§l" + p.getName().toUpperCase() + "§8: §a" + e.getMessage());

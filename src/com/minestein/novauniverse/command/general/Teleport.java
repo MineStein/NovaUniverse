@@ -1,6 +1,7 @@
 package com.minestein.novauniverse.command.general;
 
 import com.minestein.novauniverse.Main;
+import com.minestein.novauniverse.managers.CommandManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -67,6 +68,8 @@ public class Teleport implements CommandExecutor {
                 p.sendMessage(Main.getPrefix()+"§4The location where you want to teleport is not safe.");
                 p.sendMessage(Main.getPrefix()+"§4Type §a§l§oYES §4to proceed.");
                 p.sendMessage(Main.getPrefix()+"§4Type §c§l§oNO §4to cancel.");
+
+                CommandManager.getTeleportUnsafe().put(p.getName(), loc);
                 return true;
             }
 
@@ -101,6 +104,8 @@ public class Teleport implements CommandExecutor {
                     p.sendMessage(Main.getPrefix()+"§4The location where you want to teleport is not safe.");
                     p.sendMessage(Main.getPrefix()+"§4Type §a§l§oYES §4to proceed.");
                     p.sendMessage(Main.getPrefix()+"§4Type §c§l§oNO §4to cancel.");
+
+                    CommandManager.getTeleportUnsafe().put(p.getName(), loc);
                     return true;
                 }
 
