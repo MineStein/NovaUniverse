@@ -46,15 +46,7 @@ public class ControlPanel implements CommandExecutor {
                     return true;
                 }
             } else if (args.length == 2) {
-                Player p;
-
-                if (Bukkit.getPlayer(args[1]) != null) {
-                    p = Bukkit.getPlayer(args[1]);
-                } else {
-                    p = null;
-                    sender.sendMessage(TAG + "§4Could not locate player §c" + args[1]);
-                    return true;
-                }
+                final Player p = Bukkit.getPlayer(args[1]);
 
                 if (sub.equalsIgnoreCase("statistics") || sub.equalsIgnoreCase("stats")) {
                     sender.sendMessage(TAG + "§4Too few arguments for sub-command §c" + sub);
@@ -63,8 +55,18 @@ public class ControlPanel implements CommandExecutor {
                     // TODO Query database.
 
                     sender.sendMessage(TAG + "§4Testing the waters...");
-                    Bukkit.getScheduler().runTaskLater(Main.plugin, () -> sender.sendMessage(TAG + "§4Grabbing information..."), 20);
-                    Bukkit.getScheduler().runTaskLater(Main.plugin, () -> sender.sendMessage(TAG + "§4Failed."), 20);
+                    Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
+                        @Override
+                        public void run() {
+                            p.sendMessage(TAG + "§4Grabbing information...");
+                        }
+                    }, 20);
+                    Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
+                        @Override
+                        public void run() {
+                            p.sendMessage(TAG + "§4Failed.");
+                        }
+                    }, 20);
                     return true;
                 } else {
                     sender.sendMessage(TAG + "§4Could not identify sub-command §c" + sub);

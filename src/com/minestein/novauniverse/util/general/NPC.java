@@ -4,9 +4,11 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
+import org.bukkit.entity.WitherSkull;
 import org.bukkit.event.Listener;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.util.Vector;
 
 import java.io.Serializable;
 
@@ -101,6 +103,11 @@ public class NPC implements Serializable {
         villager.setAgeLock(true);
         villager.setBreed(false);
         villager.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 999999, 6, false));
+
+        WitherSkull skull = world.spawn(location, WitherSkull.class);
+        skull.setDirection(new Vector(0,0,0));
+        skull.setVelocity(new Vector(0,0,0));
+        skull.setPassenger(villager);
     }
 
     /**

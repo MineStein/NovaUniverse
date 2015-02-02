@@ -1,5 +1,8 @@
 package com.minestein.novauniverse;
 
+import com.gmail.filoghost.holograms.api.Hologram;
+import com.gmail.filoghost.holograms.api.HolographicDisplaysAPI;
+import com.gmail.filoghost.holograms.api.TouchHandler;
 import com.minestein.novauniverse.command.fun.Launch;
 import com.minestein.novauniverse.command.fun.Rocket;
 import com.minestein.novauniverse.command.fun.Slap;
@@ -10,10 +13,8 @@ import com.minestein.novauniverse.command.reporting.SkinReport;
 import com.minestein.novauniverse.listener.*;
 import com.minestein.novauniverse.managers.MusicManager;
 import com.minestein.novauniverse.managers.PartyManager;
+import com.minestein.novauniverse.menu.main.ServerSelectionMenuInNavigator;
 import com.minestein.novauniverse.util.general.NPC;
-import com.xxmicloxx.NoteBlockAPI.NBSDecoder;
-import com.xxmicloxx.NoteBlockAPI.RadioSongPlayer;
-import com.xxmicloxx.NoteBlockAPI.Song;
 import com.xxmicloxx.NoteBlockAPI.SongPlayer;
 import me.confuser.barapi.BarAPI;
 import org.bukkit.*;
@@ -28,7 +29,6 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -41,9 +41,7 @@ import java.util.Random;
 public class Main extends JavaPlugin {
 
     /*
-     * Provide toggles for turning off blood, certain dialogue, etc. in most gamemodes that involve
-     * such themes.
-     *
+     * TODO Provide toggles for turning off blood, certain dialogue, etc. in most gamemodes that involve such themes.
      *
      */
 
@@ -66,11 +64,11 @@ public class Main extends JavaPlugin {
     private static ItemStack musicSelector;
     private static SongPlayer player;
     private String currentMessage;
-    private static final Location SPAWNPOINT = new Location(Bukkit.getWorld("world"), 881, 14, 332);
+    private static final Location SPAWNPOINT = new Location(Bukkit.getWorld("hub"), 56.500, 49.500, 630.500);
     public static Main plugin;
     public static Random random;
     private static int partySeconds;
-    public static World lobby = Bukkit.getWorld("world");
+    public static World lobby = Bukkit.getWorld("hub");
 
     public static int getPartySeconds() {
         return partySeconds;
@@ -185,7 +183,6 @@ public class Main extends JavaPlugin {
     }
 
     private void changeScoreboard() {
-
         if (scoreboardTimer == 1) {
             Scoreboard newScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
             Objective newObjective = newScoreboard.registerNewObjective("newScoreboard", "dummy");
@@ -516,12 +513,13 @@ public class Main extends JavaPlugin {
         getCommand("report").setExecutor(new Report());
         getCommand("skinreport").setExecutor(new SkinReport());
         getCommand("controlpanel").setExecutor(new ControlPanel());
+        getCommand("developer").setExecutor(new Developer());
+        getCommand("tp").setExecutor(new Teleport());
 
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new JoinListener(), this);
         pm.registerEvents(new InteractListener(), this);
         pm.registerEvents(new VitalListener(), this);
-        pm.registerEvents(new BlockListener(), this);
         pm.registerEvents(new ChatListener(), this);
         pm.registerEvents(new MoveListener(), this);
         pm.registerEvents(new SignListener(), this);
@@ -532,8 +530,12 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new ToggleListener(), this);
         pm.registerEvents(new MusicManager(), this);
         pm.registerEvents(new DoubleJump(), this);
+        pm.registerEvents(new ServerSelectionMenuInNavigator(), this);
+        pm.registerEvents(new GameMasterListener(), this);
 
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+
+        getLogger().severe("Testing");
 
         for (Player players : Bukkit.getOnlinePlayers()) {
             players.setScoreboard(scoreboard);
@@ -549,90 +551,135 @@ public class Main extends JavaPlugin {
             }
         }
 
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, this::changeScoreboard, 10, 1);
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+            @Override
+            public void run() {
+                changeScoreboard();
+            }
+        }, 10, 1);
 
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
-            for (World worlds : Bukkit.getWorlds()) {
-                worlds.setTime(20000);
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+            @Override
+            public void run() {
+                for (World worlds : Bukkit.getWorlds()) {
+                    worlds.setTime(1000);
 
-                if (worlds.isThundering()) {
-                    worlds.setThunderDuration(0);
-                    worlds.setThundering(false);
-                }
+                    if (worlds.isThundering()) {
+                        worlds.setThunderDuration(0);
+                        worlds.setThundering(false);
+                    }
 
-                for (Chunk chunks : worlds.getLoadedChunks()) {
-                    for (Entity entities : chunks.getEntities()) {
-                        if (entities instanceof Wolf) {
-                            Wolf entity = (Wolf) entities;
-                            if (entity.getCustomName() == null) return;
-                            if (entity.getCustomName().contains("WOLF")) {
-                                return;
+                    for (Chunk chunks : worlds.getLoadedChunks()) {
+                        for (Entity entities : chunks.getEntities()) {
+                            if (entities instanceof Wolf) {
+                                Wolf entity = (Wolf) entities;
+                                if (entity.getCustomName() == null) return;
+                                if (entity.getCustomName().contains("WOLF")) {
+                                    return;
+                                }
+                            } else if (entities instanceof Sheep) {
+                                Sheep entity = (Sheep) entities;
+                                if (entity.getCustomName() == null) return;
+                                if (entity.getCustomName().contains("SHEEP")) {
+                                    return;
+                                }
                             }
-                        } else if (entities instanceof Sheep) {
-                            Sheep entity = (Sheep) entities;
-                            if (entity.getCustomName() == null) return;
-                            if (entity.getCustomName().contains("SHEEP")) {
-                                return;
-                            }
-                        }
 
-                        if (!(entities instanceof Player) && !(entities instanceof Item) && !(entities instanceof Villager) && !(entities instanceof WitherSkull) && !(entities instanceof Pig) && !(entities instanceof Wolf) && !(entities instanceof Cow) && !(entities instanceof Sheep)) {
-                            entities.remove();
+                            if (!(entities instanceof Player) && !(entities instanceof Item) && !(entities instanceof Villager) && !(entities instanceof WitherSkull) && !(entities instanceof Pig) && !(entities instanceof Wolf) && !(entities instanceof Cow) && !(entities instanceof Sheep)) {
+                                entities.remove();
+                            }
                         }
                     }
                 }
             }
-
-
         }, 0, 20);
 
-        String[] validColorCodes = new String[]{
+        final String[] validColorCodes = new String[]{
                 "4", "c", "e", "a", "b", "9", "d"
         };
 
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
-            String[] messages = new String[]{
-                    "Developed by §b§o@MineStien",
-                    "This server is in §b§oalpha",
-                    "The website is §b§onovauniverse.net",
-                    "Use your §b§owardrobe §eto change armor",
-                    "Use your §b§onavigator §eto enter a game",
-                    "Use your §b§odonation item §eto donate",
-                    "Use your §b§ojump toggle §eto jump high",
-                    "Use your §b§ospeed toggle §eto run fast",
-                    "Use your §b§oplayer toggle §efor invisibility",
-                    "Do §b§o/help §eto receive information",
-                    "Join one of our §b§onine §egamemodes",
-                    "We have pets! Use your §b§opet menu"
-            };
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+            @Override
+            public void run() {
+                String[] messages = new String[] {
+                    "§fwww.novauniverse.net",
+                        "§fSQL-driven!",
+                        "Much Amaze!",
+                        "So fancy!",
+                        "Mas o menos my amigos!",
+                        "Man or machine?",
+                        "iStone Air",
+                        "iStone Mini",
+                        "Doors 10, never Doors 8",
+                        "A dip pulses underneath a broad brick.",
+                        "In a wreck chalks a typewriter.",
+                        "Whatever broad differential modifies his falling assembly.",
+                        "No MOTD!",
+                        "Am I fancy enough?",
+                        "Plz rate and giv a like, big fan",
+                        "And so he sat on the wall.",
+                        "Dracula!",
+                        "50% off (you wish)!",
+                        "A poison fears opposite the becoming festival.",
+                        "Across a ratio shines her overcome triangle.",
+                        "These messages are so useful",
+                        "☆_☆",
+                        "0_0",
+                        "O_O",
+                        "O_o",
+                        "o_O",
+                        "0_O",
+                        "§a§l:) §for §c§l:(§f?",
+                };
 
-            currentMessage = messages[random.nextInt(messages.length)];
+                currentMessage = messages[random.nextInt(messages.length)];
+            }
         }, 0, 60);
 
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> BarAPI.setMessage("§" + validColorCodes[random.nextInt(validColorCodes.length)] + "§lNOVAU  §e" + currentMessage), 5, 10);
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+            @Override
+            public void run() {
+                BarAPI.setMessage("§" + validColorCodes[random.nextInt(validColorCodes.length)] + "§lNOVAU §5§o§l| §e" + currentMessage);
+            }
+        }, 5, 10);
 
-        NPC gs1 = new NPC("§e§l>> §a§lGIZMO SHOP", Bukkit.getWorld("world"), new Location(Bukkit.getWorld("world"), 869.500000, 14, 360.50000));
-        NPC gs2 = new NPC("§e§l>> §a§lGIZMO SHOP", Bukkit.getWorld("world"), new Location(Bukkit.getWorld("world"), 893.500000, 14, 360.50000));
-        NPC gs3 = new NPC("§e§l>> §a§lGIZMO SHOP", Bukkit.getWorld("world"), new Location(Bukkit.getWorld("world"), 893.500000, 14, 304.50000));
-        NPC gs4 = new NPC("§e§l>> §a§lGIZMO SHOP", Bukkit.getWorld("world"), new Location(Bukkit.getWorld("world"), 869.50000, 14, 304.50000));
+        NPC sg = new NPC("§e§l>> §bJoin §a§lSurvival Games", Bukkit.getWorld("world"), new Location(Bukkit.getWorld("world"), 881.500, 14.500, 390.500));
+        NPC uhc = new NPC("§e§l>> §bJoin §a§lUltra-Hardcore", Bukkit.getWorld("world"), new Location(Bukkit.getWorld("world"), 885.500, 14.500, 390.500));
+        NPC bmt = new NPC("§e§l>> §bJoin §a§lBuild my Thing", Bukkit.getWorld("world"), new Location(Bukkit.getWorld("world"), 877.500, 14.500, 390.500));
+        NPC lines = new NPC("§e§l>> §bJoin §a§lLines Survival", Bukkit.getWorld("world"), new Location(Bukkit.getWorld("world"), 885.500, 14.500, 386.500));
+        NPC br = new NPC("§e§l>> §bJoin §a§lBattle Royale", Bukkit.getWorld("world"), new Location(Bukkit.getWorld("world"), 877.500, 14.500, 386.500));
+        NPC quake = new NPC("§e§l>> §bJoin §a§lQuake", Bukkit.getWorld("world"), new Location(Bukkit.getWorld("world"), 877.500, 14.500, 382.500));
+
+        NPC gs1 = new NPC("§e§l>> §a§lGIZMO SHOP", lobby, new Location(lobby, 65.500, 49, 630.500));
+        NPC gs2 = new NPC("§e§l>> §a§lGIZMO SHOP", lobby, new Location(lobby, 56.500, 49, 621.500));
+        NPC gs3 = new NPC("§e§l>> §a§lGIZMO SHOP", lobby, new Location(lobby, 47.500, 49, 630.500));
+        NPC gs4 = new NPC("§e§l>> §a§lGIZMO SHOP", lobby, new Location(lobby, 56.500, 49, 639.500));
+
         NPC pi = new NPC("§e§l>> §b§lPLANET RANK", Bukkit.getWorld("world"), new Location(Bukkit.getWorld("world"), 926.50000, 14, 328.50000));
         NPC si = new NPC("§e§l>> §b§lSTAR RANK", Bukkit.getWorld("world"), new Location(Bukkit.getWorld("world"), 926.50000, 14, 332.50000));
         NPC ni = new NPC("§e§l>> §b§lNOVA RANK", Bukkit.getWorld("world"), new Location(Bukkit.getWorld("world"), 926.50000, 14, 336.50000));
+
+        Hologram holo = HolographicDisplaysAPI.createHologram(this, new Location(lobby, 56.500, 52, 634.500), "§dWelcome to §5§lNova§6§lUniverse", "§6§l§m-------------------------", "§b§l§oBe sure to have fun!", "§b§l§oClick me for assistance!", "§6§l§m-------------------------");
+        holo.setTouchHandler(new TouchHandler() {
+            @Override
+            public void onTouch(Hologram hologram, Player player) {
+                player.performCommand("help");
+            }
+        });
 
         setPartySeconds(3001);
         partyTimeLeft.setScore(getPartySeconds());
         online.setScore(Bukkit.getOnlinePlayers().length);
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new PartyManager(), 10, 20);
+    }
 
-        Song s = NBSDecoder.parse(new File(getDataFolder(), "Dynamite.nbs"));
-        player = new RadioSongPlayer(s);
-
-        for (Player players : Bukkit.getOnlinePlayers()) {
-            player.addPlayer(players);
+    @Override
+    public void onDisable() {
+        for (Hologram holograms : HolographicDisplaysAPI.getHolograms(this)) {
+            holograms.clearLines();
+            holograms.delete();
         }
-        player.setPlaying(true);
-        player.setAutoDestroy(true);
     }
 
     /* Gamemode Plans

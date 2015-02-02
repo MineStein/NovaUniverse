@@ -19,6 +19,12 @@ public class UnknownCommand implements Listener {
     @EventHandler
     public void onUnknownCommand(PlayerCommandPreprocessEvent e) throws IOException {
         final Player p = e.getPlayer();
+
+        if (e.getMessage().equalsIgnoreCase("/plugins") || e.getMessage().equalsIgnoreCase("/plugin") || e.getMessage().equalsIgnoreCase("/pl")) {
+            e.setCancelled(true);
+            p.sendMessage(Main.getPrefix() + "§4Could not locate command. Do §c/help §4for information");
+        }
+
         String command = e.getMessage().split(" ")[0];
         if (Bukkit.getHelpMap().getHelpTopic(command) == null) {
             e.setCancelled(true);

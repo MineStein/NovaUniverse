@@ -31,7 +31,7 @@ public class Report implements CommandExecutor {
                 }
 
                 String report = stringBuilder.toString();
-                sender.sendMessage(Main.getPrefix() + "§aThank you! You reported §e" + target.getName().toUpperCase() + " §afor §e" + report + "§a.");
+                sender.sendMessage(Main.getPrefix() + "§bThank you for reporting §e§l"+target.getName().toUpperCase()+" §bfor §e§l"+report.toUpperCase());
                 return true;
             }
             return true;

@@ -133,13 +133,15 @@ public class JoinListener implements Listener {
 
                 "]", p);
 
-        Bukkit.getScheduler().runTaskLater(Main.plugin, () -> {
+        Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < 3; i++) {
+                    p.sendMessage("");
+                }
 
-            for (int i = 0; i < 3; i++) {
-                p.sendMessage("");
+                text.playOut();
             }
-
-            text.playOut();
         }, 5);
 
         final ItemStack divider = new ItemStack(Material.NETHER_STAR);
@@ -149,7 +151,7 @@ public class JoinListener implements Listener {
             divider.setItemMeta(m);
         }
 
-        p.teleport(new Location(Bukkit.getWorld("world"), 881, 14, 332));
+        p.teleport(new Location(Bukkit.getWorld("hub"), 56.500, 49.500, 630.500));
 
         p.setMaxHealth(20.0);
         p.setHealth(20.0);
@@ -161,30 +163,33 @@ public class JoinListener implements Listener {
         p.getInventory().clear();
         p.getInventory().setArmorContents(null);
 
-        Bukkit.getScheduler().runTaskLater(Main.plugin, () -> {
-            ParticleEffect.FIREWORKS_SPARK.display(1, 1, 1, 1, 1000, p.getLocation(), 2.0);
-            ParticleEffect.RED_DUST.display(1, 1, 1, 1, 1000, p.getLocation(), 2.0);
+        Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
+            @Override
+            public void run() {
+                ParticleEffect.FIREWORKS_SPARK.display(1, 1, 1, 1, 1000, p.getLocation(), 2.0);
+                ParticleEffect.RED_DUST.display(1, 1, 1, 1, 1000, p.getLocation(), 2.0);
 
-            p.getInventory().setItem(0, Main.getNvgtr());
-            p.getInventory().setItem(1, Main.getDnte());
-            p.getInventory().setItem(2, Main.getInfo());
-            p.getInventory().setItem(3, Main.getWardrobe());
-            p.getInventory().setItem(4, divider);
-            p.getInventory().setItem(6, Main.getMusicSelector());
-            p.getInventory().setItem(7, Main.getToggles());
-            p.getInventory().setItem(8, Main.getPets());
+                p.getInventory().setItem(0, Main.getNvgtr());
+                p.getInventory().setItem(1, Main.getDnte());
+                p.getInventory().setItem(2, Main.getInfo());
+                p.getInventory().setItem(3, Main.getWardrobe());
+                p.getInventory().setItem(4, divider);
+                p.getInventory().setItem(6, Main.getMusicSelector());
+                p.getInventory().setItem(7, Main.getToggles());
+                p.getInventory().setItem(8, Main.getPets());
 
-            p.sendMessage(Main.getPrefix() + "§bThe party will happen in §e§l" + TimeManager.formatTime(Main.getPartySeconds()));
+                p.sendMessage(Main.getPrefix() + "§bThe party will happen in §e§l" + TimeManager.formatTime(Main.getPartySeconds()));
 
-            if (!joined.contains(p.getName())) {
-                for (int i = 0; i < 3; i++) {
-                    p.sendMessage("");
+                if (!joined.contains(p.getName())) {
+                    for (int i = 0; i < 3; i++) {
+                        p.sendMessage("");
+                    }
+
+                    p.sendMessage(AchievementManager.generateAchievementMessage(AchievementManager.Achievement.WELCOME));
+                    joined.add(p.getName());
                 }
-
-                p.sendMessage(AchievementManager.generateAchievementMessage(AchievementManager.Achievement.WELCOME));
-                joined.add(p.getName());
             }
-        }, 20);
+    }, 20);
 
 
         Main.getOnline().setScore(Bukkit.getOnlinePlayers().length);
@@ -199,10 +204,6 @@ public class JoinListener implements Listener {
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
         final Player p = e.getPlayer();
-
-        p.getActivePotionEffects().stream().filter(effects -> effects.getType().equals(PotionEffectType.POISON) || effects.getType().equals(PotionEffectType.SPEED) || effects.getType().equals(PotionEffectType.JUMP)).forEach(effects -> {
-            p.removePotionEffect(effects.getType());
-        });
 
         for (World worlds : Bukkit.getWorlds()) {
             for (Chunk chunks : worlds.getLoadedChunks()) {

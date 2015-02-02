@@ -83,7 +83,7 @@ public class MainGamemodeInNavigator {
     }
 
     public static ItemStack getLines(Mode mode) {
-        ItemStack i = new ItemStack(Material.GRASS);
+      ItemStack i = new ItemStack(Material.GRASS);
         {
             ItemMeta m = i.getItemMeta();
             m.setDisplayName("§d§lLINES SURVIVAL");

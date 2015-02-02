@@ -1,8 +1,5 @@
 package com.minestein.novauniverse.listener;
 
-
-
-import com.minestein.novauniverse.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.GameMode;
@@ -22,8 +19,6 @@ public class DoubleJump implements Listener {
     private int force = 2;
     private boolean allowDoubleJump = true;
 
-
-
     @SuppressWarnings("deprecation")
     @EventHandler
     public void onPlayerWalk(PlayerMoveEvent e) {
@@ -39,7 +34,6 @@ public class DoubleJump implements Listener {
                 }
             }
         }
-        return;
     }
 
     @EventHandler

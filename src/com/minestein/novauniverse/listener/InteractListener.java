@@ -16,12 +16,14 @@ import org.bukkit.Location;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.util.Vector;
 
 import java.util.logging.ErrorManager;
 
@@ -91,7 +93,12 @@ public class InteractListener implements Listener {
 
                 wolf = true;
 
-                Bukkit.getScheduler().runTaskLater(Main.plugin, () -> wolf = false, 30);
+                Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
+                    @Override
+                    public void run() {
+                        wolf = false;
+                    }
+                }, 30);
 
                 GameEffect.playFormattedParticles(entity.getLocation(), ParticleEffect.MOB_SPELL);
 
@@ -101,7 +108,12 @@ public class InteractListener implements Listener {
 
                 pig = true;
 
-                Bukkit.getScheduler().runTaskLater(Main.plugin, () -> pig = false, 30);
+                Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
+                    @Override
+                    public void run() {
+                        pig = false;
+                    }
+                }, 30);
 
                 GameEffect.playFormattedParticles(entity.getLocation(), ParticleEffect.MOB_SPELL);
 
@@ -111,7 +123,12 @@ public class InteractListener implements Listener {
 
                 cow = true;
 
-                Bukkit.getScheduler().runTaskLater(Main.plugin, () -> cow = false, 30);
+                Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
+                    @Override
+                    public void run() {
+                        cow = false;
+                    }
+                }, 30);
 
                 GameEffect.playFormattedParticles(entity.getLocation(), ParticleEffect.MOB_SPELL);
 
@@ -121,7 +138,12 @@ public class InteractListener implements Listener {
 
                 sheep = true;
 
-                Bukkit.getScheduler().runTaskLater(Main.plugin, () -> sheep = false, 30);
+                Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
+                    @Override
+                    public void run() {
+                        sheep = false;
+                    }
+                }, 30);
 
                 GameEffect.playFormattedParticles(entity.getLocation(), ParticleEffect.MOB_SPELL);
 
@@ -191,6 +213,11 @@ public class InteractListener implements Listener {
     public void onInteract(PlayerInteractEvent e) {
         final Player p = e.getPlayer();
 
+        if (e.getAction()== Action.PHYSICAL) {
+            p.setVelocity(p.getLocation().getDirection().multiply(5));
+            p.setVelocity(new Vector(p.getVelocity().getX(), 3.0D, p.getVelocity().getZ()));
+        }
+
         if (e.getItem() == null) return;
 
         if (e.getItem().equals(Main.getNvgtr())) {
@@ -240,19 +267,19 @@ public class InteractListener implements Listener {
                 event.getWhoClicked().openInventory(GamemodeGamemodeInNavigator.getInventory(p));
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(MainGamemodeInNavigator.getSG(Mode.PLAY).getItemMeta().getDisplayName())) {
                 event.getWhoClicked().closeInventory();
-                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.SG));
+                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.SG, 1, true));
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(MainGamemodeInNavigator.getBMT(Mode.PLAY).getItemMeta().getDisplayName())) {
                 event.getWhoClicked().closeInventory();
-                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.BMT));
+                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.BMT, 1, true));
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(MainGamemodeInNavigator.getUHC(Mode.PLAY).getItemMeta().getDisplayName())) {
                 event.getWhoClicked().closeInventory();
-                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.UHC));
+                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.UHC, 1, true));
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(MainGamemodeInNavigator.getLines(Mode.PLAY).getItemMeta().getDisplayName())) {
                 event.getWhoClicked().closeInventory();
-                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.LINES));
+                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.LINES, 1, true));
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(MainGamemodeInNavigator.getRoyale(Mode.PLAY).getItemMeta().getDisplayName())) {
                 event.getWhoClicked().closeInventory();
-                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.BATTLE_ROYALE));
+                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.BATTLE_ROYALE, 1, true));
             }
         } else if (event.getInventory().getName().equals(ArcadeGamemodeInNavigator.getInventory(p).getName())) {
             event.setCancelled(true);
@@ -264,13 +291,13 @@ public class InteractListener implements Listener {
                 event.getWhoClicked().openInventory(GamemodeGamemodeInNavigator.getInventory(p));
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(ArcadeGamemodeInNavigator.getTntrun(Mode.PLAY).getItemMeta().getDisplayName())) {
                 event.getWhoClicked().closeInventory();
-                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.TNT_RUN));
+                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.TNT_RUN, 1, true));
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(ArcadeGamemodeInNavigator.getFreerunners(Mode.PLAY).getItemMeta().getDisplayName())) {
                 event.getWhoClicked().closeInventory();
-                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.FREERUNNERS));
+                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.FREERUNNERS, 1, true));
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(ArcadeGamemodeInNavigator.getSpleef(Mode.PLAY).getItemMeta().getDisplayName())) {
                 event.getWhoClicked().closeInventory();
-                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.SPLEEF));
+                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.SPLEEF, 1, true));
             }
         } else if (event.getInventory().getName().equals(GamemodeGamemodeInNavigator.getInventory(p).getName())) {
             event.setCancelled(true);
@@ -282,13 +309,13 @@ public class InteractListener implements Listener {
                 event.getWhoClicked().openInventory(MainGamemodeInNavigator.getInventory(p));
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(GamemodeGamemodeInNavigator.getBlockingDead(Mode.PLAY).getItemMeta().getDisplayName())) {
                 event.getWhoClicked();
-                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.BLOCKING_DEAD));
+                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.BLOCKING_DEAD, 1, true));
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(GamemodeGamemodeInNavigator.getGrandTheftMinecart(Mode.PLAY).getItemMeta().getDisplayName())) {
                 event.getWhoClicked();
-                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.GRAND_THEFT_MINECART));
+                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.GRAND_THEFT_MINECART, 1, true));
             } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(GamemodeGamemodeInNavigator.getWatchWolves(Mode.PLAY).getItemMeta().getDisplayName())) {
                 event.getWhoClicked();
-                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.WATCH_WOLVES));
+                event.getWhoClicked().openInventory(ServerSelectionMenuInNavigator.getInventory(ServerSelectionMenuInNavigator.Server.WATCH_WOLVES, 1, true));
             }
         }
     }

@@ -40,6 +40,14 @@ commands:
   launch:
     usage: /launch <Player>
     description: Launch a player into the air!
+  developer:
+    usage: /developer <sub-command>
+    description: Developer commands.
+    aliases: [dev]
+  tp:
+    usage: /teleport <Player/Location>
+    description: Teleport to player/location
+    aliases: [teleport, tele, tel]
 
 permissions:
   novau.maintenance:
@@ -59,6 +67,8 @@ permissions:
   novau.launch:
     description: For the launch command.
     default: op
+  novau.teleport:
+    description: For the teleport command.
+    default: op
 
 softdepend: [HolographicDisplays]
-depend: [NoteBlockAPI]

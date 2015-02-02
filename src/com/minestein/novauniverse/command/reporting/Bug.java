@@ -24,8 +24,10 @@ public class Bug implements CommandExecutor {
                     stringBuilder.append(args[i].concat(" "));
                 }
 
+                // TODO Send bug report.
+
                 String report = stringBuilder.toString();
-                sender.sendMessage(Main.getPrefix() + "§aThank you! You reported the following §c§lbug§8: §e" + report + "§a.");
+                sender.sendMessage(Main.getPrefix() + "§bThanks for reporting the following bug: §e§l"+report.toUpperCase());
                 return true;
             }
             return true;

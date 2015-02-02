@@ -42,7 +42,12 @@ public class PetListener implements Listener {
             p.closeInventory();
             p.sendMessage(Main.getPrefix() + "§4This pet purchase slot has not yet been filled. Please select a different option.");
 
-            Bukkit.getScheduler().runTaskLater(Main.plugin, () -> p.openInventory(BuyPetsMenu.getInventory()), 30);
+            Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
+                @Override
+                public void run() {
+                    p.openInventory(PetToolMenu.getInventory());
+                }
+            }, 30);
         } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(MainPetsMenu.getBack().getItemMeta().getDisplayName())) {
             p.closeInventory();
             p.openInventory(MainPetsMenu.getInventory());
@@ -50,7 +55,12 @@ public class PetListener implements Listener {
             p.closeInventory();
             p.sendMessage(Main.getPrefix() + "§4Pet purchase authorization is not ready! All pets are free right now!");
 
-            Bukkit.getScheduler().runTaskLater(Main.plugin, () -> p.openInventory(MainPetsMenu.getInventory()), 30);
+            Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
+                @Override
+                public void run() {
+                    p.openInventory(MainPetsMenu.getInventory());
+                }
+            }, 30);
         }
     }
 
@@ -67,7 +77,12 @@ public class PetListener implements Listener {
             p.closeInventory();
             p.sendMessage(Main.getPrefix() + "§4This pet selection slot has not yet been filled. Please select a different option.");
 
-            Bukkit.getScheduler().runTaskLater(Main.plugin, () -> p.openInventory(SelectPetsMenu.getInventory()), 30);
+            Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
+                @Override
+                public void run() {
+                    p.openInventory(SelectPetsMenu.getInventory());
+                }
+            }, 30);
         } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(MainPetsMenu.getBack().getItemMeta().getDisplayName())) {
             p.closeInventory();
             p.openInventory(MainPetsMenu.getInventory());
@@ -167,34 +182,42 @@ public class PetListener implements Listener {
             p.closeInventory();
             p.sendMessage(Main.getPrefix() + "§4This content is coming soon. Please select a different option.");
 
-            Bukkit.getScheduler().runTaskLater(Main.plugin, () -> p.openInventory(PetToolMenu.getInventory()), 30);
+            Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
+                @Override
+                public void run() {
+
+                }
+            }, 30);
         } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(PetToolMenu.getName().getItemMeta().getDisplayName())) {
             p.closeInventory();
-            AnvilGUI gui = new AnvilGUI(p, event -> {
-                if (event.getSlot() == AnvilGUI.AnvilSlot.OUTPUT) {
-                    event.setWillClose(true);
-                    event.setWillDestroy(true);
+            AnvilGUI gui = new AnvilGUI(p, new AnvilGUI.AnvilClickEventHandler() {
+                @Override
+                public void onAnvilClick(AnvilGUI.AnvilClickEvent event) {
+                    if (event.getSlot() == AnvilGUI.AnvilSlot.OUTPUT) {
+                        event.setWillClose(true);
+                        event.setWillDestroy(true);
 
-                    Entity entity = PetManager.getPet(p);
+                        Entity entity = PetManager.getPet(p);
 
-                    if (entity instanceof Wolf ||
-                            entity instanceof Sheep) {
-                        if (entity instanceof Wolf) {
-                            ((Wolf) entity).setSitting(false);
-                            ((Wolf) entity).setCustomNameVisible(true);
-                            ((Wolf) entity).setCustomName("§e§l" + p.getName().toUpperCase() + "'s WOLF §7§l(§e§l" + event.getName().toUpperCase() + "§7§l)");
+                        if (entity instanceof Wolf ||
+                                entity instanceof Sheep) {
+                            if (entity instanceof Wolf) {
+                                ((Wolf) entity).setSitting(false);
+                                ((Wolf) entity).setCustomNameVisible(true);
+                                ((Wolf) entity).setCustomName("§e§l" + p.getName().toUpperCase() + "'s WOLF §7§l(§e§l" + event.getName().toUpperCase() + "§7§l)");
+                            }
+                            if (entity instanceof Sheep) {
+                                ((Sheep) entity).setCustomNameVisible(true);
+                                ((Sheep) entity).setCustomName("§e§l" + p.getName().toUpperCase() + "'s SHEEP §7§l(§e§l" + event.getName().toUpperCase() + "§7§l)");
+                            }
+
+                            p.setLevel(10000);
+                            p.sendMessage(Main.getPrefix() + "§bYou set your pet's name to§8: §e§l" + event.getName().toUpperCase() + "§r§b!");
                         }
-                        if (entity instanceof Sheep) {
-                            ((Sheep) entity).setCustomNameVisible(true);
-                            ((Sheep) entity).setCustomName("§e§l" + p.getName().toUpperCase() + "'s SHEEP §7§l(§e§l" + event.getName().toUpperCase() + "§7§l)");
-                        }
-
-                        p.setLevel(10000);
-                        p.sendMessage(Main.getPrefix() + "§bYou set your pet's name to§8: §e§l" + event.getName().toUpperCase() + "§r§b!");
+                    } else {
+                        event.setWillClose(false);
+                        event.setWillDestroy(false);
                     }
-                } else {
-                    event.setWillClose(false);
-                    event.setWillDestroy(false);
                 }
             });
 
@@ -202,7 +225,7 @@ public class PetListener implements Listener {
             {
                 ItemMeta m = i.getItemMeta();
                 m.setDisplayName("My Pet");
-                ArrayList<String> l = new ArrayList<String>();
+                ArrayList<String> l = new ArrayList<>();
                 l.add("§5§oFill in the text");
                 l.add("§5§ofield in order to");
                 l.add("§5§oset your pet's");
@@ -233,7 +256,12 @@ public class PetListener implements Listener {
             p.closeInventory();
             p.sendMessage(Main.getPrefix() + "§4This slot has not yet been filled. Please select a different option.");
 
-            Bukkit.getScheduler().runTaskLater(Main.plugin, () -> p.openInventory(MainPetsMenu.getInventory()), 30);
+            Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
+                @Override
+                public void run() {
+                    p.openInventory(MainPetsMenu.getInventory());
+                }
+            }, 30);
         } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(MainPetsMenu.getBuy().getItemMeta().getDisplayName())) {
             p.closeInventory();
             p.openInventory(BuyPetsMenu.getInventory());
