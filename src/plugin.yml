@@ -48,6 +48,10 @@ commands:
     usage: /teleport <Player/Location>
     description: Teleport to player/location
     aliases: [teleport, tele, tel]
+  gamemode:
+    usage: /gamemode <Gamemode/Player> [Gamemode]
+    description: Change somebodies gamemode
+    aliases: [gm]
 
 permissions:
   novau.maintenance:
@@ -69,6 +73,9 @@ permissions:
     default: op
   novau.teleport:
     description: For the teleport command.
+    default: op
+  novau.gamemode:
+    description: For the gamemode command.
     default: op
 
 softdepend: [HolographicDisplays]

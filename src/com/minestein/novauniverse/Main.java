@@ -515,6 +515,7 @@ public class Main extends JavaPlugin {
         getCommand("controlpanel").setExecutor(new ControlPanel());
         getCommand("developer").setExecutor(new Developer());
         getCommand("tp").setExecutor(new Teleport());
+        getCommand("gamemode").setExecutor(new Gamemode());
 
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new JoinListener(), this);
