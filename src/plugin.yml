@@ -58,6 +58,9 @@ commands:
   deop:
     usage: /deop <Player>
     description: Deop players
+  kill:
+    usage: /kill <Player>
+    description: Kill players
 
 permissions:
   novau.maintenance:
@@ -85,6 +88,9 @@ permissions:
     default: op
   novau.op:
     description: For the op and deop commands.
+    default: op
+  novau.kill:
+    description: For the kill command.
     default: op
 
 softdepend: [HolographicDisplays]

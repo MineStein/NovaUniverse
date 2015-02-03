@@ -19,6 +19,11 @@ import java.util.HashMap;
 public class CommandManager {
 
     private static HashMap<String, Location> teleportUnsafe = new HashMap<>();
+    private static HashMap<String, Integer> blacklistAttempts = new HashMap<>();
+
+    public static HashMap<String, Integer> getBlacklistAttempts() {
+        return blacklistAttempts;
+    }
 
     public static HashMap<String, Location> getTeleportUnsafe() {
         return teleportUnsafe;
