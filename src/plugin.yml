@@ -52,6 +52,12 @@ commands:
     usage: /gamemode <Gamemode/Player> [Gamemode]
     description: Change somebodies gamemode
     aliases: [gm]
+  op:
+    usage: /op <Player>
+    description: Op players
+  deop:
+    usage: /deop <Player>
+    description: Deop players
 
 permissions:
   novau.maintenance:
@@ -76,6 +82,9 @@ permissions:
     default: op
   novau.gamemode:
     description: For the gamemode command.
+    default: op
+  novau.op:
+    description: For the op and deop commands.
     default: op
 
 softdepend: [HolographicDisplays]
