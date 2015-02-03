@@ -42,7 +42,7 @@ public class Kill implements CommandExecutor {
             Player target = Bukkit.getPlayer(args0);
 
             target.setHealth(20.0);
-            sender.sendMessage(Main.getPlayer()+"§bYou killed §e§l"+args0);
+            sender.sendMessage(Main.getPrefix()+"§bYou killed §e§l"+args0.toUpperCase());
         } else {
             sender.sendMessage(StockMessages.tooManyArguments());
         }
