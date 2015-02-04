@@ -571,9 +571,8 @@ public class Main extends JavaPlugin {
                 for (World worlds : Bukkit.getWorlds()) {
                     worlds.setTime(1000);
 
-                    if (worlds.isThundering()) {
-                        worlds.setThunderDuration(0);
-                        worlds.setThundering(false);
+                    if (worlds.hasStorm()) {
+                        worlds.setStorm(false);
                     }
 
                     for (Chunk chunks : worlds.getLoadedChunks()) {

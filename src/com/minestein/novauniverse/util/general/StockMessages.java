@@ -41,6 +41,6 @@ public class StockMessages {
     }
 
     public static String onlyPlayers() {
-        return Main.getPlayer()+"§4Only players can execute this command!";
+        return Main.getPrefix()+"§4Only players can execute this command!";
     }
 }

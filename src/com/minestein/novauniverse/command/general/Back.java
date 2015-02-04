@@ -44,7 +44,7 @@ public class Back implements CommandExecutor {
                 p.sendMessage(StockMessages.teleporting());
                 p.teleport(loc);
             } else {
-                p.sendMessage(Main.getPlayer()+"§4You haven't teleported anywhere!");
+                p.sendMessage(Main.getPrefix()+"§4You haven't teleported anywhere!");
             }
         } else {
             p.sendMessage(StockMessages.tooManyArguments());
