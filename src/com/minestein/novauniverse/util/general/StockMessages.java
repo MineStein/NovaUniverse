@@ -35,4 +35,8 @@ public class StockMessages {
     public static String offlinePlayer() {
         return Main.getPrefix()+"§4That player is offline!";
     }
+
+    public static String teleporting() {
+        return Main.getPrefix()+"§bTeleporting...";
+    }
 }
