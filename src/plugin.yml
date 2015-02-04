@@ -61,6 +61,9 @@ commands:
   kill:
     usage: /kill <Player>
     description: Kill players
+  back:
+    usage: /back
+    description: Go back to your original position pre-teleport
 
 permissions:
   novau.maintenance:
@@ -91,6 +94,9 @@ permissions:
     default: op
   novau.kill:
     description: For the kill command.
+    default: op
+  novau.back:
+    description: FOr the back command.
     default: op
 
 softdepend: [HolographicDisplays]

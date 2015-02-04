@@ -39,4 +39,8 @@ public class StockMessages {
     public static String teleporting() {
         return Main.getPrefix()+"§bTeleporting...";
     }
+
+    public static String onlyPlayers() {
+        return Main.getPlayer()+"§4Only players can execute this command!";
+    }
 }

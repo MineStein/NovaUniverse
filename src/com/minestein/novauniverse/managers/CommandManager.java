@@ -20,6 +20,11 @@ public class CommandManager {
 
     private static HashMap<String, Location> teleportUnsafe = new HashMap<>();
     private static HashMap<String, Integer> blacklistAttempts = new HashMap<>();
+    private static HashMap<String, Location> teleportCache = new HashMap<>();
+
+    public static HashMap<String, Location> getTeleportCache() {
+        return teleportCache;
+    }
 
     public static HashMap<String, Integer> getBlacklistAttempts() {
         return blacklistAttempts;
