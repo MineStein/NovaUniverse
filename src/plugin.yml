@@ -64,6 +64,10 @@ commands:
   back:
     usage: /back
     description: Go back to your original position pre-teleport
+  statistics:
+    usage: /stats [Player]
+    description: Get someone's statistics
+    aliases: [stats, stat, statistic]
 
 permissions:
   novau.maintenance:

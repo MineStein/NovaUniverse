@@ -11,11 +11,10 @@ import com.minestein.novauniverse.command.reporting.Bug;
 import com.minestein.novauniverse.command.reporting.Report;
 import com.minestein.novauniverse.command.reporting.SkinReport;
 import com.minestein.novauniverse.listener.*;
-import com.minestein.novauniverse.managers.MusicManager;
 import com.minestein.novauniverse.managers.PartyManager;
 import com.minestein.novauniverse.menu.main.ServerSelectionMenuInNavigator;
 import com.minestein.novauniverse.util.general.NPC;
-import com.xxmicloxx.NoteBlockAPI.SongPlayer;
+import com.minestein.novauniverse.util.sql.MySQL;
 import me.confuser.barapi.BarAPI;
 import org.bukkit.*;
 import org.bukkit.entity.*;
@@ -62,7 +61,6 @@ public class Main extends JavaPlugin {
     private static ItemStack info;
     private static ItemStack toggles;
     private static ItemStack musicSelector;
-    private static SongPlayer player;
     private String currentMessage;
     private static final Location SPAWNPOINT = new Location(Bukkit.getWorld("hub"), 56.500, 49.500, 630.500);
     public static Main plugin;
@@ -80,10 +78,6 @@ public class Main extends JavaPlugin {
 
     public static Score getPartyTimeLeft() {
         return partyTimeLeft;
-    }
-
-    public static SongPlayer getPlayer() {
-        return player;
     }
 
     public static ItemStack getWardrobe() {
@@ -391,6 +385,8 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        MySQL.connect();
+
         plugin = this;
 
         scoreboardTimer = 1;
@@ -520,6 +516,7 @@ public class Main extends JavaPlugin {
         getCommand("deop").setExecutor(new Deop());
         getCommand("kill").setExecutor(new Kill());
         getCommand("back").setExecutor(new Back());
+        getCommand("statistics").setExecutor(new Statistics());
 
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new JoinListener(), this);
@@ -533,16 +530,12 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new PetListener(), this);
         pm.registerEvents(new UnknownCommand(), this);
         pm.registerEvents(new ToggleListener(), this);
-        pm.registerEvents(new MusicManager(), this);
         pm.registerEvents(new DoubleJump(), this);
         pm.registerEvents(new ServerSelectionMenuInNavigator(), this);
         pm.registerEvents(new GameMasterListener(), this);
-        pm.registerEvents(new BlacklistCommands(), this);
         pm.registerEvents(new TeleportListener(), this);
 
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-
-        getLogger().severe("Testing");
 
         for (Player players : Bukkit.getOnlinePlayers()) {
             players.setScoreboard(scoreboard);
@@ -682,6 +675,8 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        MySQL.close();
+
         for (Hologram holograms : HolographicDisplaysAPI.getHolograms(this)) {
             holograms.clearLines();
             holograms.delete();
