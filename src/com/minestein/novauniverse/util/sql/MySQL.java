@@ -36,7 +36,7 @@ public class MySQL {
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:8889/novauniverse_server_users?user=root&password=root");
 
-            Bukkit.getLogger().severe("Connected!");
+            Bukkit.getLogger().info("Connected!");
         } catch (SQLException e) {
             e.printStackTrace();
         }

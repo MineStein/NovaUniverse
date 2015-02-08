@@ -3,6 +3,7 @@ package com.minestein.novauniverse.command.general;
 import com.minestein.novauniverse.Main;
 import com.minestein.novauniverse.util.general.StockMessages;
 import com.minestein.novauniverse.util.sql.MySQL;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -58,14 +59,48 @@ public class Statistics implements CommandExecutor {
 
                     sender.sendMessage(stats.toString());
                 } catch (SQLException e) {
-                    sender.sendMessage(Main.getPrefix()+"§4Uh oh! Failed to download statistics due to an SQL exception!");
+                    sender.sendMessage(Main.getPrefix()+"§4Uh oh! Failed to download statistics!");
                     e.printStackTrace();
                 }
             } else {
-                sender.sendMessage(StockMessages.usage("/stats <Player>"));
+                sender.sendMessage(StockMessages.usage("stats <Player>"));
             }
         } else if (args.length==1) {
+            try {
+                ResultSet points = c.prepareStatement("SELECT points FROM users WHERE name='"+args[0]+"'").executeQuery();
+                ResultSet credits = c.prepareStatement("SELECT credits FROM users WHERE name='"+args[0]+"'").executeQuery();
 
+                StringBuilder stats = new StringBuilder();
+
+                stats
+                        .append("§bStatistics for §e§l"+args[0].toUpperCase())
+                        .append("\n")
+                        .append("§6§l§m------------------------------");
+
+                if (!points.next()||!credits.next()) {
+                    if (Bukkit.getPlayer(args[0])!=null) {
+                        Player p = Bukkit.getPlayer(args[0]);
+
+                        sender.sendMessage(Main.getPrefix()+"§4Could not locate §c§l"+args[0].toUpperCase()+"'s §4statistics! Alerting them...");
+                        p.sendMessage(Main.getPrefix() + "§4You don't have any statistics! Generating new ones...");
+                        c.prepareStatement("INSERT INTO users (name) VALUES ('"+p.getName()+"')").executeUpdate();
+                        p.sendMessage(Main.getPrefix() + "§a§l§oNew statistics generated for §e§l" + sender.getName());
+                    } else {
+                        sender.sendMessage(Main.getPrefix()+"§4Could not locate §c§l"+args[0].toUpperCase()+"'s §4statistics! They will be alerted when they check their statistics.");
+                    }
+
+                    return true;
+                }
+
+                stats
+                        .append("§7Credits: §e§l"+credits.getInt("credits"))
+                        .append("\n")
+                        .append("§7Points: §e§l"+points.getInt("points"));
+
+                sender.sendMessage(stats.toString());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         } else {
             sender.sendMessage(StockMessages.tooManyArguments());
         }

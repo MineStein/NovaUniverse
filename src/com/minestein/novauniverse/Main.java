@@ -517,6 +517,9 @@ public class Main extends JavaPlugin {
         getCommand("kill").setExecutor(new Kill());
         getCommand("back").setExecutor(new Back());
         getCommand("statistics").setExecutor(new Statistics());
+        getCommand("clear").setExecutor(new Clear());
+        getCommand("time").setExecutor(new Time());
+        getCommand("say").setExecutor(new Say());
 
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new JoinListener(), this);
@@ -534,6 +537,7 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new ServerSelectionMenuInNavigator(), this);
         pm.registerEvents(new GameMasterListener(), this);
         pm.registerEvents(new TeleportListener(), this);
+        pm.registerEvents(new DisabledCommand(), this);
 
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 

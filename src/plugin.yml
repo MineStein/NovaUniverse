@@ -68,6 +68,15 @@ commands:
     usage: /stats [Player]
     description: Get someone's statistics
     aliases: [stats, stat, statistic]
+  clear:
+    usage: /clear [Player]
+    description: Clear inventories.
+  time:
+    usage: /time [World]
+    description: Get time in the world specified/currently in.
+  say:
+    usage: /say <Message>
+    description: Broadcast message under your name.
 
 permissions:
   novau.maintenance:
@@ -100,7 +109,13 @@ permissions:
     description: For the kill command.
     default: op
   novau.back:
-    description: FOr the back command.
+    description: For the back command.
+    default: op
+  novau.clear:
+    description: For the clear command.
+    default: op
+  novau.say:
+    description: For the say command.
     default: op
 
 softdepend: [HolographicDisplays]

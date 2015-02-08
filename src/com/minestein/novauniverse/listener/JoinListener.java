@@ -6,6 +6,7 @@ import com.minestein.novauniverse.managers.PetManager;
 import com.minestein.novauniverse.managers.TimeManager;
 import com.minestein.novauniverse.util.general.JSONText;
 import com.minestein.novauniverse.util.particle.ParticleEffect;
+import com.minestein.novauniverse.util.sql.MySQL;
 import org.bukkit.*;
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.*;
@@ -20,6 +21,9 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -35,6 +39,22 @@ public class JoinListener implements Listener {
     @EventHandler
     public void onLogin(PlayerLoginEvent e) {
         final Player p = e.getPlayer();
+
+        try {
+            ResultSet set = MySQL.connection.prepareStatement("SELECT name FROM bans WHERE name='"+p.getName()+"'").executeQuery();
+
+            if (set.next()) {
+                ResultSet reason = MySQL.connection.prepareStatement("SELECT reason FROM bans WHERE name='"+p.getName()+"'").executeQuery();
+
+                if (reason.next()) {
+                    e.disallow(PlayerLoginEvent.Result.KICK_OTHER, "\n§c§l§m-=§4§lSorry, §e§l" + p.getName().toUpperCase() + "§c§l§m §c§l§m=-\n§b§lYou have been banned! The reason: \n§e§l"+reason.getString("reason").toUpperCase());
+                } else {
+                    e.disallow(PlayerLoginEvent.Result.KICK_OTHER, "\n§c§l§m-=§4§lSorry, §e§l" + p.getName().toUpperCase() + "§c§l§m §c§l§m=-\n§b§lYou have been banned!");
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
 
         if (Main.isMaintenance()) {
             if (p.isOp()) return;
@@ -199,6 +219,21 @@ public class JoinListener implements Listener {
 
             p.showPlayer(players);
         }
+
+        try {
+            PreparedStatement stmt = MySQL.connection.prepareStatement("SELECT name FROM users WHERE name='"+p.getName()+"'");
+            ResultSet set = stmt.executeQuery();
+
+            if (!set.next()) {
+                p.sendMessage(Main.getPrefix()+"§bWelcome! We are setting up your account right now :)");
+
+                MySQL.connection.prepareStatement("INSERT INTO users (name) VALUES ('"+p.getName()+"')").executeUpdate();
+            }
+        } catch (SQLException ex) {
+            p.sendMessage(Main.getPrefix()+"§4Failed to generate new statistic data!");
+            ex.printStackTrace();
+        }
+
     }
 
     @EventHandler
