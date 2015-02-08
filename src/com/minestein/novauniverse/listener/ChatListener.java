@@ -7,6 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,7 +18,8 @@ import java.util.Set;
  */
 public class ChatListener implements Listener {
 
-    Set<String> blocked = new HashSet<String>();
+    Set<String> blocked = new HashSet<>();
+    HashMap<String, String> repeat = new HashMap<>();
 
     @EventHandler
     public void onChat(AsyncPlayerChatEvent e) {
@@ -38,6 +40,8 @@ public class ChatListener implements Listener {
             if (CommandManager.getTeleportUnsafe().containsKey(p.getName())) {
                 p.sendMessage(Main.getPrefix()+"§4You have cancelled the teleportation.");
                 CommandManager.getTeleportUnsafe().remove(p.getName());
+
+                e.setCancelled(true);
             }
         }
 
@@ -45,6 +49,17 @@ public class ChatListener implements Listener {
             e.setFormat("§8(§c§lStaff§8) §e§l" + p.getName().toUpperCase() + "§8: §a" + e.getMessage());
         } else {
             e.setFormat("§8(§0§lUser§8) §e§l" + p.getName().toUpperCase() + "§8: §a" + e.getMessage());
+        }
+
+        if (repeat.containsKey(p.getName())) {
+            if (e.getMessage().equalsIgnoreCase(repeat.get(p.getName()))) {
+                e.setCancelled(true);
+                p.sendMessage(Main.getPrefix()+"§4You already said that!");
+            } else {
+                repeat.remove(p.getName());
+            }
+        } else {
+            repeat.put(p.getName(), e.getMessage());
         }
     }
 }
