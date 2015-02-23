@@ -520,6 +520,9 @@ public class Main extends JavaPlugin {
         getCommand("clear").setExecutor(new Clear());
         getCommand("time").setExecutor(new Time());
         getCommand("say").setExecutor(new Say());
+        getCommand("blockutils").setExecutor(new BlockUtils());
+        getCommand("profile").setExecutor(new Profile());
+        getCommand("nick").setExecutor(new Nick());
 
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new JoinListener(), this);

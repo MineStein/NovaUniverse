@@ -55,7 +55,7 @@ public class Help implements CommandExecutor {
             comp = ChatSerializer.a(Packets.JSON.SKIN_REPORT);
             PacketPlayOutChat packSkinReport = new PacketPlayOutChat(comp);
 
-            sender.sendMessage("§a§lCOMMANDS FOR §b§lHUB");
+            sender.sendMessage("§a§lCommands for §bServer: Hub");
             p.playerConnection.sendPacket(div);
             p.playerConnection.sendPacket(packLaunch);
             p.playerConnection.sendPacket(packHelp);

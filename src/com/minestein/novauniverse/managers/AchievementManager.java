@@ -59,8 +59,6 @@ public class AchievementManager {
     public static void removeAchievement(Achievement achievement, Player player) {
         if (hasAchievement(achievement, player)) {
             // TODO Remove achievement
-        } else if (!hasAchievement(achievement, player)) {
-            // TODO Send
         }
     }
 

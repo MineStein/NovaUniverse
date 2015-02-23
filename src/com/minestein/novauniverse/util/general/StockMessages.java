@@ -16,6 +16,8 @@ import com.minestein.novauniverse.Main;
  */
 public class StockMessages {
 
+    public static String unknownCommand() { return Main.getPrefix()+"§4Unknown command!"; }
+
     public static String usage(String cmd) {
         return Main.getPrefix()+"§7Usage: §4/"+cmd;
     }

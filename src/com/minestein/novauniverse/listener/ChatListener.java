@@ -2,11 +2,15 @@ package com.minestein.novauniverse.listener;
 
 import com.minestein.novauniverse.Main;
 import com.minestein.novauniverse.managers.CommandManager;
+import com.minestein.novauniverse.util.sql.MySQL;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -45,12 +49,6 @@ public class ChatListener implements Listener {
             }
         }
 
-        if (p.isOp()) {
-            e.setFormat("§8(§c§lStaff§8) §e§l" + p.getName().toUpperCase() + "§8: §a" + e.getMessage());
-        } else {
-            e.setFormat("§8(§0§lUser§8) §e§l" + p.getName().toUpperCase() + "§8: §a" + e.getMessage());
-        }
-
         if (repeat.containsKey(p.getName())) {
             if (e.getMessage().equalsIgnoreCase(repeat.get(p.getName()))) {
                 e.setCancelled(true);
@@ -60,6 +58,31 @@ public class ChatListener implements Listener {
             }
         } else {
             repeat.put(p.getName(), e.getMessage());
+        }
+
+        try {
+            PreparedStatement stmt = MySQL.connection.prepareStatement("SELECT rank FROM users WHERE name='"+p.getName()+"'");
+            ResultSet set = stmt.executeQuery();
+
+            if(set.next()) {
+                String rank = set.getString("rank");
+
+                if (rank.equalsIgnoreCase("developer")) {
+                    e.setFormat("§4§l§oDEVELOPER  §e§l"+p.getName().toUpperCase()+"§7: §a"+message);
+                } else if (rank.equalsIgnoreCase("planet")) {
+                    e.setFormat("§2§l§oPLANET  §e§l"+p.getName().toUpperCase()+"§7: §a"+message);
+                } else if (rank.equalsIgnoreCase("star")) {
+                    e.setFormat("§2§l§oSTAR  §e§l"+p.getName().toUpperCase()+"§7: §a"+message);
+                } else if (rank.equalsIgnoreCase("nova")) {
+                    e.setFormat("§2§l§oNOVA  §e§l"+p.getName().toUpperCase()+"§7: §a"+message);
+                } else {
+                    e.setFormat("§7§l§oDEFAULT  §e§l"+p.getName().toUpperCase()+"§7: §a"+message);
+                }
+            } else {
+                e.setFormat("§7§l§oDEFAULT  §e§l"+p.getName().toUpperCase()+"§7: §a"+message);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
     }
 }

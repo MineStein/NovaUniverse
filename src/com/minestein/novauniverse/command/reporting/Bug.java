@@ -1,9 +1,12 @@
 package com.minestein.novauniverse.command.reporting;
 
 import com.minestein.novauniverse.Main;
+import com.minestein.novauniverse.util.sql.MySQL;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+
+import java.sql.SQLException;
 
 /**
  * Copyright MineStein 2014©
@@ -24,10 +27,16 @@ public class Bug implements CommandExecutor {
                     stringBuilder.append(args[i].concat(" "));
                 }
 
-                // TODO Send bug report.
-
                 String report = stringBuilder.toString();
-                sender.sendMessage(Main.getPrefix() + "§bThanks for reporting the following bug: §e§l"+report.toUpperCase());
+
+                try {
+                    MySQL.connection.prepareStatement("INSERT INTO bugs (reportedBy, report, server) VALUES ('"+sender.getName()+"', '"+report+"', 'lobby')").executeUpdate();
+                    sender.sendMessage(Main.getPrefix() +"§bThanks for reporting the following bug: §e§l"+report.toUpperCase());
+                } catch (SQLException e) {
+                    sender.sendMessage(Main.getPrefix()+"§4Failed to report bug. Logging...");
+                    e.printStackTrace();
+                }
+
                 return true;
             }
             return true;

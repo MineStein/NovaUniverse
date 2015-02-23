@@ -77,6 +77,17 @@ commands:
   say:
     usage: /say <Message>
     description: Broadcast message under your name.
+  blockutils:
+    usage: /blockutils [Argument]
+    description: Block utilities.
+    aliases: [bu, blockutil]
+  profile:
+    usage: /profile [Sub-command]
+    description: Profile stuff.
+    aliases: [user]
+  nick:
+    usage: /nick
+    description: Nickname stuff.
 
 permissions:
   novau.maintenance:

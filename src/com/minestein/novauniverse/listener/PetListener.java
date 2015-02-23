@@ -240,6 +240,10 @@ public class PetListener implements Listener {
         } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(PetToolMenu.getColor().getItemMeta().getDisplayName())) {
             p.closeInventory();
             p.openInventory(PetColorMenu.getInventory());
+        } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(PetToolMenu.getMount().getItemMeta().getDisplayName())) {
+            p.closeInventory();
+            PetManager.getPet(p).setPassenger(p);
+            p.sendMessage(Main.getPrefix()+"§bYou are now riding your pet! Press §7§l§oSHIFT §bto dismount.");
         }
     }
 

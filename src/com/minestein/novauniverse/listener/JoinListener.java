@@ -171,6 +171,20 @@ public class JoinListener implements Listener {
             divider.setItemMeta(m);
         }
 
+        String[] statuses = new String[] {
+            "idling in the hub.",
+                "running around gaily.",
+                "searching for games to play."
+        };
+
+        String status = statuses[Main.getRandom().nextInt(statuses.length)];
+
+        try {
+            MySQL.connection.prepareStatement("UPDATE users SET lastSeen='"+status+"' WHERE name='"+e.getPlayer().getName()+"'").executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
         p.teleport(new Location(Bukkit.getWorld("hub"), 56.500, 49.500, 630.500));
 
         p.setMaxHealth(20.0);

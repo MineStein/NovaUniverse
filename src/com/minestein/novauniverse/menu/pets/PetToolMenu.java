@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Copyright MineStein 2014©
@@ -20,6 +21,7 @@ public class PetToolMenu {
     static ItemStack name;
     static ItemStack cs;
     static ItemStack color;
+    static ItemStack mount;
 
     public static ItemStack getCs() {
         cs = new ItemStack(Material.STAINED_GLASS_PANE, 1, (byte) 10);
@@ -65,11 +67,21 @@ public class PetToolMenu {
         return name;
     }
 
+    public static ItemStack getMount() {
+        mount = new ItemStack(Material.SADDLE); {
+            ItemMeta m = mount.getItemMeta();
+            m.setDisplayName("§c§lMOUNT §7§o(Click)");
+            m.setLore(Arrays.asList("§5§oMount your pet."));
+        }
+        return mount;
+    }
+
     public static Inventory getInventory() {
         inventory = Bukkit.createInventory(null, 9, "§e§l>> §rPet Settings");
         inventory.setItem(0, getName());
         inventory.setItem(1, getColor());
-        for (int i = 2; i < 9; i++) {
+        inventory.setItem(2, getMount());
+        for (int i = 3; i < 9; i++) {
             inventory.setItem(i, getCs());
         }
         return inventory;
