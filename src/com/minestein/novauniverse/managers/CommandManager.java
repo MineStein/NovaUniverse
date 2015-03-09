@@ -2,6 +2,7 @@ package com.minestein.novauniverse.managers;
 
 import org.bukkit.Location;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -21,6 +22,11 @@ public class CommandManager {
     private static HashMap<String, Location> teleportUnsafe = new HashMap<>();
     private static HashMap<String, Integer> blacklistAttempts = new HashMap<>();
     private static HashMap<String, Location> teleportCache = new HashMap<>();
+    private static ArrayList<String> bowteleportCache = new ArrayList<>();
+
+    public static ArrayList<String> getBowteleportCache() {
+        return bowteleportCache;
+    }
 
     public static HashMap<String, Location> getTeleportCache() {
         return teleportCache;

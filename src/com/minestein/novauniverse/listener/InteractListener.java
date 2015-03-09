@@ -8,7 +8,6 @@ import com.minestein.novauniverse.menu.other.ParticleEffectMenu;
 import com.minestein.novauniverse.menu.other.Wardrobe;
 import com.minestein.novauniverse.menu.pets.MainPetsMenu;
 import com.minestein.novauniverse.menu.shops.ingame.GizmoShop;
-import com.minestein.novauniverse.util.bungee.ServerConnection;
 import com.minestein.novauniverse.util.general.GameEffect;
 import com.minestein.novauniverse.util.particle.ParticleEffect;
 import org.bukkit.Bukkit;
@@ -24,8 +23,6 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
-
-import java.util.logging.ErrorManager;
 
 /**
  * Copyright MineStein 2014©

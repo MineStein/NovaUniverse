@@ -1,5 +1,7 @@
 package com.minestein.novauniverse.listener;
 
+import com.minestein.novauniverse.Main;
+import com.minestein.novauniverse.command.general.Leash;
 import org.bukkit.Effect;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,6 +22,13 @@ public class MoveListener implements Listener {
         // if (e.getFrom().getBlockX()==e.getTo().getBlockX()|| e.getFrom().getBlockY()==e.getTo().getBlockX()|| e.getFrom().getBlockZ()==e.getTo().getBlockZ()) return;
 
         if (e.getFrom().getPitch() != e.getTo().getPitch() || e.getFrom().getYaw() != e.getTo().getYaw()) return;
+
+        if (Leash.leashed.contains(p.getName())) {
+            e.setTo(e.getFrom());
+            p.sendMessage(Main.getPrefix()+"§bYou are leashed!");
+            return;
+        }
+
         if (!p.isOp()) return;
 
         p.playEffect(p.getLocation(), Effect.MOBSPAWNER_FLAMES, 1);

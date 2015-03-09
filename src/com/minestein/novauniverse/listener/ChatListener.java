@@ -82,6 +82,7 @@ public class ChatListener implements Listener {
                 e.setFormat("§7§l§oDEFAULT  §e§l"+p.getName().toUpperCase()+"§7: §a"+message);
             }
         } catch (SQLException ex) {
+            e.setFormat("§7§l§oDEFAULT  §e§l"+p.getName().toUpperCase()+"§7: §a"+message);
             ex.printStackTrace();
         }
     }

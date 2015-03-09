@@ -44,12 +44,14 @@ public class JoinListener implements Listener {
             ResultSet set = MySQL.connection.prepareStatement("SELECT name FROM bans WHERE name='"+p.getName()+"'").executeQuery();
 
             if (set.next()) {
-                ResultSet reason = MySQL.connection.prepareStatement("SELECT reason FROM bans WHERE name='"+p.getName()+"'").executeQuery();
+                ResultSet reason = MySQL.connection.prepareStatement("SELECT * FROM bans WHERE name='"+p.getName()+"'").executeQuery();
 
-                if (reason.next()) {
-                    e.disallow(PlayerLoginEvent.Result.KICK_OTHER, "\n§c§l§m-=§4§lSorry, §e§l" + p.getName().toUpperCase() + "§c§l§m §c§l§m=-\n§b§lYou have been banned! The reason: \n§e§l"+reason.getString("reason").toUpperCase());
-                } else {
-                    e.disallow(PlayerLoginEvent.Result.KICK_OTHER, "\n§c§l§m-=§4§lSorry, §e§l" + p.getName().toUpperCase() + "§c§l§m §c§l§m=-\n§b§lYou have been banned!");
+                if (reason.getString("type").equalsIgnoreCase("server")) {
+                    if (reason.next()) {
+                        p.kickPlayer("\n§c§l§m-=§4§lSorry, §e§l" + p.getName().toUpperCase() + "§c§l§m §c§l§m=-\n§b§lYou have been banned! The reason: \n§e§l" + reason.getString("reason").toUpperCase());
+                    } else {
+                        p.kickPlayer("\n§c§l§m-=§4§lSorry, §e§l" + p.getName().toUpperCase() + "§c§l§m §c§l§m=-\n§b§lYou have been banned!");
+                    }
                 }
             }
         } catch (SQLException ex) {
@@ -133,8 +135,6 @@ public class JoinListener implements Listener {
         p.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 99999, 1, false));
 
         e.setJoinMessage(Main.getPrefix() + "§e§l" + p.getName().toUpperCase() + " §bjoined!");
-
-        // "{\"text\":\"\",\"extra\":[{\"text\":\"§8[§5NOVA§6U§8] §bWelcome to the server! Click on this message for more §bhelp!\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/help\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"§bThis is a hover message! They\\n§bbe found quite often around\\n§bthe server!\"}}}]}"
 
         final JSONText text = new JSONText("[\n" +
                 "    {\n" +

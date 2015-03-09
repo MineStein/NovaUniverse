@@ -87,7 +87,20 @@ commands:
     aliases: [user]
   nick:
     usage: /nick
-    description: Nickname stuff.
+    description: Nickname command.
+  bowteleport:
+    usage: /bowteleport
+    description: Bow teleportation command.
+  leash:
+    usage: /leash
+    description: Leash command.
+  visibility:
+    usage: /visibility
+    description: Visibility command.
+    aliases: [v, vis, visible, invis]
+  invsee:
+    usage: /invsee
+    description: Invsee command.
 
 permissions:
   novau.maintenance:
@@ -127,6 +140,15 @@ permissions:
     default: op
   novau.say:
     description: For the say command.
+    default: op
+  novau.leash:
+    description: For the leash command.
+    default: op
+  novau.visibility:
+    description: For the visibility command.
+    default: op
+  novau.invsee:
+    description: For the invsee command.
     default: op
 
 softdepend: [HolographicDisplays]

@@ -523,6 +523,10 @@ public class Main extends JavaPlugin {
         getCommand("blockutils").setExecutor(new BlockUtils());
         getCommand("profile").setExecutor(new Profile());
         getCommand("nick").setExecutor(new Nick());
+        getCommand("bowteleport").setExecutor(new BowTeleport());
+        getCommand("leash").setExecutor(new Leash());
+        getCommand("visibility").setExecutor(new Visibility());
+        getCommand("invsee").setExecutor(new Invsee());
 
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new JoinListener(), this);
@@ -541,6 +545,7 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new GameMasterListener(), this);
         pm.registerEvents(new TeleportListener(), this);
         pm.registerEvents(new DisabledCommand(), this);
+        pm.registerEvents(new ProjectileListener(), this);
 
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
